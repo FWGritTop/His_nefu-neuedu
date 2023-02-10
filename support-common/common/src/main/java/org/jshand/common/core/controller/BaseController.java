@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.jshand.common.constant.HttpStatus;
 import org.jshand.common.core.domain.AjaxResult;
+import org.jshand.common.core.domain.R;
 import org.jshand.common.core.domain.model.LoginUser;
 import org.jshand.common.core.page.PageDomain;
 import org.jshand.common.core.page.TableDataInfo;
@@ -142,6 +143,10 @@ public class BaseController {
      */
     protected AjaxResult toAjax(boolean result) {
         return result ? success() : error();
+    }
+
+    protected R toReturn(boolean result) {
+        return result ? R.ok() : R.fail();
     }
 
     /**

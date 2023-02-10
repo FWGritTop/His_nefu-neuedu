@@ -28,13 +28,13 @@ public class BaseEntity implements Serializable {
      */
     @JsonIgnore
     @TableField(exist = false)
+    @ApiModelProperty( hidden = true)
     private String searchValue;
 
     /**
      * 创建者
      */
     @ApiModelProperty(value = "创建者", example = "作者", hidden = true)
-    @Parameter(hidden = true)
     @TableField(value = "create_by", fill = FieldFill.INSERT)
     private String createBy;
 
@@ -42,17 +42,15 @@ public class BaseEntity implements Serializable {
      * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间", example = "2021-03-09 14:10:36")
-    @Parameter(hidden = true)
+    @ApiModelProperty(value = "创建时间", example = "2021-03-09 14:10:36",hidden = true)
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
      * 更新者
      */
-    @ApiModelProperty(value = "更新者", example = "金山", accessMode = ApiModelProperty.AccessMode.READ_ONLY)
+    @ApiModelProperty(value = "更新者", example = "金山", hidden = true)
     @TableField(value = "update_by", fill = FieldFill.UPDATE)
-    @Parameter(hidden = true)
     private String updateBy;
 
     /**
@@ -60,7 +58,6 @@ public class BaseEntity implements Serializable {
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "更新时间", example = "2021-03-09 14:10:36", hidden = true)
-    @Parameter(hidden = true)
     @TableField(value = "update_time", fill = FieldFill.UPDATE)
     private Date updateTime;
 
@@ -68,12 +65,13 @@ public class BaseEntity implements Serializable {
      * 备注
      */
     @TableField("remark")
+    @ApiModelProperty(value = "备注", example = "该信息xxxxxx，特此 备注")
     private String remark;
 
     /**
      * 备注
      */
-    @TableLogic //逻辑删除
+    @TableLogic(value = "0", delval = "1") //逻辑删除
     @JsonIgnore //发送转json时忽略
     @TableField("is_delete")
     private Integer isDelete;
@@ -83,6 +81,7 @@ public class BaseEntity implements Serializable {
      */
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     @TableField(exist = false)
+    @ApiModelProperty(hidden = true)
     private Map<String, Object> params;
 
     public String getSearchValue() {

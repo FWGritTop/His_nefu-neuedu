@@ -2,6 +2,7 @@ package org.jshand.framework.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.SpringBootVFS;
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
@@ -101,34 +102,34 @@ public class MyBatisConfig {
         return resources.toArray(new Resource[resources.size()]);
     }
 
-    @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        String typeAliasesPackage = env.getProperty("mybatis.typeAliasesPackage");
-        String mapperLocations = env.getProperty("mybatis.mapperLocations");
-        String configLocation = env.getProperty("mybatis.configLocation");
-        typeAliasesPackage = setTypeAliasesPackage(typeAliasesPackage);
-        VFS.addImplClass(SpringBootVFS.class);
-
-        final MybatisSqlSessionFactoryBean sessionFactory = new MybatisSqlSessionFactoryBean();
-        //final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-
-        //MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        //
-        ////乐观锁
-        //interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
-        ////分页插件
-        //interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
-
-        PageInterceptor pageInterceptor = new PageInterceptor();
-
-        sessionFactory.setPlugins(pageInterceptor);
-
-        sessionFactory.setDataSource(dataSource);
-        sessionFactory.setTypeAliasesPackage(typeAliasesPackage);
-        sessionFactory.setMapperLocations(resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
-        sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(configLocation));
-        return sessionFactory.getObject();
-    }
+    //@Bean
+    //public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
+    //    String typeAliasesPackage = env.getProperty("mybatis.typeAliasesPackage");
+    //    String mapperLocations = env.getProperty("mybatis.mapperLocations");
+    //    String configLocation = env.getProperty("mybatis.configLocation");
+    //    typeAliasesPackage = setTypeAliasesPackage(typeAliasesPackage);
+    //    VFS.addImplClass(SpringBootVFS.class);
+    //
+    //    final MybatisSqlSessionFactoryBean sessionFactory = new MybatisSqlSessionFactoryBean();
+    //    //final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+    //
+    //    //MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+    //    //
+    //    ////乐观锁
+    //    //interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+    //    ////分页插件
+    //    //interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+    //
+    //    PageInterceptor pageInterceptor = new PageInterceptor();
+    //
+    //    sessionFactory.setPlugins(pageInterceptor);
+    //
+    //    sessionFactory.setDataSource(dataSource);
+    //    sessionFactory.setTypeAliasesPackage(typeAliasesPackage);
+    //    sessionFactory.setMapperLocations(resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
+    //    sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(configLocation));
+    //    return sessionFactory.getObject();
+    //}
 
 
     /**
@@ -143,6 +144,9 @@ public class MyBatisConfig {
         interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
         return interceptor;
     }
+
+
+
 
 
 }

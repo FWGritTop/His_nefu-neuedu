@@ -1,5 +1,6 @@
 package org.jshand.web.controller.system;
 
+import io.swagger.annotations.Api;
 import org.jshand.common.annotation.Log;
 import org.jshand.common.constant.UserConstants;
 import org.jshand.common.core.controller.BaseController;
@@ -22,9 +23,9 @@ import java.util.List;
  *
  * @author ruoyi
  */
+@Api(tags = "系统参数配置")
 @RestController
 @RequestMapping("/system/config")
-
 public class SysConfigController extends BaseController {
     @Autowired
     private ISysConfigService configService;

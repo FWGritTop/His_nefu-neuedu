@@ -1,5 +1,6 @@
 package org.jshand.web.controller.system;
 
+import io.swagger.annotations.Api;
 import org.jshand.common.annotation.Log;
 import org.jshand.common.constant.UserConstants;
 import org.jshand.common.core.controller.BaseController;
@@ -22,6 +23,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
+@Api(tags = "岗位管理")
 @RestController
 @RequestMapping("/system/post")
 public class SysPostController extends BaseController {

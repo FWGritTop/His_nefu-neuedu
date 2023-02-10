@@ -20,8 +20,13 @@ import java.util.List;
 @Configuration
 public class Knife4jConfig {
     @Bean
-    public Docket dockerBaseDemo() {
+    public Docket dockerCommon() {
         return createDocket("org.jshand.web.controller.common", "通用管理");
+    }
+
+    @Bean
+    public Docket dockeTool() {
+        return createDocket("org.jshand.web.controller.tool", "工具管理");
     }
 
     @Bean

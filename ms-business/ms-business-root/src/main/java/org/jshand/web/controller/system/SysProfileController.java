@@ -1,5 +1,6 @@
 package org.jshand.web.controller.system;
 
+import io.swagger.annotations.Api;
 import org.jshand.common.annotation.Log;
 import org.jshand.common.config.RuoYiConfig;
 import org.jshand.common.constant.UserConstants;
@@ -23,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
  *
  * @author ruoyi
  */
+@Api(tags = "个人信息")
 @RestController
 @RequestMapping("/system/user/profile")
 public class SysProfileController extends BaseController {

@@ -1,5 +1,6 @@
 package org.jshand.web.controller.system;
 
+import io.swagger.annotations.Api;
 import org.jshand.common.annotation.Log;
 import org.jshand.common.constant.UserConstants;
 import org.jshand.common.core.controller.BaseController;
@@ -20,6 +21,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
+@Api(tags = "菜单管理")
 @RestController
 @RequestMapping("/system/menu")
 public class SysMenuController extends BaseController {

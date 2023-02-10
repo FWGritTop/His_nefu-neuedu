@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.jshand.common.annotation.Log;
 import org.jshand.common.core.controller.BaseController;
 import org.jshand.common.core.domain.AjaxResult;
+import org.jshand.common.core.domain.R;
 import org.jshand.common.enums.BusinessType;
 import org.jshand.common.utils.poi.ExcelUtil;
 import org.jshand.system.domain.SysTest;
@@ -45,13 +46,14 @@ public class SysTestController extends BaseController {
     /**
      * 查询单表管理列表
      */
-    @ApiOperation(value = "查询单表管理列表")
+    @ApiOperation(value = "a查询单表管理列表")
     @PreAuthorize("@ss.hasPermi('system:test:list')")
     @GetMapping("/list")
-    public Page<SysTest> list(SysTest entity, Page<SysTest> page) {
+    public R<Page<SysTest>> list(SysTest entity, Page<SysTest> page) {
 
         LambdaQueryWrapper<SysTest> lambdaQueryWrapper = new LambdaQueryWrapper<SysTest>();
-        return sysTestService.page(page, lambdaQueryWrapper);
+        //return sysTestService.page(page, lambdaQueryWrapper);
+        return null;
     }
 
     /**
@@ -75,8 +77,8 @@ public class SysTestController extends BaseController {
     @ApiOperation(value = "获取单表管理详细信息")
     @PreAuthorize("@ss.hasPermi('system:test:query')")
     @GetMapping(value = "/{id}")
-    public AjaxResult getInfo(@PathVariable("id") Long id) {
-        return success(sysTestService.getById(id));
+    public R<SysTest> getInfo(@PathVariable("id") Long id) {
+        return R.ok(sysTestService.getById(id));
     }
 
     /**
@@ -86,8 +88,8 @@ public class SysTestController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:test:add')")
     @Log(title = "单表管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody SysTest sysTest) {
-        return toAjax(sysTestService.save(sysTest));
+    public R<String> add(@RequestBody SysTest sysTest) {
+        return toReturn(sysTestService.save(sysTest));
     }
 
     /**
@@ -97,8 +99,8 @@ public class SysTestController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:test:edit')")
     @Log(title = "单表管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody SysTest sysTest) {
-        return toAjax(sysTestService.updateById(sysTest));
+    public R<String> edit(@RequestBody SysTest sysTest) {
+        return toReturn(sysTestService.updateById(sysTest));
     }
 
 
@@ -109,7 +111,7 @@ public class SysTestController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:test:remove')")
     @Log(title = "单表管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
-    public AjaxResult remove(@PathVariable Long[] ids) {
-        return toAjax(sysTestService.removeBatchByIds(Arrays.asList(ids)));
+    public R<String> remove(@PathVariable Long[] ids) {
+        return toReturn(sysTestService.removeBatchByIds(Arrays.asList(ids)));
     }
 }

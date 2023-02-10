@@ -23,9 +23,9 @@ import java.util.List;
  *
  * @author ruoyi
  */
+@Api(tags = "系统部门管理")
 @RestController
 @RequestMapping("/system/dept")
-@Api("系统部门管理")
 public class SysDeptController extends BaseController {
     @Autowired
     private ISysDeptService deptService;

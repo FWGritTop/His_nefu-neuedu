@@ -1,5 +1,6 @@
 package org.jshand.web.controller.system;
 
+import io.swagger.annotations.Api;
 import org.jshand.common.annotation.Log;
 import org.jshand.common.core.controller.BaseController;
 import org.jshand.common.core.domain.AjaxResult;
@@ -19,6 +20,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
+@Api(tags = "公告管理")
 @RestController
 @RequestMapping("/system/notice")
 public class SysNoticeController extends BaseController {
