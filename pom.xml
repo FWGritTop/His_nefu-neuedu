@@ -9,9 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0.0</version>
     <modules>
-        <module>support-common</module>
-        <module>system-module-business</module>
-        <module>ms-business</module>
+        <module>application</module>
     </modules>
 
     <name>项目管理系统原型</name>
