@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.jshand.module.system.domain.Register;
 import org.jshand.module.system.service.IRegisterService;
 import org.jshand.support.common.annotation.Log;
@@ -41,6 +42,13 @@ public class RegisterController extends BaseController {
     public Page<Register> list(Register entity, Page<Register> page) {
 
         LambdaQueryWrapper<Register> lambdaQueryWrapper = new LambdaQueryWrapper<Register>();
+
+
+        //where gender = '1'
+        if(StringUtils.isNotBlank(entity.getGender())){
+            lambdaQueryWrapper.eq(Register::getGender,entity.getGender());
+        }
+
         return registerService.page(page, lambdaQueryWrapper);
     }
 
