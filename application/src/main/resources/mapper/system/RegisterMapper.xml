@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jshand.module.system.mapper.RegisterMapper">
+
+    <resultMap type="Register" id="RegisterResult">
+            <result property="id" column="id"/>
+            <result property="name" column="name"/>
+            <result property="birthday" column="birthday"/>
+            <result property="gender" column="gender"/>
+            <result property="fee" column="fee"/>
+    </resultMap>
+
+    <sql id="selectRegisterVo">
+        select id, name, birthday, gender, fee
+        from register
+    </sql>
+
+    <select id="selectRegisterList" parameterType="Register" resultMap="RegisterResult">
+        <include refid="selectRegisterVo"/>
+        <where>
+                        <if test="name != null  and name != ''">
+                            and name like concat('%', #{name}, '%')
+                        </if>
+                        <if test="birthday != null ">
+                            and birthday = #{birthday}
+                        </if>
+                        <if test="gender != null  and gender != ''">
+                            and gender = #{gender}
+                        </if>
+                        <if test="fee != null ">
+                            and fee = #{fee}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectRegisterById" parameterType="Long"
+            resultMap="RegisterResult">
+            <include refid="selectRegisterVo"/>
+            where id = #{id}
+    </select>
+
+    <insert id="insertRegister" parameterType="Register" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into register
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="name != null">name,
+                    </if>
+                    <if test="birthday != null">birthday,
+                    </if>
+                    <if test="gender != null">gender,
+                    </if>
+                    <if test="fee != null">fee,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="name != null">#{name},
+                    </if>
+                    <if test="birthday != null">#{birthday},
+                    </if>
+                    <if test="gender != null">#{gender},
+                    </if>
+                    <if test="fee != null">#{fee},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updateRegister" parameterType="Register">
+        update register
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="name != null">name =
+                        #{name},
+                    </if>
+                    <if test="birthday != null">birthday =
+                        #{birthday},
+                    </if>
+                    <if test="gender != null">gender =
+                        #{gender},
+                    </if>
+                    <if test="fee != null">fee =
+                        #{fee},
+                    </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRegisterById" parameterType="Long">
+        delete
+        from register where id = #{id}
+    </delete>
+
+    <delete id="deleteRegisterByIds" parameterType="String">
+        delete from register where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
