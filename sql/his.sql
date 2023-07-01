@@ -1,1375 +1,1866 @@
-# Host: localhost  (Version: 5.7.26)
-# Date: 2023-07-01 16:04:19
-# Generator: MySQL-Front 5.3  (Build 4.234)
+-- phpMyAdmin SQL Dump
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
+--
+-- ä¸»æœºï¼š localhost
+-- ç”Ÿæˆæ—¥æœŸï¼š 2023-07-01 16:36:42
+-- æœåŠ¡å™¨ç‰ˆæœ¬ï¼š 5.7.26
+-- PHP ç‰ˆæœ¬ï¼š 7.3.4
 
-/*!40101 SET NAMES gb2312 */;
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
 
-#
-# Structure for table "checkapply"
-#
 
-DROP TABLE IF EXISTS `checkapply`;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- æ•°æ®åº“ï¼š `his`
+--
+
+-- --------------------------------------------------------
+
+--
+-- è¡¨çš„ç»“æ„ `checkapply`
+--
+
 CREATE TABLE `checkapply` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `Name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÉêÇëÃû³Æ',
-  `Medical_Id` bigint(20) DEFAULT NULL COMMENT '²¡Àúid',
-  `Creation_Time` datetime DEFAULT NULL COMMENT 'ÉêÇëÊ±¼ä',
-  `Total_Sum` decimal(8,2) DEFAULT NULL COMMENT '×Ü½ğ¶î',
-  `Objective` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ä¿µÄÒªÇó',
-  `User_Id` bigint(20) DEFAULT NULL COMMENT '¿ªÁ¢Ò½Éúid',
-  `state` bigint(20) DEFAULT NULL COMMENT '×´Ì¬',
-  `Invoice_Number` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '·¢Æ±±àºÅ£¨É¾³ı£©',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`),
-  KEY `FK_²¡Àúid` (`Medical_Id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='¼ì²é¼ìÑéÉêÇë±í';
+  `Name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç”³è¯·åç§°',
+  `Medical_Id` bigint(20) DEFAULT NULL COMMENT 'ç—…å†id',
+  `Creation_Time` datetime DEFAULT NULL COMMENT 'ç”³è¯·æ—¶é—´',
+  `Total_Sum` decimal(8,2) DEFAULT NULL COMMENT 'æ€»é‡‘é¢',
+  `Objective` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç›®çš„è¦æ±‚',
+  `User_Id` bigint(20) DEFAULT NULL COMMENT 'å¼€ç«‹åŒ»ç”Ÿid',
+  `state` bigint(20) DEFAULT NULL COMMENT 'çŠ¶æ€',
+  `Invoice_Number` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å‘ç¥¨ç¼–å·ï¼ˆåˆ é™¤ï¼‰',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æ£€æŸ¥æ£€éªŒç”³è¯·è¡¨';
 
-#
-# Data for table "checkapply"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `checkapply` DISABLE KEYS */;
-/*!40000 ALTER TABLE `checkapply` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `checkdetailed`
+--
 
-#
-# Structure for table "checkdetailed"
-#
-
-DROP TABLE IF EXISTS `checkdetailed`;
 CREATE TABLE `checkdetailed` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `CheckAppId` bigint(20) DEFAULT NULL COMMENT '¼ì²éÉêÇëid',
-  `CheckProjId` bigint(20) DEFAULT NULL COMMENT '¼ì²éÏîÄ¿id',
-  `DeptId` bigint(20) DEFAULT NULL COMMENT 'Ö´ĞĞ¿ÆÊÒid',
-  `CreationTime` datetime DEFAULT NULL COMMENT '¿ªÁ¢Ê±¼ä',
-  `Position` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¼ì²éÄ¿µÄºÍÒªÇó',
-  `State` bigint(20) DEFAULT NULL COMMENT '1 - ÒÑ¿ªÁ¢Î´½»·Ñ\r\n            2 - ÒÑ½»·ÑÎ´¼ì²é\r\n            3 - ÒÑ¼ì²éÎŞ½á¹û\r\n            4 - ÓĞ½á¹û',
-  `Price` decimal(8,2) DEFAULT NULL COMMENT 'µ¥¼Û',
-  `Identification` bigint(20) DEFAULT NULL COMMENT '1 - ¼ì²éÏî\r\n            2 - ¼ìÑéÏî\r\n            3 - ´¦ÖÃÏî',
-  `InspectTime` datetime DEFAULT NULL COMMENT '¼ì²éÊ±¼ä',
-  `Result` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¼ì²é½á¹û',
-  `ResultTime` datetime DEFAULT NULL COMMENT '½á¹ûÊ±¼ä',
-  `UserId2` bigint(20) DEFAULT NULL COMMENT '½á¹ûÂ¼ÈëÈËÔ±id',
-  `UserId` bigint(20) DEFAULT NULL COMMENT '¼ì²éÈËÔ±id',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`),
-  KEY `FK_¼ì²éÈËÔ±id` (`UserId`),
-  KEY `FK_¼ì²é¿ÆÊÒid` (`DeptId`),
-  KEY `FK_ÉêÇëid` (`CheckAppId`),
-  KEY `FK_ÏîÄ¿id` (`CheckProjId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='¼ì²éÉêÇëÃ÷Ï¸±í';
+  `CheckAppId` bigint(20) DEFAULT NULL COMMENT 'æ£€æŸ¥ç”³è¯·id',
+  `CheckProjId` bigint(20) DEFAULT NULL COMMENT 'æ£€æŸ¥é¡¹ç›®id',
+  `DeptId` bigint(20) DEFAULT NULL COMMENT 'æ‰§è¡Œç§‘å®¤id',
+  `CreationTime` datetime DEFAULT NULL COMMENT 'å¼€ç«‹æ—¶é—´',
+  `Position` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ£€æŸ¥ç›®çš„å’Œè¦æ±‚',
+  `State` bigint(20) DEFAULT NULL COMMENT '1 - å·²å¼€ç«‹æœªäº¤è´¹\r\n            2 - å·²äº¤è´¹æœªæ£€æŸ¥\r\n            3 - å·²æ£€æŸ¥æ— ç»“æœ\r\n            4 - æœ‰ç»“æœ',
+  `Price` decimal(8,2) DEFAULT NULL COMMENT 'å•ä»·',
+  `Identification` bigint(20) DEFAULT NULL COMMENT '1 - æ£€æŸ¥é¡¹\r\n            2 - æ£€éªŒé¡¹\r\n            3 - å¤„ç½®é¡¹',
+  `InspectTime` datetime DEFAULT NULL COMMENT 'æ£€æŸ¥æ—¶é—´',
+  `Result` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ£€æŸ¥ç»“æœ',
+  `ResultTime` datetime DEFAULT NULL COMMENT 'ç»“æœæ—¶é—´',
+  `UserId2` bigint(20) DEFAULT NULL COMMENT 'ç»“æœå½•å…¥äººå‘˜id',
+  `UserId` bigint(20) DEFAULT NULL COMMENT 'æ£€æŸ¥äººå‘˜id',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æ£€æŸ¥ç”³è¯·æ˜ç»†è¡¨';
 
-#
-# Data for table "checkdetailed"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `checkdetailed` DISABLE KEYS */;
-/*!40000 ALTER TABLE `checkdetailed` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `checkrelation`
+--
 
-#
-# Structure for table "checkrelation"
-#
-
-DROP TABLE IF EXISTS `checkrelation`;
 CREATE TABLE `checkrelation` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `CheckProjId` bigint(20) DEFAULT NULL COMMENT '¼ì²éÏîÄ¿id',
-  `CheckTempId` bigint(20) DEFAULT NULL COMMENT 'ÉêÇëÄ£°åid',
-  `Position` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¼ì²éÄ¿µÄºÍÒªÇó',
-  `Department_id` bigint(20) DEFAULT NULL COMMENT 'Ö´ĞĞ¿ÆÊÒid',
-  PRIMARY KEY (`id`),
-  KEY `FK_¼ì²éid` (`CheckProjId`),
-  KEY `FK_Ä£°åid` (`CheckTempId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='¼ì²éÄ£°å¹ØÁª±í';
+  `CheckProjId` bigint(20) DEFAULT NULL COMMENT 'æ£€æŸ¥é¡¹ç›®id',
+  `CheckTempId` bigint(20) DEFAULT NULL COMMENT 'ç”³è¯·æ¨¡æ¿id',
+  `Position` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ£€æŸ¥ç›®çš„å’Œè¦æ±‚',
+  `Department_id` bigint(20) DEFAULT NULL COMMENT 'æ‰§è¡Œç§‘å®¤id'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æ£€æŸ¥æ¨¡æ¿å…³è”è¡¨';
 
-#
-# Data for table "checkrelation"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `checkrelation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `checkrelation` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `checktemplate`
+--
 
-#
-# Structure for table "checktemplate"
-#
-
-DROP TABLE IF EXISTS `checktemplate`;
 CREATE TABLE `checktemplate` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `Name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ä£°åÃû³Æ',
-  `UserId` bigint(20) DEFAULT NULL COMMENT '´´½¨Ò½Éúid',
-  `CreationTime` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `Scope` bigint(20) DEFAULT NULL COMMENT 'Ä£°åÊ¹ÓÃ·¶Î§',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`),
-  KEY `FK_Ò½Éúid` (`UserId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='¼ì²éÉêÇëÄ£°å±í';
+  `Name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ¨¡æ¿åç§°',
+  `UserId` bigint(20) DEFAULT NULL COMMENT 'åˆ›å»ºåŒ»ç”Ÿid',
+  `CreationTime` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `Scope` bigint(20) DEFAULT NULL COMMENT 'æ¨¡æ¿ä½¿ç”¨èŒƒå›´',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æ£€æŸ¥ç”³è¯·æ¨¡æ¿è¡¨';
 
-#
-# Data for table "checktemplate"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `checktemplate` DISABLE KEYS */;
-/*!40000 ALTER TABLE `checktemplate` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `constantitem`
+--
 
-#
-# Structure for table "constantitem"
-#
-
-DROP TABLE IF EXISTS `constantitem`;
 CREATE TABLE `constantitem` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `ConstantTypeId` bigint(20) DEFAULT NULL COMMENT 'ËùÊô³£ÊıÀà±ğID',
-  `ConstantCode` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '³£ÊıÏî±àÂë',
-  `ConstantName` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '³£ÊıÏîÃû³Æ',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`),
-  KEY `FK_³£ÊıÀà±ğ` (`ConstantTypeId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='³£ÊıÏî±í';
+  `ConstantTypeId` bigint(20) DEFAULT NULL COMMENT 'æ‰€å±å¸¸æ•°ç±»åˆ«ID',
+  `ConstantCode` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¸¸æ•°é¡¹ç¼–ç ',
+  `ConstantName` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¸¸æ•°é¡¹åç§°',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='å¸¸æ•°é¡¹è¡¨';
 
-#
-# Data for table "constantitem"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `constantitem` DISABLE KEYS */;
-/*!40000 ALTER TABLE `constantitem` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `constanttype`
+--
 
-#
-# Structure for table "constanttype"
-#
-
-DROP TABLE IF EXISTS `constanttype`;
 CREATE TABLE `constanttype` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `ConstantTypeCode` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '³£ÊıÀà±ğ±àÂë',
-  `ConstantTypeName` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '³£ÊıÀà±ğÃû³Æ',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='³£Á¿ÀàĞÍ±í';
+  `ConstantTypeCode` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¸¸æ•°ç±»åˆ«ç¼–ç ',
+  `ConstantTypeName` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¸¸æ•°ç±»åˆ«åç§°',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='å¸¸é‡ç±»å‹è¡¨';
 
-#
-# Data for table "constanttype"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `constanttype` DISABLE KEYS */;
-/*!40000 ALTER TABLE `constanttype` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `department`
+--
 
-#
-# Structure for table "department"
-#
-
-DROP TABLE IF EXISTS `department`;
 CREATE TABLE `department` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `DeptCode` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT '¿ÆÊÒ±àÂë',
-  `DeptName` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT '¿ÆÊÒÃû³Æ',
-  `DeptCategory` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¿ÆÊÒ·ÖÀà',
-  `DeptTypeID` bigint(20) NOT NULL COMMENT '¿ÆÊÒÀàĞÍ',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='¿ÆÊÒ±í';
+  `id` bigint(20) NOT NULL COMMENT 'id',
+  `DeptCode` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'ç§‘å®¤ç¼–ç ',
+  `DeptName` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'ç§‘å®¤åç§°',
+  `DeptCategory` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç§‘å®¤åˆ†ç±»',
+  `DeptTypeID` bigint(20) NOT NULL COMMENT 'ç§‘å®¤ç±»å‹',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ç§‘å®¤è¡¨';
 
-#
-# Data for table "department"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `department` DISABLE KEYS */;
-/*!40000 ALTER TABLE `department` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `disease`
+--
 
-#
-# Structure for table "disease"
-#
-
-DROP TABLE IF EXISTS `disease`;
 CREATE TABLE `disease` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `DiseaseCode` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¼²²¡Öú¼Ç±àÂë',
-  `DiseaseName` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¼²²¡Ãû³Æ',
-  `DiseaseICD` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¹ú¼ÊICD±àÂë',
-  `DiseaseType` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¼²²¡ËùÊô·ÖÀà',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='¼²²¡±í';
+  `DiseaseCode` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç–¾ç—…åŠ©è®°ç¼–ç ',
+  `DiseaseName` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç–¾ç—…åç§°',
+  `DiseaseICD` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å›½é™…ICDç¼–ç ',
+  `DiseaseType` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç–¾ç—…æ‰€å±åˆ†ç±»',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ç–¾ç—…è¡¨';
 
-#
-# Data for table "disease"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `disease` DISABLE KEYS */;
-/*!40000 ALTER TABLE `disease` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `drugs`
+--
 
-#
-# Structure for table "drugs"
-#
-
-DROP TABLE IF EXISTS `drugs`;
 CREATE TABLE `drugs` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `Drugs_Code` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ò©Æ·±àÂë',
-  `Drugs_Name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ò©Æ·Ãû³Æ',
-  `Drugs_Format` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ò©Æ·¹æ¸ñ',
-  `Drugs_Unit` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '°ü×°µ¥Î»',
-  `Manufacturer` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Éú²ú³§¼Ò',
-  `Drugs_Dosage` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ò©Æ·¼ÁĞÍ',
-  `Drugs_Type` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ò©Æ·ÀàĞÍ',
-  `Drugs_Price` decimal(8,2) DEFAULT NULL COMMENT 'Ò©Æ·µ¥¼Û',
-  `Mnemonic_Code` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Æ´ÒôÖú¼ÇÂë',
-  `Creation_Date` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `Last_Update_Date` datetime DEFAULT NULL COMMENT '×îºóĞŞ¸ÄÊ±¼ä',
-  `DelMark` bigint(20) DEFAULT NULL COMMENT 'ÓĞĞ§ĞÔ±ê¼Ç',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='³ÉÆ·Ò©±í';
+  `Drugs_Code` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'è¯å“ç¼–ç ',
+  `Drugs_Name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'è¯å“åç§°',
+  `Drugs_Format` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'è¯å“è§„æ ¼',
+  `Drugs_Unit` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åŒ…è£…å•ä½',
+  `Manufacturer` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç”Ÿäº§å‚å®¶',
+  `Drugs_Dosage` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'è¯å“å‰‚å‹',
+  `Drugs_Type` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'è¯å“ç±»å‹',
+  `Drugs_Price` decimal(8,2) DEFAULT NULL COMMENT 'è¯å“å•ä»·',
+  `Mnemonic_Code` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ‹¼éŸ³åŠ©è®°ç ',
+  `Creation_Date` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `Last_Update_Date` datetime DEFAULT NULL COMMENT 'æœ€åä¿®æ”¹æ—¶é—´',
+  `DelMark` bigint(20) DEFAULT NULL COMMENT 'æœ‰æ•ˆæ€§æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æˆå“è¯è¡¨';
 
-#
-# Data for table "drugs"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `drugs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `drugs` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `drugsdetailed`
+--
 
-#
-# Structure for table "drugsdetailed"
-#
-
-DROP TABLE IF EXISTS `drugsdetailed`;
 CREATE TABLE `drugsdetailed` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `DrugsTemp_Id` bigint(20) DEFAULT NULL COMMENT '³ÉÒ©Ä£°åid',
-  `Drugs_Id` bigint(20) DEFAULT NULL COMMENT '³ÉÒ©Æ·id',
-  `Drugs_Usage` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÓÃ·¨',
-  `Drugs_Dosage` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÓÃÁ¿',
-  `Drugs_Frequency` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Æµ´Î',
-  PRIMARY KEY (`id`),
-  KEY `FK_³ÉÒ©Æ·id` (`Drugs_Id`),
-  KEY `FK_³ÉÒ©Ä£°åid` (`DrugsTemp_Id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='³ÉÒ©Ä£°åÃ÷Ï¸±í';
+  `DrugsTemp_Id` bigint(20) DEFAULT NULL COMMENT 'æˆè¯æ¨¡æ¿id',
+  `Drugs_Id` bigint(20) DEFAULT NULL COMMENT 'æˆè¯å“id',
+  `Drugs_Usage` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç”¨æ³•',
+  `Drugs_Dosage` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç”¨é‡',
+  `Drugs_Frequency` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'é¢‘æ¬¡'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æˆè¯æ¨¡æ¿æ˜ç»†è¡¨';
 
-#
-# Data for table "drugsdetailed"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `drugsdetailed` DISABLE KEYS */;
-/*!40000 ALTER TABLE `drugsdetailed` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `drugstemplate`
+--
 
-#
-# Structure for table "drugstemplate"
-#
-
-DROP TABLE IF EXISTS `drugstemplate`;
 CREATE TABLE `drugstemplate` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `Name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ä£°åÃû³Æ',
-  `UserId` bigint(20) DEFAULT NULL COMMENT '´´½¨Ò½Éúid',
-  `CreationTime` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `Scope` bigint(20) DEFAULT NULL COMMENT '1 - ¸öÈË\r\n            2 - ¿ÆÊÒ\r\n            3 - È«Ôº\r\n            ',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`),
-  KEY `FK_Ò½Éúid` (`UserId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='³ÉÒ©´¦·½Ä£°å±í';
+  `Name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ¨¡æ¿åç§°',
+  `UserId` bigint(20) DEFAULT NULL COMMENT 'åˆ›å»ºåŒ»ç”Ÿid',
+  `CreationTime` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `Scope` bigint(20) DEFAULT NULL COMMENT '1 - ä¸ªäºº\r\n            2 - ç§‘å®¤\r\n            3 - å…¨é™¢\r\n            ',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æˆè¯å¤„æ–¹æ¨¡æ¿è¡¨';
 
-#
-# Data for table "drugstemplate"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `drugstemplate` DISABLE KEYS */;
-/*!40000 ALTER TABLE `drugstemplate` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `expenseclass`
+--
 
-#
-# Structure for table "expenseclass"
-#
-
-DROP TABLE IF EXISTS `expenseclass`;
 CREATE TABLE `expenseclass` (
   `ID` bigint(20) DEFAULT NULL COMMENT 'ID',
-  `ExpCode` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '·ÑÓÃ¿ÆÄ¿±àÂë',
-  `ExpName` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '·ÑÓÃ¿ÆÄ¿Ãû³Æ',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='·ÑÓÃ¿ÆÄ¿±í';
+  `ExpCode` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'è´¹ç”¨ç§‘ç›®ç¼–ç ',
+  `ExpName` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'è´¹ç”¨ç§‘ç›®åç§°',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='è´¹ç”¨ç§‘ç›®è¡¨';
 
-#
-# Data for table "expenseclass"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `expenseclass` DISABLE KEYS */;
-/*!40000 ALTER TABLE `expenseclass` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `fmeditem`
+--
 
-#
-# Structure for table "fmeditem"
-#
-
-DROP TABLE IF EXISTS `fmeditem`;
 CREATE TABLE `fmeditem` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `ItemCode` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÏîÄ¿±àÂë',
-  `ItemName` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÏîÄ¿Ãû³Æ',
-  `Format` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¹æ¸ñ',
-  `Price` decimal(8,2) DEFAULT NULL COMMENT 'µ¥¼Û',
-  `ExpClassID` bigint(20) DEFAULT NULL COMMENT '·ÑÓÃ·ÖÀà',
-  `DeptId` bigint(20) DEFAULT NULL COMMENT 'Ö´ĞĞ¿ÆÊÒid',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`),
-  KEY `FK_Reference_42` (`ExpClassID`),
-  KEY `FK_Ö´ĞĞ¿ÆÊÒid` (`DeptId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='·ÇÒ©Æ·ÊÕ·ÑÏîÄ¿±í';
+  `ItemCode` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'é¡¹ç›®ç¼–ç ',
+  `ItemName` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'é¡¹ç›®åç§°',
+  `Format` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'è§„æ ¼',
+  `Price` decimal(8,2) DEFAULT NULL COMMENT 'å•ä»·',
+  `ExpClassID` bigint(20) DEFAULT NULL COMMENT 'è´¹ç”¨åˆ†ç±»',
+  `DeptId` bigint(20) DEFAULT NULL COMMENT 'æ‰§è¡Œç§‘å®¤id',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='éè¯å“æ”¶è´¹é¡¹ç›®è¡¨';
 
-#
-# Data for table "fmeditem"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `fmeditem` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fmeditem` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `gen_table`
+--
 
-#
-# Structure for table "gen_table"
-#
-
-DROP TABLE IF EXISTS `gen_table`;
 CREATE TABLE `gen_table` (
-  `table_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '±àºÅ',
-  `table_name` varchar(200) COLLATE utf8mb4_bin DEFAULT '' COMMENT '±íÃû³Æ',
-  `table_comment` varchar(500) COLLATE utf8mb4_bin DEFAULT '' COMMENT '±íÃèÊö',
-  `sub_table_name` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¹ØÁª×Ó±íµÄ±íÃû',
-  `sub_table_fk_name` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '×Ó±í¹ØÁªµÄÍâ¼üÃû',
-  `class_name` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ÊµÌåÀàÃû³Æ',
-  `tpl_category` varchar(200) COLLATE utf8mb4_bin DEFAULT 'crud' COMMENT 'Ê¹ÓÃµÄÄ£°å£¨crudµ¥±í²Ù×÷ treeÊ÷±í²Ù×÷£©',
-  `package_name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Éú³É°üÂ·¾¶',
-  `module_name` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Éú³ÉÄ£¿éÃû',
-  `business_name` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Éú³ÉÒµÎñÃû',
-  `function_name` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Éú³É¹¦ÄÜÃû',
-  `function_author` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Éú³É¹¦ÄÜ×÷Õß',
-  `gen_type` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'Éú³É´úÂë·½Ê½£¨0zipÑ¹Ëõ°ü 1×Ô¶¨ÒåÂ·¾¶£©',
-  `gen_path` varchar(200) COLLATE utf8mb4_bin DEFAULT '/' COMMENT 'Éú³ÉÂ·¾¶£¨²»ÌîÄ¬ÈÏÏîÄ¿Â·¾¶£©',
-  `options` varchar(1000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÆäËüÉú³ÉÑ¡Ïî',
-  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '´´½¨Õß',
-  `create_time` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '¸üĞÂÕß',
-  `update_time` datetime DEFAULT NULL COMMENT '¸üĞÂÊ±¼ä',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '±¸×¢',
-  PRIMARY KEY (`table_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='´úÂëÉú³ÉÒµÎñ±í';
+  `table_id` bigint(20) NOT NULL COMMENT 'ç¼–å·',
+  `table_name` varchar(200) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'è¡¨åç§°',
+  `table_comment` varchar(500) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'è¡¨æè¿°',
+  `sub_table_name` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å…³è”å­è¡¨çš„è¡¨å',
+  `sub_table_fk_name` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å­è¡¨å…³è”çš„å¤–é”®å',
+  `class_name` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å®ä½“ç±»åç§°',
+  `tpl_category` varchar(200) COLLATE utf8mb4_bin DEFAULT 'crud' COMMENT 'ä½¿ç”¨çš„æ¨¡æ¿ï¼ˆcrudå•è¡¨æ“ä½œ treeæ ‘è¡¨æ“ä½œï¼‰',
+  `package_name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç”ŸæˆåŒ…è·¯å¾„',
+  `module_name` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç”Ÿæˆæ¨¡å—å',
+  `business_name` varchar(30) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç”Ÿæˆä¸šåŠ¡å',
+  `function_name` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç”ŸæˆåŠŸèƒ½å',
+  `function_author` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç”ŸæˆåŠŸèƒ½ä½œè€…',
+  `gen_type` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'ç”Ÿæˆä»£ç æ–¹å¼ï¼ˆ0zipå‹ç¼©åŒ… 1è‡ªå®šä¹‰è·¯å¾„ï¼‰',
+  `gen_path` varchar(200) COLLATE utf8mb4_bin DEFAULT '/' COMMENT 'ç”Ÿæˆè·¯å¾„ï¼ˆä¸å¡«é»˜è®¤é¡¹ç›®è·¯å¾„ï¼‰',
+  `options` varchar(1000) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å…¶å®ƒç”Ÿæˆé€‰é¡¹',
+  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'åˆ›å»ºè€…',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ›´æ–°è€…',
+  `update_time` datetime DEFAULT NULL COMMENT 'æ›´æ–°æ—¶é—´',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¤‡æ³¨'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ä»£ç ç”Ÿæˆä¸šåŠ¡è¡¨';
 
-#
-# Data for table "gen_table"
-#
+-- --------------------------------------------------------
 
+--
+-- è¡¨çš„ç»“æ„ `gen_table_column`
+--
 
-#
-# Structure for table "gen_table_column"
-#
-
-DROP TABLE IF EXISTS `gen_table_column`;
 CREATE TABLE `gen_table_column` (
-  `column_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '±àºÅ',
-  `table_id` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¹éÊô±í±àºÅ',
-  `column_name` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÁĞÃû³Æ',
-  `column_comment` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÁĞÃèÊö',
-  `column_type` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÁĞÀàĞÍ',
-  `java_type` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'JAVAÀàĞÍ',
-  `java_field` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'JAVA×Ö¶ÎÃû',
-  `is_pk` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÊÇ·ñÖ÷¼ü£¨1ÊÇ£©',
-  `is_increment` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÊÇ·ñ×ÔÔö£¨1ÊÇ£©',
-  `is_required` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÊÇ·ñ±ØÌî£¨1ÊÇ£©',
-  `is_insert` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÊÇ·ñÎª²åÈë×Ö¶Î£¨1ÊÇ£©',
-  `is_edit` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÊÇ·ñ±à¼­×Ö¶Î£¨1ÊÇ£©',
-  `is_list` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÊÇ·ñÁĞ±í×Ö¶Î£¨1ÊÇ£©',
-  `is_query` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÊÇ·ñ²éÑ¯×Ö¶Î£¨1ÊÇ£©',
-  `query_type` varchar(200) COLLATE utf8mb4_bin DEFAULT 'EQ' COMMENT '²éÑ¯·½Ê½£¨µÈÓÚ¡¢²»µÈÓÚ¡¢´óÓÚ¡¢Ğ¡ÓÚ¡¢·¶Î§£©',
-  `html_type` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÏÔÊ¾ÀàĞÍ£¨ÎÄ±¾¿ò¡¢ÎÄ±¾Óò¡¢ÏÂÀ­¿ò¡¢¸´Ñ¡¿ò¡¢µ¥Ñ¡¿ò¡¢ÈÕÆÚ¿Ø¼ş£©',
-  `dict_type` varchar(200) COLLATE utf8mb4_bin DEFAULT '' COMMENT '×ÖµäÀàĞÍ',
-  `sort` int(11) DEFAULT NULL COMMENT 'ÅÅĞò',
-  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '´´½¨Õß',
-  `create_time` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '¸üĞÂÕß',
-  `update_time` datetime DEFAULT NULL COMMENT '¸üĞÂÊ±¼ä',
-  PRIMARY KEY (`column_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='´úÂëÉú³ÉÒµÎñ±í×Ö¶Î';
+  `column_id` bigint(20) NOT NULL COMMENT 'ç¼–å·',
+  `table_id` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å½’å±è¡¨ç¼–å·',
+  `column_name` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ—åç§°',
+  `column_comment` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ—æè¿°',
+  `column_type` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ—ç±»å‹',
+  `java_type` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'JAVAç±»å‹',
+  `java_field` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'JAVAå­—æ®µå',
+  `is_pk` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ˜¯å¦ä¸»é”®ï¼ˆ1æ˜¯ï¼‰',
+  `is_increment` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ˜¯å¦è‡ªå¢ï¼ˆ1æ˜¯ï¼‰',
+  `is_required` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ˜¯å¦å¿…å¡«ï¼ˆ1æ˜¯ï¼‰',
+  `is_insert` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ˜¯å¦ä¸ºæ’å…¥å­—æ®µï¼ˆ1æ˜¯ï¼‰',
+  `is_edit` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ˜¯å¦ç¼–è¾‘å­—æ®µï¼ˆ1æ˜¯ï¼‰',
+  `is_list` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ˜¯å¦åˆ—è¡¨å­—æ®µï¼ˆ1æ˜¯ï¼‰',
+  `is_query` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ˜¯å¦æŸ¥è¯¢å­—æ®µï¼ˆ1æ˜¯ï¼‰',
+  `query_type` varchar(200) COLLATE utf8mb4_bin DEFAULT 'EQ' COMMENT 'æŸ¥è¯¢æ–¹å¼ï¼ˆç­‰äºã€ä¸ç­‰äºã€å¤§äºã€å°äºã€èŒƒå›´ï¼‰',
+  `html_type` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ˜¾ç¤ºç±»å‹ï¼ˆæ–‡æœ¬æ¡†ã€æ–‡æœ¬åŸŸã€ä¸‹æ‹‰æ¡†ã€å¤é€‰æ¡†ã€å•é€‰æ¡†ã€æ—¥æœŸæ§ä»¶ï¼‰',
+  `dict_type` varchar(200) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å­—å…¸ç±»å‹',
+  `sort` int(11) DEFAULT NULL COMMENT 'æ’åº',
+  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'åˆ›å»ºè€…',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ›´æ–°è€…',
+  `update_time` datetime DEFAULT NULL COMMENT 'æ›´æ–°æ—¶é—´'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ä»£ç ç”Ÿæˆä¸šåŠ¡è¡¨å­—æ®µ';
 
-#
-# Data for table "gen_table_column"
-#
+-- --------------------------------------------------------
 
+--
+-- è¡¨çš„ç»“æ„ `invoice`
+--
 
-#
-# Structure for table "invoice"
-#
-
-DROP TABLE IF EXISTS `invoice`;
 CREATE TABLE `invoice` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `InvoiceNum` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '·¢Æ±ºÅÂë',
-  `Money` decimal(8,2) DEFAULT NULL COMMENT '·¢Æ±½ğ¶î',
-  `State` bigint(20) DEFAULT NULL COMMENT '0 - ×÷·Ï\r\n            1 - Õı³£\r\n            2 - ÖØ´ò\r\n            3 - ²¹´ò\r\n            4 - ºì³å',
-  `CreationTime` datetime DEFAULT NULL COMMENT '¿ªÁ¢Ê±¼ä',
-  `UserId` bigint(20) DEFAULT NULL COMMENT '¿ªÁ¢ÈËÔ±id',
-  `DailyState` bigint(20) DEFAULT NULL COMMENT '0 - Î´ÈÕ½áÉóºË\r\n            1 - ÒÑ¾­ÉóºË\r\n            Ä¬ÈÏÖµÎª0',
-  PRIMARY KEY (`id`),
-  KEY `FK_¿ªÁ¢ÈËÔ±id` (`UserId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='·¢Æ±±í';
+  `InvoiceNum` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å‘ç¥¨å·ç ',
+  `Money` decimal(8,2) DEFAULT NULL COMMENT 'å‘ç¥¨é‡‘é¢',
+  `State` bigint(20) DEFAULT NULL COMMENT '0 - ä½œåºŸ\r\n            1 - æ­£å¸¸\r\n            2 - é‡æ‰“\r\n            3 - è¡¥æ‰“\r\n            4 - çº¢å†²',
+  `CreationTime` datetime DEFAULT NULL COMMENT 'å¼€ç«‹æ—¶é—´',
+  `UserId` bigint(20) DEFAULT NULL COMMENT 'å¼€ç«‹äººå‘˜id',
+  `DailyState` bigint(20) DEFAULT NULL COMMENT '0 - æœªæ—¥ç»“å®¡æ ¸\r\n            1 - å·²ç»å®¡æ ¸\r\n            é»˜è®¤å€¼ä¸º0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='å‘ç¥¨è¡¨';
 
-#
-# Data for table "invoice"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `invoice` DISABLE KEYS */;
-/*!40000 ALTER TABLE `invoice` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `medicalrecord`
+--
 
-#
-# Structure for table "medicalrecord"
-#
-
-DROP TABLE IF EXISTS `medicalrecord`;
 CREATE TABLE `medicalrecord` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `Case_Number` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT '²¡ÀúºÅ',
-  `Register_Id` bigint(20) NOT NULL COMMENT '¹ÒºÅid',
-  `Medical_Readme` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ö÷Ëß',
-  `Medical_Present` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÏÖ²¡Ê·',
-  `Present_Treat` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÏÖ²¡ÖÎÁÆÇé¿ö',
-  `Medical_History` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¼ÈÍùÊ·',
-  `Medical_Allergy` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¹ıÃôÊ·',
-  `Medical_Physique` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ìå¸ñ¼ì²é',
-  `Test_Order` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¼ì²é½¨Òé',
-  `Check_Order` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¼ìÑé½¨Òé',
-  `Medical_Tested` varchar(512) COLLATE utf8mb4_bin NOT NULL COMMENT '¼ì²é½á¹û',
-  `Medical_Checked` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¼ìÑé½á¹û',
-  `Medical_Diagnosis` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Õï¶Ï½á¹û',
-  `Medical_Handling` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '´¦ÀíÒâ¼û',
-  `Case_State` bigint(20) DEFAULT NULL COMMENT '²¡Àú×´Ì¬',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`),
-  KEY `FK_¹ÒºÅid` (`Register_Id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='²¡ÀúĞÅÏ¢±í';
+  `Case_Number` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'ç—…å†å·',
+  `Register_Id` bigint(20) NOT NULL COMMENT 'æŒ‚å·id',
+  `Medical_Readme` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ä¸»è¯‰',
+  `Medical_Present` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç°ç—…å²',
+  `Present_Treat` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç°ç—…æ²»ç–—æƒ…å†µ',
+  `Medical_History` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ—¢å¾€å²',
+  `Medical_Allergy` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'è¿‡æ•å²',
+  `Medical_Physique` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ä½“æ ¼æ£€æŸ¥',
+  `Test_Order` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ£€æŸ¥å»ºè®®',
+  `Check_Order` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ£€éªŒå»ºè®®',
+  `Medical_Tested` varchar(512) COLLATE utf8mb4_bin NOT NULL COMMENT 'æ£€æŸ¥ç»“æœ',
+  `Medical_Checked` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ£€éªŒç»“æœ',
+  `Medical_Diagnosis` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'è¯Šæ–­ç»“æœ',
+  `Medical_Handling` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¤„ç†æ„è§',
+  `Case_State` bigint(20) DEFAULT NULL COMMENT 'ç—…å†çŠ¶æ€',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ç—…å†ä¿¡æ¯è¡¨';
 
-#
-# Data for table "medicalrecord"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `medicalrecord` DISABLE KEYS */;
-/*!40000 ALTER TABLE `medicalrecord` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `patientcosts`
+--
 
-#
-# Structure for table "patientcosts"
-#
-
-DROP TABLE IF EXISTS `patientcosts`;
 CREATE TABLE `patientcosts` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `InvoiceId` bigint(20) DEFAULT NULL COMMENT '·¢Æ±ºÅÂë',
-  `RegisterId` bigint(20) DEFAULT NULL COMMENT '¹ÒºÅid',
-  `Name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÏîÄ¿Ãû³Æ',
-  `Price` decimal(8,2) DEFAULT NULL COMMENT 'ÏîÄ¿¼Û¸ñ',
-  `DeptId` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ö´ĞĞ¿ÆÊÒÃû³Æ',
-  `State` bigint(20) DEFAULT NULL COMMENT '×´Ì¬',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`),
-  KEY `FK_·¢Æ±ºÅÂë` (`InvoiceId`),
-  KEY `FK_¹ÒºÅid` (`RegisterId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='»¼Õß·ÑÓÃÃ÷Ï¸±í';
+  `InvoiceId` bigint(20) DEFAULT NULL COMMENT 'å‘ç¥¨å·ç ',
+  `RegisterId` bigint(20) DEFAULT NULL COMMENT 'æŒ‚å·id',
+  `Name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'é¡¹ç›®åç§°',
+  `Price` decimal(8,2) DEFAULT NULL COMMENT 'é¡¹ç›®ä»·æ ¼',
+  `DeptId` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ‰§è¡Œç§‘å®¤åç§°',
+  `State` bigint(20) DEFAULT NULL COMMENT 'çŠ¶æ€',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æ‚£è€…è´¹ç”¨æ˜ç»†è¡¨';
 
-#
-# Data for table "patientcosts"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `patientcosts` DISABLE KEYS */;
-/*!40000 ALTER TABLE `patientcosts` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `prescription`
+--
 
-#
-# Structure for table "prescription"
-#
-
-DROP TABLE IF EXISTS `prescription`;
 CREATE TABLE `prescription` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `Medical_Id` bigint(20) DEFAULT NULL COMMENT '²¡Àúid',
-  `User_Id` bigint(20) DEFAULT NULL COMMENT '¿ªÁ¢Ò½Éúid',
-  `Prescription_Name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '´¦·½Ãû³Æ',
-  `Prescription_State` bigint(20) DEFAULT NULL COMMENT '´¦·½×´Ì¬',
-  `Prescription_Time` datetime DEFAULT NULL COMMENT '¿ªÁ¢Ê±¼ä',
-  `Invoice_id` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '·¢Æ±±àºÅ',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`),
-  KEY `FK_¿ªÁ¢Ò½Éúid` (`User_Id`),
-  KEY `FK_²¡Àúid` (`Medical_Id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='³ÉÒ©´¦·½±í';
+  `Medical_Id` bigint(20) DEFAULT NULL COMMENT 'ç—…å†id',
+  `User_Id` bigint(20) DEFAULT NULL COMMENT 'å¼€ç«‹åŒ»ç”Ÿid',
+  `Prescription_Name` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¤„æ–¹åç§°',
+  `Prescription_State` bigint(20) DEFAULT NULL COMMENT 'å¤„æ–¹çŠ¶æ€',
+  `Prescription_Time` datetime DEFAULT NULL COMMENT 'å¼€ç«‹æ—¶é—´',
+  `Invoice_id` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å‘ç¥¨ç¼–å·',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æˆè¯å¤„æ–¹è¡¨';
 
-#
-# Data for table "prescription"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `prescription` DISABLE KEYS */;
-/*!40000 ALTER TABLE `prescription` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `qrtz_blob_triggers`
+--
 
-#
-# Structure for table "qrtz_calendars"
-#
-
-DROP TABLE IF EXISTS `qrtz_calendars`;
-CREATE TABLE `qrtz_calendars` (
-  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷¶ÈÃû³Æ',
-  `calendar_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'ÈÕÀúÃû³Æ',
-  `calendar` blob NOT NULL COMMENT '´æ·Å³Ö¾Ã»¯calendar¶ÔÏó',
-  PRIMARY KEY (`sched_name`,`calendar_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ÈÕÀúĞÅÏ¢±í';
-
-#
-# Data for table "qrtz_calendars"
-#
-
-
-#
-# Structure for table "qrtz_fired_triggers"
-#
-
-DROP TABLE IF EXISTS `qrtz_fired_triggers`;
-CREATE TABLE `qrtz_fired_triggers` (
-  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷¶ÈÃû³Æ',
-  `entry_id` varchar(95) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷¶ÈÆ÷ÊµÀıid',
-  `trigger_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggers±ítrigger_nameµÄÍâ¼ü',
-  `trigger_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggers±ítrigger_groupµÄÍâ¼ü',
-  `instance_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷¶ÈÆ÷ÊµÀıÃû',
-  `fired_time` bigint(13) NOT NULL COMMENT '´¥·¢µÄÊ±¼ä',
-  `sched_time` bigint(13) NOT NULL COMMENT '¶¨Ê±Æ÷ÖÆ¶¨µÄÊ±¼ä',
-  `priority` int(11) NOT NULL COMMENT 'ÓÅÏÈ¼¶',
-  `state` varchar(16) COLLATE utf8mb4_bin NOT NULL COMMENT '×´Ì¬',
-  `job_name` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÈÎÎñÃû³Æ',
-  `job_group` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÈÎÎñ×éÃû',
-  `is_nonconcurrent` varchar(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÊÇ·ñ²¢·¢',
-  `requests_recovery` varchar(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÊÇ·ñ½ÓÊÜ»Ö¸´Ö´ĞĞ',
-  PRIMARY KEY (`sched_name`,`entry_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ÒÑ´¥·¢µÄ´¥·¢Æ÷±í';
-
-#
-# Data for table "qrtz_fired_triggers"
-#
-
-
-#
-# Structure for table "qrtz_job_details"
-#
-
-DROP TABLE IF EXISTS `qrtz_job_details`;
-CREATE TABLE `qrtz_job_details` (
-  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷¶ÈÃû³Æ',
-  `job_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'ÈÎÎñÃû³Æ',
-  `job_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'ÈÎÎñ×éÃû',
-  `description` varchar(250) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ïà¹Ø½éÉÜ',
-  `job_class_name` varchar(250) COLLATE utf8mb4_bin NOT NULL COMMENT 'Ö´ĞĞÈÎÎñÀàÃû³Æ',
-  `is_durable` varchar(1) COLLATE utf8mb4_bin NOT NULL COMMENT 'ÊÇ·ñ³Ö¾Ã»¯',
-  `is_nonconcurrent` varchar(1) COLLATE utf8mb4_bin NOT NULL COMMENT 'ÊÇ·ñ²¢·¢',
-  `is_update_data` varchar(1) COLLATE utf8mb4_bin NOT NULL COMMENT 'ÊÇ·ñ¸üĞÂÊı¾İ',
-  `requests_recovery` varchar(1) COLLATE utf8mb4_bin NOT NULL COMMENT 'ÊÇ·ñ½ÓÊÜ»Ö¸´Ö´ĞĞ',
-  `job_data` blob COMMENT '´æ·Å³Ö¾Ã»¯job¶ÔÏó',
-  PRIMARY KEY (`sched_name`,`job_name`,`job_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ÈÎÎñÏêÏ¸ĞÅÏ¢±í';
-
-#
-# Data for table "qrtz_job_details"
-#
-
-
-#
-# Structure for table "qrtz_locks"
-#
-
-DROP TABLE IF EXISTS `qrtz_locks`;
-CREATE TABLE `qrtz_locks` (
-  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷¶ÈÃû³Æ',
-  `lock_name` varchar(40) COLLATE utf8mb4_bin NOT NULL COMMENT '±¯¹ÛËøÃû³Æ',
-  PRIMARY KEY (`sched_name`,`lock_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='´æ´¢µÄ±¯¹ÛËøĞÅÏ¢±í';
-
-#
-# Data for table "qrtz_locks"
-#
-
-
-#
-# Structure for table "qrtz_paused_trigger_grps"
-#
-
-DROP TABLE IF EXISTS `qrtz_paused_trigger_grps`;
-CREATE TABLE `qrtz_paused_trigger_grps` (
-  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷¶ÈÃû³Æ',
-  `trigger_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggers±ítrigger_groupµÄÍâ¼ü',
-  PRIMARY KEY (`sched_name`,`trigger_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ÔİÍ£µÄ´¥·¢Æ÷±í';
-
-#
-# Data for table "qrtz_paused_trigger_grps"
-#
-
-
-#
-# Structure for table "qrtz_scheduler_state"
-#
-
-DROP TABLE IF EXISTS `qrtz_scheduler_state`;
-CREATE TABLE `qrtz_scheduler_state` (
-  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷¶ÈÃû³Æ',
-  `instance_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'ÊµÀıÃû³Æ',
-  `last_checkin_time` bigint(13) NOT NULL COMMENT 'ÉÏ´Î¼ì²éÊ±¼ä',
-  `checkin_interval` bigint(13) NOT NULL COMMENT '¼ì²é¼ä¸ôÊ±¼ä',
-  PRIMARY KEY (`sched_name`,`instance_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='µ÷¶ÈÆ÷×´Ì¬±í';
-
-#
-# Data for table "qrtz_scheduler_state"
-#
-
-
-#
-# Structure for table "qrtz_triggers"
-#
-
-DROP TABLE IF EXISTS `qrtz_triggers`;
-CREATE TABLE `qrtz_triggers` (
-  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷¶ÈÃû³Æ',
-  `trigger_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT '´¥·¢Æ÷µÄÃû×Ö',
-  `trigger_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT '´¥·¢Æ÷ËùÊô×éµÄÃû×Ö',
-  `job_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_job_details±íjob_nameµÄÍâ¼ü',
-  `job_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_job_details±íjob_groupµÄÍâ¼ü',
-  `description` varchar(250) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ïà¹Ø½éÉÜ',
-  `next_fire_time` bigint(13) DEFAULT NULL COMMENT 'ÉÏÒ»´Î´¥·¢Ê±¼ä£¨ºÁÃë£©',
-  `prev_fire_time` bigint(13) DEFAULT NULL COMMENT 'ÏÂÒ»´Î´¥·¢Ê±¼ä£¨Ä¬ÈÏÎª-1±íÊ¾²»´¥·¢£©',
-  `priority` int(11) DEFAULT NULL COMMENT 'ÓÅÏÈ¼¶',
-  `trigger_state` varchar(16) COLLATE utf8mb4_bin NOT NULL COMMENT '´¥·¢Æ÷×´Ì¬',
-  `trigger_type` varchar(8) COLLATE utf8mb4_bin NOT NULL COMMENT '´¥·¢Æ÷µÄÀàĞÍ',
-  `start_time` bigint(13) NOT NULL COMMENT '¿ªÊ¼Ê±¼ä',
-  `end_time` bigint(13) DEFAULT NULL COMMENT '½áÊøÊ±¼ä',
-  `calendar_name` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÈÕ³Ì±íÃû³Æ',
-  `misfire_instr` smallint(2) DEFAULT NULL COMMENT '²¹³¥Ö´ĞĞµÄ²ßÂÔ',
-  `job_data` blob COMMENT '´æ·Å³Ö¾Ã»¯job¶ÔÏó',
-  PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
-  KEY `sched_name` (`sched_name`,`job_name`,`job_group`),
-  CONSTRAINT `qrtz_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `job_name`, `job_group`) REFERENCES `qrtz_job_details` (`sched_name`, `job_name`, `job_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='´¥·¢Æ÷ÏêÏ¸ĞÅÏ¢±í';
-
-#
-# Data for table "qrtz_triggers"
-#
-
-
-#
-# Structure for table "qrtz_simprop_triggers"
-#
-
-DROP TABLE IF EXISTS `qrtz_simprop_triggers`;
-CREATE TABLE `qrtz_simprop_triggers` (
-  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷¶ÈÃû³Æ',
-  `trigger_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggers±ítrigger_nameµÄÍâ¼ü',
-  `trigger_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggers±ítrigger_groupµÄÍâ¼ü',
-  `str_prop_1` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'StringÀàĞÍµÄtriggerµÄµÚÒ»¸ö²ÎÊı',
-  `str_prop_2` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'StringÀàĞÍµÄtriggerµÄµÚ¶ş¸ö²ÎÊı',
-  `str_prop_3` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'StringÀàĞÍµÄtriggerµÄµÚÈı¸ö²ÎÊı',
-  `int_prop_1` int(11) DEFAULT NULL COMMENT 'intÀàĞÍµÄtriggerµÄµÚÒ»¸ö²ÎÊı',
-  `int_prop_2` int(11) DEFAULT NULL COMMENT 'intÀàĞÍµÄtriggerµÄµÚ¶ş¸ö²ÎÊı',
-  `long_prop_1` bigint(20) DEFAULT NULL COMMENT 'longÀàĞÍµÄtriggerµÄµÚÒ»¸ö²ÎÊı',
-  `long_prop_2` bigint(20) DEFAULT NULL COMMENT 'longÀàĞÍµÄtriggerµÄµÚ¶ş¸ö²ÎÊı',
-  `dec_prop_1` decimal(13,4) DEFAULT NULL COMMENT 'decimalÀàĞÍµÄtriggerµÄµÚÒ»¸ö²ÎÊı',
-  `dec_prop_2` decimal(13,4) DEFAULT NULL COMMENT 'decimalÀàĞÍµÄtriggerµÄµÚ¶ş¸ö²ÎÊı',
-  `bool_prop_1` varchar(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'BooleanÀàĞÍµÄtriggerµÄµÚÒ»¸ö²ÎÊı',
-  `bool_prop_2` varchar(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'BooleanÀàĞÍµÄtriggerµÄµÚ¶ş¸ö²ÎÊı',
-  PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
-  CONSTRAINT `qrtz_simprop_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='Í¬²½»úÖÆµÄĞĞËø±í';
-
-#
-# Data for table "qrtz_simprop_triggers"
-#
-
-
-#
-# Structure for table "qrtz_simple_triggers"
-#
-
-DROP TABLE IF EXISTS `qrtz_simple_triggers`;
-CREATE TABLE `qrtz_simple_triggers` (
-  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷¶ÈÃû³Æ',
-  `trigger_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggers±ítrigger_nameµÄÍâ¼ü',
-  `trigger_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggers±ítrigger_groupµÄÍâ¼ü',
-  `repeat_count` bigint(7) NOT NULL COMMENT 'ÖØ¸´µÄ´ÎÊıÍ³¼Æ',
-  `repeat_interval` bigint(12) NOT NULL COMMENT 'ÖØ¸´µÄ¼ä¸ôÊ±¼ä',
-  `times_triggered` bigint(10) NOT NULL COMMENT 'ÒÑ¾­´¥·¢µÄ´ÎÊı',
-  PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
-  CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='¼òµ¥´¥·¢Æ÷µÄĞÅÏ¢±í';
-
-#
-# Data for table "qrtz_simple_triggers"
-#
-
-
-#
-# Structure for table "qrtz_cron_triggers"
-#
-
-DROP TABLE IF EXISTS `qrtz_cron_triggers`;
-CREATE TABLE `qrtz_cron_triggers` (
-  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷¶ÈÃû³Æ',
-  `trigger_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggers±ítrigger_nameµÄÍâ¼ü',
-  `trigger_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggers±ítrigger_groupµÄÍâ¼ü',
-  `cron_expression` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'cron±í´ïÊ½',
-  `time_zone_id` varchar(80) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ê±Çø',
-  PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
-  CONSTRAINT `qrtz_cron_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='CronÀàĞÍµÄ´¥·¢Æ÷±í';
-
-#
-# Data for table "qrtz_cron_triggers"
-#
-
-
-#
-# Structure for table "qrtz_blob_triggers"
-#
-
-DROP TABLE IF EXISTS `qrtz_blob_triggers`;
 CREATE TABLE `qrtz_blob_triggers` (
-  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷¶ÈÃû³Æ',
-  `trigger_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggers±ítrigger_nameµÄÍâ¼ü',
-  `trigger_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggers±ítrigger_groupµÄÍâ¼ü',
-  `blob_data` blob COMMENT '´æ·Å³Ö¾Ã»¯Trigger¶ÔÏó',
-  PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
-  CONSTRAINT `qrtz_blob_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='BlobÀàĞÍµÄ´¥·¢Æ÷±í';
+  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒåº¦åç§°',
+  `trigger_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggersè¡¨trigger_nameçš„å¤–é”®',
+  `trigger_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggersè¡¨trigger_groupçš„å¤–é”®',
+  `blob_data` blob COMMENT 'å­˜æ”¾æŒä¹…åŒ–Triggerå¯¹è±¡'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='Blobç±»å‹çš„è§¦å‘å™¨è¡¨';
 
-#
-# Data for table "qrtz_blob_triggers"
-#
+-- --------------------------------------------------------
 
+--
+-- è¡¨çš„ç»“æ„ `qrtz_calendars`
+--
 
-#
-# Structure for table "register"
-#
+CREATE TABLE `qrtz_calendars` (
+  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒåº¦åç§°',
+  `calendar_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'æ—¥å†åç§°',
+  `calendar` blob NOT NULL COMMENT 'å­˜æ”¾æŒä¹…åŒ–calendarå¯¹è±¡'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æ—¥å†ä¿¡æ¯è¡¨';
 
-DROP TABLE IF EXISTS `register`;
+-- --------------------------------------------------------
+
+--
+-- è¡¨çš„ç»“æ„ `qrtz_cron_triggers`
+--
+
+CREATE TABLE `qrtz_cron_triggers` (
+  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒåº¦åç§°',
+  `trigger_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggersè¡¨trigger_nameçš„å¤–é”®',
+  `trigger_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggersè¡¨trigger_groupçš„å¤–é”®',
+  `cron_expression` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'cronè¡¨è¾¾å¼',
+  `time_zone_id` varchar(80) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ—¶åŒº'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='Cronç±»å‹çš„è§¦å‘å™¨è¡¨';
+
+-- --------------------------------------------------------
+
+--
+-- è¡¨çš„ç»“æ„ `qrtz_fired_triggers`
+--
+
+CREATE TABLE `qrtz_fired_triggers` (
+  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒåº¦åç§°',
+  `entry_id` varchar(95) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒåº¦å™¨å®ä¾‹id',
+  `trigger_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggersè¡¨trigger_nameçš„å¤–é”®',
+  `trigger_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggersè¡¨trigger_groupçš„å¤–é”®',
+  `instance_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒåº¦å™¨å®ä¾‹å',
+  `fired_time` bigint(13) NOT NULL COMMENT 'è§¦å‘çš„æ—¶é—´',
+  `sched_time` bigint(13) NOT NULL COMMENT 'å®šæ—¶å™¨åˆ¶å®šçš„æ—¶é—´',
+  `priority` int(11) NOT NULL COMMENT 'ä¼˜å…ˆçº§',
+  `state` varchar(16) COLLATE utf8mb4_bin NOT NULL COMMENT 'çŠ¶æ€',
+  `job_name` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ä»»åŠ¡åç§°',
+  `job_group` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ä»»åŠ¡ç»„å',
+  `is_nonconcurrent` varchar(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ˜¯å¦å¹¶å‘',
+  `requests_recovery` varchar(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ˜¯å¦æ¥å—æ¢å¤æ‰§è¡Œ'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='å·²è§¦å‘çš„è§¦å‘å™¨è¡¨';
+
+-- --------------------------------------------------------
+
+--
+-- è¡¨çš„ç»“æ„ `qrtz_job_details`
+--
+
+CREATE TABLE `qrtz_job_details` (
+  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒåº¦åç§°',
+  `job_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'ä»»åŠ¡åç§°',
+  `job_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'ä»»åŠ¡ç»„å',
+  `description` varchar(250) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç›¸å…³ä»‹ç»',
+  `job_class_name` varchar(250) COLLATE utf8mb4_bin NOT NULL COMMENT 'æ‰§è¡Œä»»åŠ¡ç±»åç§°',
+  `is_durable` varchar(1) COLLATE utf8mb4_bin NOT NULL COMMENT 'æ˜¯å¦æŒä¹…åŒ–',
+  `is_nonconcurrent` varchar(1) COLLATE utf8mb4_bin NOT NULL COMMENT 'æ˜¯å¦å¹¶å‘',
+  `is_update_data` varchar(1) COLLATE utf8mb4_bin NOT NULL COMMENT 'æ˜¯å¦æ›´æ–°æ•°æ®',
+  `requests_recovery` varchar(1) COLLATE utf8mb4_bin NOT NULL COMMENT 'æ˜¯å¦æ¥å—æ¢å¤æ‰§è¡Œ',
+  `job_data` blob COMMENT 'å­˜æ”¾æŒä¹…åŒ–jobå¯¹è±¡'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ä»»åŠ¡è¯¦ç»†ä¿¡æ¯è¡¨';
+
+-- --------------------------------------------------------
+
+--
+-- è¡¨çš„ç»“æ„ `qrtz_locks`
+--
+
+CREATE TABLE `qrtz_locks` (
+  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒåº¦åç§°',
+  `lock_name` varchar(40) COLLATE utf8mb4_bin NOT NULL COMMENT 'æ‚²è§‚é”åç§°'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='å­˜å‚¨çš„æ‚²è§‚é”ä¿¡æ¯è¡¨';
+
+-- --------------------------------------------------------
+
+--
+-- è¡¨çš„ç»“æ„ `qrtz_paused_trigger_grps`
+--
+
+CREATE TABLE `qrtz_paused_trigger_grps` (
+  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒåº¦åç§°',
+  `trigger_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggersè¡¨trigger_groupçš„å¤–é”®'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æš‚åœçš„è§¦å‘å™¨è¡¨';
+
+-- --------------------------------------------------------
+
+--
+-- è¡¨çš„ç»“æ„ `qrtz_scheduler_state`
+--
+
+CREATE TABLE `qrtz_scheduler_state` (
+  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒåº¦åç§°',
+  `instance_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'å®ä¾‹åç§°',
+  `last_checkin_time` bigint(13) NOT NULL COMMENT 'ä¸Šæ¬¡æ£€æŸ¥æ—¶é—´',
+  `checkin_interval` bigint(13) NOT NULL COMMENT 'æ£€æŸ¥é—´éš”æ—¶é—´'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='è°ƒåº¦å™¨çŠ¶æ€è¡¨';
+
+-- --------------------------------------------------------
+
+--
+-- è¡¨çš„ç»“æ„ `qrtz_simple_triggers`
+--
+
+CREATE TABLE `qrtz_simple_triggers` (
+  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒåº¦åç§°',
+  `trigger_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggersè¡¨trigger_nameçš„å¤–é”®',
+  `trigger_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggersè¡¨trigger_groupçš„å¤–é”®',
+  `repeat_count` bigint(7) NOT NULL COMMENT 'é‡å¤çš„æ¬¡æ•°ç»Ÿè®¡',
+  `repeat_interval` bigint(12) NOT NULL COMMENT 'é‡å¤çš„é—´éš”æ—¶é—´',
+  `times_triggered` bigint(10) NOT NULL COMMENT 'å·²ç»è§¦å‘çš„æ¬¡æ•°'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ç®€å•è§¦å‘å™¨çš„ä¿¡æ¯è¡¨';
+
+-- --------------------------------------------------------
+
+--
+-- è¡¨çš„ç»“æ„ `qrtz_simprop_triggers`
+--
+
+CREATE TABLE `qrtz_simprop_triggers` (
+  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒåº¦åç§°',
+  `trigger_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggersè¡¨trigger_nameçš„å¤–é”®',
+  `trigger_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_triggersè¡¨trigger_groupçš„å¤–é”®',
+  `str_prop_1` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Stringç±»å‹çš„triggerçš„ç¬¬ä¸€ä¸ªå‚æ•°',
+  `str_prop_2` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Stringç±»å‹çš„triggerçš„ç¬¬äºŒä¸ªå‚æ•°',
+  `str_prop_3` varchar(512) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Stringç±»å‹çš„triggerçš„ç¬¬ä¸‰ä¸ªå‚æ•°',
+  `int_prop_1` int(11) DEFAULT NULL COMMENT 'intç±»å‹çš„triggerçš„ç¬¬ä¸€ä¸ªå‚æ•°',
+  `int_prop_2` int(11) DEFAULT NULL COMMENT 'intç±»å‹çš„triggerçš„ç¬¬äºŒä¸ªå‚æ•°',
+  `long_prop_1` bigint(20) DEFAULT NULL COMMENT 'longç±»å‹çš„triggerçš„ç¬¬ä¸€ä¸ªå‚æ•°',
+  `long_prop_2` bigint(20) DEFAULT NULL COMMENT 'longç±»å‹çš„triggerçš„ç¬¬äºŒä¸ªå‚æ•°',
+  `dec_prop_1` decimal(13,4) DEFAULT NULL COMMENT 'decimalç±»å‹çš„triggerçš„ç¬¬ä¸€ä¸ªå‚æ•°',
+  `dec_prop_2` decimal(13,4) DEFAULT NULL COMMENT 'decimalç±»å‹çš„triggerçš„ç¬¬äºŒä¸ªå‚æ•°',
+  `bool_prop_1` varchar(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Booleanç±»å‹çš„triggerçš„ç¬¬ä¸€ä¸ªå‚æ•°',
+  `bool_prop_2` varchar(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Booleanç±»å‹çš„triggerçš„ç¬¬äºŒä¸ªå‚æ•°'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='åŒæ­¥æœºåˆ¶çš„è¡Œé”è¡¨';
+
+-- --------------------------------------------------------
+
+--
+-- è¡¨çš„ç»“æ„ `qrtz_triggers`
+--
+
+CREATE TABLE `qrtz_triggers` (
+  `sched_name` varchar(120) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒåº¦åç§°',
+  `trigger_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'è§¦å‘å™¨çš„åå­—',
+  `trigger_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'è§¦å‘å™¨æ‰€å±ç»„çš„åå­—',
+  `job_name` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_job_detailsè¡¨job_nameçš„å¤–é”®',
+  `job_group` varchar(200) COLLATE utf8mb4_bin NOT NULL COMMENT 'qrtz_job_detailsè¡¨job_groupçš„å¤–é”®',
+  `description` varchar(250) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç›¸å…³ä»‹ç»',
+  `next_fire_time` bigint(13) DEFAULT NULL COMMENT 'ä¸Šä¸€æ¬¡è§¦å‘æ—¶é—´ï¼ˆæ¯«ç§’ï¼‰',
+  `prev_fire_time` bigint(13) DEFAULT NULL COMMENT 'ä¸‹ä¸€æ¬¡è§¦å‘æ—¶é—´ï¼ˆé»˜è®¤ä¸º-1è¡¨ç¤ºä¸è§¦å‘ï¼‰',
+  `priority` int(11) DEFAULT NULL COMMENT 'ä¼˜å…ˆçº§',
+  `trigger_state` varchar(16) COLLATE utf8mb4_bin NOT NULL COMMENT 'è§¦å‘å™¨çŠ¶æ€',
+  `trigger_type` varchar(8) COLLATE utf8mb4_bin NOT NULL COMMENT 'è§¦å‘å™¨çš„ç±»å‹',
+  `start_time` bigint(13) NOT NULL COMMENT 'å¼€å§‹æ—¶é—´',
+  `end_time` bigint(13) DEFAULT NULL COMMENT 'ç»“æŸæ—¶é—´',
+  `calendar_name` varchar(200) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ—¥ç¨‹è¡¨åç§°',
+  `misfire_instr` smallint(2) DEFAULT NULL COMMENT 'è¡¥å¿æ‰§è¡Œçš„ç­–ç•¥',
+  `job_data` blob COMMENT 'å­˜æ”¾æŒä¹…åŒ–jobå¯¹è±¡'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='è§¦å‘å™¨è¯¦ç»†ä¿¡æ¯è¡¨';
+
+-- --------------------------------------------------------
+
+--
+-- è¡¨çš„ç»“æ„ `register`
+--
+
 CREATE TABLE `register` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `RealName` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÕæÊµĞÕÃû',
-  `Gender` bigint(20) DEFAULT NULL COMMENT 'ĞÔ±ğ',
-  `IDnumber` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Éí·İÖ¤ºÅ',
-  `BirthDate` date DEFAULT NULL COMMENT '³öÉúÈÕÆÚ',
-  `Age` bigint(20) DEFAULT NULL COMMENT 'ÄêÁä',
-  `AgeType` bigint(20) DEFAULT NULL COMMENT 'ÄêÁäÀàĞÍ',
-  `HomeAddress` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¼ÒÍ¥×¡Ö·',
-  `CaseNumber` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Ò»Ãû»¼ÕßÔÚÍ¬Ò»Ò½Ôº¿´Õï¶à´Î£¬¸ù¾İ»¼ÕßÊÇ·ñÊ¹ÓÃÍ¬Ò»¸ö²¡Àú±¾£¬È·¶¨¸Ã»¼ÕßµÄ¡°²¡ÀúºÅÂë¡±ÊÇ·ñÏàÍ¬¡£',
-  `VisitDate` date NOT NULL COMMENT '±¾´Î¿´ÕïÈÕÆÚ',
-  `DeptId` bigint(20) DEFAULT NULL COMMENT '±¾´Î¹ÒºÅ¿ÆÊÒID',
-  `UserId` bigint(20) DEFAULT NULL COMMENT '±¾´Î¹ÒºÅÒ½Éúid',
-  `RegistId` bigint(20) NOT NULL COMMENT '±¾´Î¹ÒºÅ¼¶±ğid',
-  `SettleID` bigint(20) NOT NULL COMMENT '½áËãÀà±ğid',
-  `IsBook` char(1) COLLATE utf8mb4_bin NOT NULL COMMENT '²¡Àú±¾Òª·ñ',
-  `RegisterTime` datetime DEFAULT NULL COMMENT '¹ÒºÅÊ±¼ä',
-  `RegisterID` bigint(20) NOT NULL COMMENT '¹ÒºÅÔ±ID',
-  `VisitState` bigint(20) DEFAULT NULL COMMENT '±¾´Î¿´Õï×´Ì¬',
-  PRIMARY KEY (`id`),
-  KEY `FK_Ò½Éúid` (`UserId`),
-  KEY `FK_¹ÒºÅ¼¶±ğid` (`RegistId`),
-  KEY `FK_½áËãÀà±ğid` (`SettleID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='»¼ÕßÀú´Î¹ÒºÅĞÅÏ¢±í';
+  `RealName` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'çœŸå®å§“å',
+  `Gender` bigint(20) DEFAULT NULL COMMENT 'æ€§åˆ«',
+  `IDnumber` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'èº«ä»½è¯å·',
+  `BirthDate` date DEFAULT NULL COMMENT 'å‡ºç”Ÿæ—¥æœŸ',
+  `Age` bigint(20) DEFAULT NULL COMMENT 'å¹´é¾„',
+  `AgeType` bigint(20) DEFAULT NULL COMMENT 'å¹´é¾„ç±»å‹',
+  `HomeAddress` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å®¶åº­ä½å€',
+  `CaseNumber` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ä¸€åæ‚£è€…åœ¨åŒä¸€åŒ»é™¢çœ‹è¯Šå¤šæ¬¡ï¼Œæ ¹æ®æ‚£è€…æ˜¯å¦ä½¿ç”¨åŒä¸€ä¸ªç—…å†æœ¬ï¼Œç¡®å®šè¯¥æ‚£è€…çš„â€œç—…å†å·ç â€æ˜¯å¦ç›¸åŒã€‚',
+  `VisitDate` date NOT NULL COMMENT 'æœ¬æ¬¡çœ‹è¯Šæ—¥æœŸ',
+  `DeptId` bigint(20) DEFAULT NULL COMMENT 'æœ¬æ¬¡æŒ‚å·ç§‘å®¤ID',
+  `UserId` bigint(20) DEFAULT NULL COMMENT 'æœ¬æ¬¡æŒ‚å·åŒ»ç”Ÿid',
+  `RegistId` bigint(20) NOT NULL COMMENT 'æœ¬æ¬¡æŒ‚å·çº§åˆ«id',
+  `SettleID` bigint(20) NOT NULL COMMENT 'ç»“ç®—ç±»åˆ«id',
+  `IsBook` char(1) COLLATE utf8mb4_bin NOT NULL COMMENT 'ç—…å†æœ¬è¦å¦',
+  `RegisterTime` datetime DEFAULT NULL COMMENT 'æŒ‚å·æ—¶é—´',
+  `RegisterID` bigint(20) NOT NULL COMMENT 'æŒ‚å·å‘˜ID',
+  `VisitState` bigint(20) DEFAULT NULL COMMENT 'æœ¬æ¬¡çœ‹è¯ŠçŠ¶æ€'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æ‚£è€…å†æ¬¡æŒ‚å·ä¿¡æ¯è¡¨';
 
-#
-# Data for table "register"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `register` DISABLE KEYS */;
-/*!40000 ALTER TABLE `register` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `registlevel`
+--
 
-#
-# Structure for table "registlevel"
-#
-
-DROP TABLE IF EXISTS `registlevel`;
 CREATE TABLE `registlevel` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `RegistCode` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'ºÅ±ğ±àÂë',
-  `RegistName` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'ºÅ±ğÃû³Æ',
-  `IsDefault` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '0 - ²»Ä¬ÈÏ\r\n            1 - Ä¬ÈÏ',
-  `Sequence` bigint(20) NOT NULL COMMENT 'ÏÔÊ¾Ë³ĞòºÅ',
-  `RegistFee` decimal(8,2) DEFAULT NULL COMMENT '¹ÒºÅ·Ñ',
-  `RegistQuota` bigint(20) DEFAULT NULL COMMENT '¹ÒºÅÏŞ¶î',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='¹ÒºÅ¼¶±ğ±í';
+  `id` bigint(20) NOT NULL COMMENT 'id',
+  `RegistCode` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'å·åˆ«ç¼–ç ',
+  `RegistName` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'å·åˆ«åç§°',
+  `IsDefault` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '0 - ä¸é»˜è®¤\r\n            1 - é»˜è®¤',
+  `Sequence` bigint(20) NOT NULL COMMENT 'æ˜¾ç¤ºé¡ºåºå·',
+  `RegistFee` decimal(8,2) DEFAULT NULL COMMENT 'æŒ‚å·è´¹',
+  `RegistQuota` bigint(20) DEFAULT NULL COMMENT 'æŒ‚å·é™é¢',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æŒ‚å·çº§åˆ«è¡¨';
 
-#
-# Data for table "registlevel"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `registlevel` DISABLE KEYS */;
-/*!40000 ALTER TABLE `registlevel` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `registwork`
+--
 
-#
-# Structure for table "registwork"
-#
-
-DROP TABLE IF EXISTS `registwork`;
 CREATE TABLE `registwork` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `UserId` bigint(20) DEFAULT NULL COMMENT 'Ô±¹¤id',
-  `StartTime` datetime DEFAULT NULL COMMENT 'ÆğÊ¼Ê±¼ä',
-  `EndTime` datetime DEFAULT NULL COMMENT '½áÊøÊ±¼ä',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`),
-  KEY `FK_Ô±¹¤id` (`UserId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='¹ÒºÅ¹¤×÷Ê±¼ä±í';
+  `UserId` bigint(20) DEFAULT NULL COMMENT 'å‘˜å·¥id',
+  `StartTime` datetime DEFAULT NULL COMMENT 'èµ·å§‹æ—¶é—´',
+  `EndTime` datetime DEFAULT NULL COMMENT 'ç»“æŸæ—¶é—´',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æŒ‚å·å·¥ä½œæ—¶é—´è¡¨';
 
-#
-# Data for table "registwork"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `registwork` DISABLE KEYS */;
-/*!40000 ALTER TABLE `registwork` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `rule`
+--
 
-#
-# Structure for table "rule"
-#
-
-DROP TABLE IF EXISTS `rule`;
 CREATE TABLE `rule` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `UserId` bigint(20) NOT NULL COMMENT 'Ò½Éúid',
-  `RuleName` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT '¹æÔòÃû³Æ',
-  `Week` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'ĞÇÆÚ',
-  `DeptId` bigint(20) DEFAULT NULL COMMENT '¿ÆÊÒid',
-  `DelMark` char(1) COLLATE utf8mb4_bin NOT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`),
-  KEY `FK_Ò½Éúid` (`UserId`),
-  KEY `FK_¿ÆÊÒid` (`DeptId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ÅÅ°à¹æÔò±í';
+  `UserId` bigint(20) NOT NULL COMMENT 'åŒ»ç”Ÿid',
+  `RuleName` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'è§„åˆ™åç§°',
+  `Week` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'æ˜ŸæœŸ',
+  `DeptId` bigint(20) DEFAULT NULL COMMENT 'ç§‘å®¤id',
+  `DelMark` char(1) COLLATE utf8mb4_bin NOT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æ’ç­è§„åˆ™è¡¨';
 
-#
-# Data for table "rule"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `rule` DISABLE KEYS */;
-/*!40000 ALTER TABLE `rule` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `scheduling`
+--
 
-#
-# Structure for table "scheduling"
-#
-
-DROP TABLE IF EXISTS `scheduling`;
 CREATE TABLE `scheduling` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `SchedDate` datetime NOT NULL COMMENT 'ÅÅ°àÈÕÆÚ',
-  `DeptId` bigint(20) NOT NULL COMMENT '¿ÆÊÒid',
-  `UserId` bigint(20) DEFAULT NULL COMMENT 'Ò½Éúid',
-  `Noon` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'Îç±ğ',
-  `RuleId` bigint(20) DEFAULT NULL COMMENT 'ÅÅ°à¹æÔòid',
-  `RegistQuota` bigint(20) NOT NULL COMMENT '¹ÒºÅÏŞ¶î',
-  `State` bigint(20) DEFAULT NULL COMMENT '1=ÓĞĞ§  0=ÎŞĞ§',
-  PRIMARY KEY (`id`),
-  KEY `FK_Ò½Éúid` (`UserId`),
-  KEY `FK_¿ÆÊÒid` (`DeptId`),
-  KEY `FK_¹æÔòid` (`RuleId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ÅÅ°à±í';
+  `SchedDate` datetime NOT NULL COMMENT 'æ’ç­æ—¥æœŸ',
+  `DeptId` bigint(20) NOT NULL COMMENT 'ç§‘å®¤id',
+  `UserId` bigint(20) DEFAULT NULL COMMENT 'åŒ»ç”Ÿid',
+  `Noon` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'åˆåˆ«',
+  `RuleId` bigint(20) DEFAULT NULL COMMENT 'æ’ç­è§„åˆ™id',
+  `RegistQuota` bigint(20) NOT NULL COMMENT 'æŒ‚å·é™é¢',
+  `State` bigint(20) DEFAULT NULL COMMENT '1=æœ‰æ•ˆ  0=æ— æ•ˆ'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æ’ç­è¡¨';
 
-#
-# Data for table "scheduling"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `scheduling` DISABLE KEYS */;
-/*!40000 ALTER TABLE `scheduling` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `settlecategory`
+--
 
-#
-# Structure for table "settlecategory"
-#
-
-DROP TABLE IF EXISTS `settlecategory`;
 CREATE TABLE `settlecategory` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `SettleCode` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'Àà±ğ±àÂë',
-  `SettleName` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'Àà±ğÃû³Æ',
-  `IsDefault` bigint(20) DEFAULT NULL COMMENT 'ÊÇ·ñÄ¬ÈÏ',
-  `Sequence` bigint(20) NOT NULL COMMENT 'ÏÔÊ¾Ë³ĞòºÅ',
-  `DelMark` bigint(20) DEFAULT NULL COMMENT '1ÎªÉ¾³ı',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='½áËãÀà±ğ±í';
+  `id` bigint(20) NOT NULL COMMENT 'id',
+  `SettleCode` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'ç±»åˆ«ç¼–ç ',
+  `SettleName` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'ç±»åˆ«åç§°',
+  `IsDefault` bigint(20) DEFAULT NULL COMMENT 'æ˜¯å¦é»˜è®¤',
+  `Sequence` bigint(20) NOT NULL COMMENT 'æ˜¾ç¤ºé¡ºåºå·',
+  `DelMark` bigint(20) DEFAULT NULL COMMENT '1ä¸ºåˆ é™¤'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ç»“ç®—ç±»åˆ«è¡¨';
 
-#
-# Data for table "settlecategory"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `settlecategory` DISABLE KEYS */;
-/*!40000 ALTER TABLE `settlecategory` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `sys_config`
+--
 
-#
-# Structure for table "sys_config"
-#
-
-DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE `sys_config` (
-  `config_id` int(5) NOT NULL AUTO_INCREMENT COMMENT '²ÎÊıÖ÷¼ü',
-  `config_name` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT '²ÎÊıÃû³Æ',
-  `config_key` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT '²ÎÊı¼üÃû',
-  `config_value` varchar(500) COLLATE utf8mb4_bin DEFAULT '' COMMENT '²ÎÊı¼üÖµ',
-  `config_type` char(1) COLLATE utf8mb4_bin DEFAULT 'N' COMMENT 'ÏµÍ³ÄÚÖÃ£¨YÊÇ N·ñ£©',
-  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '´´½¨Õß',
-  `create_time` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '¸üĞÂÕß',
-  `update_time` datetime DEFAULT NULL COMMENT '¸üĞÂÊ±¼ä',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '±¸×¢',
-  PRIMARY KEY (`config_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='²ÎÊıÅäÖÃ±í';
+  `config_id` int(5) NOT NULL COMMENT 'å‚æ•°ä¸»é”®',
+  `config_name` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å‚æ•°åç§°',
+  `config_key` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å‚æ•°é”®å',
+  `config_value` varchar(500) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å‚æ•°é”®å€¼',
+  `config_type` char(1) COLLATE utf8mb4_bin DEFAULT 'N' COMMENT 'ç³»ç»Ÿå†…ç½®ï¼ˆYæ˜¯ Nå¦ï¼‰',
+  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'åˆ›å»ºè€…',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ›´æ–°è€…',
+  `update_time` datetime DEFAULT NULL COMMENT 'æ›´æ–°æ—¶é—´',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¤‡æ³¨'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='å‚æ•°é…ç½®è¡¨';
 
-#
-# Data for table "sys_config"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_config`
+--
 
-INSERT INTO `sys_config` VALUES (1,'Ö÷¿ò¼ÜÒ³-Ä¬ÈÏÆ¤·ôÑùÊ½Ãû³Æ','sys.index.skinName','skin-blue','Y','admin','2023-07-01 16:01:20','',NULL,'À¶É« skin-blue¡¢ÂÌÉ« skin-green¡¢×ÏÉ« skin-purple¡¢ºìÉ« skin-red¡¢»ÆÉ« skin-yellow'),(2,'ÓÃ»§¹ÜÀí-ÕËºÅ³õÊ¼ÃÜÂë','sys.user.initPassword','123456','Y','admin','2023-07-01 16:01:20','',NULL,'³õÊ¼»¯ÃÜÂë 123456'),(3,'Ö÷¿ò¼ÜÒ³-²à±ßÀ¸Ö÷Ìâ','sys.index.sideTheme','theme-dark','Y','admin','2023-07-01 16:01:20','',NULL,'ÉîÉ«Ö÷Ìâtheme-dark£¬Ç³É«Ö÷Ìâtheme-light'),(4,'ÕËºÅ×ÔÖú-ÑéÖ¤Âë¿ª¹Ø','sys.account.captchaEnabled','true','Y','admin','2023-07-01 16:01:20','',NULL,'ÊÇ·ñ¿ªÆôÑéÖ¤Âë¹¦ÄÜ£¨true¿ªÆô£¬false¹Ø±Õ£©'),(5,'ÕËºÅ×ÔÖú-ÊÇ·ñ¿ªÆôÓÃ»§×¢²á¹¦ÄÜ','sys.account.registerUser','false','Y','admin','2023-07-01 16:01:20','',NULL,'ÊÇ·ñ¿ªÆô×¢²áÓÃ»§¹¦ÄÜ£¨true¿ªÆô£¬false¹Ø±Õ£©'),(6,'ÓÃ»§µÇÂ¼-ºÚÃûµ¥ÁĞ±í','sys.login.blackIPList','','Y','admin','2023-07-01 16:01:20','',NULL,'ÉèÖÃµÇÂ¼IPºÚÃûµ¥ÏŞÖÆ£¬¶à¸öÆ¥ÅäÏîÒÔ;·Ö¸ô£¬Ö§³ÖÆ¥Åä£¨*Í¨Åä¡¢Íø¶Î£©');
+INSERT INTO `sys_config` (`config_id`, `config_name`, `config_key`, `config_value`, `config_type`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES
+(1, 'ä¸»æ¡†æ¶é¡µ-é»˜è®¤çš®è‚¤æ ·å¼åç§°', 'sys.index.skinName', 'skin-blue', 'Y', 'admin', '2023-07-01 16:01:20', '', NULL, 'è“è‰² skin-blueã€ç»¿è‰² skin-greenã€ç´«è‰² skin-purpleã€çº¢è‰² skin-redã€é»„è‰² skin-yellow'),
+(2, 'ç”¨æˆ·ç®¡ç†-è´¦å·åˆå§‹å¯†ç ', 'sys.user.initPassword', '123456', 'Y', 'admin', '2023-07-01 16:01:20', '', NULL, 'åˆå§‹åŒ–å¯†ç  123456'),
+(3, 'ä¸»æ¡†æ¶é¡µ-ä¾§è¾¹æ ä¸»é¢˜', 'sys.index.sideTheme', 'theme-dark', 'Y', 'admin', '2023-07-01 16:01:20', '', NULL, 'æ·±è‰²ä¸»é¢˜theme-darkï¼Œæµ…è‰²ä¸»é¢˜theme-light'),
+(4, 'è´¦å·è‡ªåŠ©-éªŒè¯ç å¼€å…³', 'sys.account.captchaEnabled', 'true', 'Y', 'admin', '2023-07-01 16:01:20', '', NULL, 'æ˜¯å¦å¼€å¯éªŒè¯ç åŠŸèƒ½ï¼ˆtrueå¼€å¯ï¼Œfalseå…³é—­ï¼‰'),
+(5, 'è´¦å·è‡ªåŠ©-æ˜¯å¦å¼€å¯ç”¨æˆ·æ³¨å†ŒåŠŸèƒ½', 'sys.account.registerUser', 'false', 'Y', 'admin', '2023-07-01 16:01:20', '', NULL, 'æ˜¯å¦å¼€å¯æ³¨å†Œç”¨æˆ·åŠŸèƒ½ï¼ˆtrueå¼€å¯ï¼Œfalseå…³é—­ï¼‰'),
+(6, 'ç”¨æˆ·ç™»å½•-é»‘åå•åˆ—è¡¨', 'sys.login.blackIPList', '', 'Y', 'admin', '2023-07-01 16:01:20', '', NULL, 'è®¾ç½®ç™»å½•IPé»‘åå•é™åˆ¶ï¼Œå¤šä¸ªåŒ¹é…é¡¹ä»¥;åˆ†éš”ï¼Œæ”¯æŒåŒ¹é…ï¼ˆ*é€šé…ã€ç½‘æ®µï¼‰');
 
-#
-# Structure for table "sys_dept"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `sys_dept`;
+--
+-- è¡¨çš„ç»“æ„ `sys_dept`
+--
+
 CREATE TABLE `sys_dept` (
-  `dept_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '²¿ÃÅid',
-  `parent_id` bigint(20) DEFAULT '0' COMMENT '¸¸²¿ÃÅid',
-  `ancestors` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT '×æ¼¶ÁĞ±í',
-  `dept_name` varchar(30) COLLATE utf8mb4_bin DEFAULT '' COMMENT '²¿ÃÅÃû³Æ',
-  `order_num` int(4) DEFAULT '0' COMMENT 'ÏÔÊ¾Ë³Ğò',
-  `leader` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '¸ºÔğÈË',
-  `phone` varchar(11) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÁªÏµµç»°',
-  `email` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÓÊÏä',
-  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT '²¿ÃÅ×´Ì¬£¨0Õı³£ 1Í£ÓÃ£©',
-  `del_flag` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'É¾³ı±êÖ¾£¨0´ú±í´æÔÚ 2´ú±íÉ¾³ı£©',
-  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '´´½¨Õß',
-  `create_time` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '¸üĞÂÕß',
-  `update_time` datetime DEFAULT NULL COMMENT '¸üĞÂÊ±¼ä',
-  PRIMARY KEY (`dept_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=200 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='²¿ÃÅ±í';
+  `dept_id` bigint(20) NOT NULL COMMENT 'éƒ¨é—¨id',
+  `parent_id` bigint(20) DEFAULT '0' COMMENT 'çˆ¶éƒ¨é—¨id',
+  `ancestors` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ç¥–çº§åˆ—è¡¨',
+  `dept_name` varchar(30) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'éƒ¨é—¨åç§°',
+  `order_num` int(4) DEFAULT '0' COMMENT 'æ˜¾ç¤ºé¡ºåº',
+  `leader` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'è´Ÿè´£äºº',
+  `phone` varchar(11) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'è”ç³»ç”µè¯',
+  `email` varchar(50) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'é‚®ç®±',
+  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'éƒ¨é—¨çŠ¶æ€ï¼ˆ0æ­£å¸¸ 1åœç”¨ï¼‰',
+  `del_flag` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'åˆ é™¤æ ‡å¿—ï¼ˆ0ä»£è¡¨å­˜åœ¨ 2ä»£è¡¨åˆ é™¤ï¼‰',
+  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'åˆ›å»ºè€…',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ›´æ–°è€…',
+  `update_time` datetime DEFAULT NULL COMMENT 'æ›´æ–°æ—¶é—´'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='éƒ¨é—¨è¡¨';
 
-#
-# Data for table "sys_dept"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_dept`
+--
 
-INSERT INTO `sys_dept` VALUES (100,0,'0','ÈôÒÀ¿Æ¼¼',0,'ÈôÒÀ','15888888888','ry@qq.com','0','0','admin','2023-07-01 16:01:19','',NULL),(101,100,'0,100','ÉîÛÚ×Ü¹«Ë¾',1,'ÈôÒÀ','15888888888','ry@qq.com','0','0','admin','2023-07-01 16:01:19','',NULL),(102,100,'0,100','³¤É³·Ö¹«Ë¾',2,'ÈôÒÀ','15888888888','ry@qq.com','0','0','admin','2023-07-01 16:01:19','',NULL),(103,101,'0,100,101','ÑĞ·¢²¿ÃÅ',1,'ÈôÒÀ','15888888888','ry@qq.com','0','0','admin','2023-07-01 16:01:19','',NULL),(104,101,'0,100,101','ÊĞ³¡²¿ÃÅ',2,'ÈôÒÀ','15888888888','ry@qq.com','0','0','admin','2023-07-01 16:01:19','',NULL),(105,101,'0,100,101','²âÊÔ²¿ÃÅ',3,'ÈôÒÀ','15888888888','ry@qq.com','0','0','admin','2023-07-01 16:01:19','',NULL),(106,101,'0,100,101','²ÆÎñ²¿ÃÅ',4,'ÈôÒÀ','15888888888','ry@qq.com','0','0','admin','2023-07-01 16:01:19','',NULL),(107,101,'0,100,101','ÔËÎ¬²¿ÃÅ',5,'ÈôÒÀ','15888888888','ry@qq.com','0','0','admin','2023-07-01 16:01:19','',NULL),(108,102,'0,100,102','ÊĞ³¡²¿ÃÅ',1,'ÈôÒÀ','15888888888','ry@qq.com','0','0','admin','2023-07-01 16:01:19','',NULL),(109,102,'0,100,102','²ÆÎñ²¿ÃÅ',2,'ÈôÒÀ','15888888888','ry@qq.com','0','0','admin','2023-07-01 16:01:19','',NULL);
+INSERT INTO `sys_dept` (`dept_id`, `parent_id`, `ancestors`, `dept_name`, `order_num`, `leader`, `phone`, `email`, `status`, `del_flag`, `create_by`, `create_time`, `update_by`, `update_time`) VALUES
+(100, 0, '0', 'è‹¥ä¾ç§‘æŠ€', 0, 'è‹¥ä¾', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2023-07-01 16:01:19', '', NULL),
+(101, 100, '0,100', 'æ·±åœ³æ€»å…¬å¸', 1, 'è‹¥ä¾', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2023-07-01 16:01:19', '', NULL),
+(102, 100, '0,100', 'é•¿æ²™åˆ†å…¬å¸', 2, 'è‹¥ä¾', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2023-07-01 16:01:19', '', NULL),
+(103, 101, '0,100,101', 'ç ”å‘éƒ¨é—¨', 1, 'è‹¥ä¾', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2023-07-01 16:01:19', '', NULL),
+(104, 101, '0,100,101', 'å¸‚åœºéƒ¨é—¨', 2, 'è‹¥ä¾', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2023-07-01 16:01:19', '', NULL),
+(105, 101, '0,100,101', 'æµ‹è¯•éƒ¨é—¨', 3, 'è‹¥ä¾', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2023-07-01 16:01:19', '', NULL),
+(106, 101, '0,100,101', 'è´¢åŠ¡éƒ¨é—¨', 4, 'è‹¥ä¾', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2023-07-01 16:01:19', '', NULL),
+(107, 101, '0,100,101', 'è¿ç»´éƒ¨é—¨', 5, 'è‹¥ä¾', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2023-07-01 16:01:19', '', NULL),
+(108, 102, '0,100,102', 'å¸‚åœºéƒ¨é—¨', 1, 'è‹¥ä¾', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2023-07-01 16:01:19', '', NULL),
+(109, 102, '0,100,102', 'è´¢åŠ¡éƒ¨é—¨', 2, 'è‹¥ä¾', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2023-07-01 16:01:19', '', NULL);
 
-#
-# Structure for table "sys_dict_data"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `sys_dict_data`;
+--
+-- è¡¨çš„ç»“æ„ `sys_dict_data`
+--
+
 CREATE TABLE `sys_dict_data` (
-  `dict_code` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '×Öµä±àÂë',
-  `dict_sort` int(4) DEFAULT '0' COMMENT '×ÖµäÅÅĞò',
-  `dict_label` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT '×Öµä±êÇ©',
-  `dict_value` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT '×Öµä¼üÖµ',
-  `dict_type` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT '×ÖµäÀàĞÍ',
-  `css_class` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÑùÊ½ÊôĞÔ£¨ÆäËûÑùÊ½À©Õ¹£©',
-  `list_class` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '±í¸ñ»ØÏÔÑùÊ½',
-  `is_default` char(1) COLLATE utf8mb4_bin DEFAULT 'N' COMMENT 'ÊÇ·ñÄ¬ÈÏ£¨YÊÇ N·ñ£©',
-  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT '×´Ì¬£¨0Õı³£ 1Í£ÓÃ£©',
-  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '´´½¨Õß',
-  `create_time` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '¸üĞÂÕß',
-  `update_time` datetime DEFAULT NULL COMMENT '¸üĞÂÊ±¼ä',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '±¸×¢',
-  PRIMARY KEY (`dict_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='×ÖµäÊı¾İ±í';
+  `dict_code` bigint(20) NOT NULL COMMENT 'å­—å…¸ç¼–ç ',
+  `dict_sort` int(4) DEFAULT '0' COMMENT 'å­—å…¸æ’åº',
+  `dict_label` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å­—å…¸æ ‡ç­¾',
+  `dict_value` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å­—å…¸é”®å€¼',
+  `dict_type` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å­—å…¸ç±»å‹',
+  `css_class` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ ·å¼å±æ€§ï¼ˆå…¶ä»–æ ·å¼æ‰©å±•ï¼‰',
+  `list_class` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'è¡¨æ ¼å›æ˜¾æ ·å¼',
+  `is_default` char(1) COLLATE utf8mb4_bin DEFAULT 'N' COMMENT 'æ˜¯å¦é»˜è®¤ï¼ˆYæ˜¯ Nå¦ï¼‰',
+  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'çŠ¶æ€ï¼ˆ0æ­£å¸¸ 1åœç”¨ï¼‰',
+  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'åˆ›å»ºè€…',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ›´æ–°è€…',
+  `update_time` datetime DEFAULT NULL COMMENT 'æ›´æ–°æ—¶é—´',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¤‡æ³¨'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='å­—å…¸æ•°æ®è¡¨';
 
-#
-# Data for table "sys_dict_data"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_dict_data`
+--
 
-INSERT INTO `sys_dict_data` VALUES (1,1,'ÄĞ','0','sys_user_sex','','','Y','0','admin','2023-07-01 16:01:20','',NULL,'ĞÔ±ğÄĞ'),(2,2,'Å®','1','sys_user_sex','','','N','0','admin','2023-07-01 16:01:20','',NULL,'ĞÔ±ğÅ®'),(3,3,'Î´Öª','2','sys_user_sex','','','N','0','admin','2023-07-01 16:01:20','',NULL,'ĞÔ±ğÎ´Öª'),(4,1,'ÏÔÊ¾','0','sys_show_hide','','primary','Y','0','admin','2023-07-01 16:01:20','',NULL,'ÏÔÊ¾²Ëµ¥'),(5,2,'Òş²Ø','1','sys_show_hide','','danger','N','0','admin','2023-07-01 16:01:20','',NULL,'Òş²Ø²Ëµ¥'),(6,1,'Õı³£','0','sys_normal_disable','','primary','Y','0','admin','2023-07-01 16:01:20','',NULL,'Õı³£×´Ì¬'),(7,2,'Í£ÓÃ','1','sys_normal_disable','','danger','N','0','admin','2023-07-01 16:01:20','',NULL,'Í£ÓÃ×´Ì¬'),(8,1,'Õı³£','0','sys_job_status','','primary','Y','0','admin','2023-07-01 16:01:20','',NULL,'Õı³£×´Ì¬'),(9,2,'ÔİÍ£','1','sys_job_status','','danger','N','0','admin','2023-07-01 16:01:20','',NULL,'Í£ÓÃ×´Ì¬'),(10,1,'Ä¬ÈÏ','DEFAULT','sys_job_group','','','Y','0','admin','2023-07-01 16:01:20','',NULL,'Ä¬ÈÏ·Ö×é'),(11,2,'ÏµÍ³','SYSTEM','sys_job_group','','','N','0','admin','2023-07-01 16:01:20','',NULL,'ÏµÍ³·Ö×é'),(12,1,'ÊÇ','Y','sys_yes_no','','primary','Y','0','admin','2023-07-01 16:01:20','',NULL,'ÏµÍ³Ä¬ÈÏÊÇ'),(13,2,'·ñ','N','sys_yes_no','','danger','N','0','admin','2023-07-01 16:01:20','',NULL,'ÏµÍ³Ä¬ÈÏ·ñ'),(14,1,'Í¨Öª','1','sys_notice_type','','warning','Y','0','admin','2023-07-01 16:01:20','',NULL,'Í¨Öª'),(15,2,'¹«¸æ','2','sys_notice_type','','success','N','0','admin','2023-07-01 16:01:20','',NULL,'¹«¸æ'),(16,1,'Õı³£','0','sys_notice_status','','primary','Y','0','admin','2023-07-01 16:01:20','',NULL,'Õı³£×´Ì¬'),(17,2,'¹Ø±Õ','1','sys_notice_status','','danger','N','0','admin','2023-07-01 16:01:20','',NULL,'¹Ø±Õ×´Ì¬'),(18,99,'ÆäËû','0','sys_oper_type','','info','N','0','admin','2023-07-01 16:01:20','',NULL,'ÆäËû²Ù×÷'),(19,1,'ĞÂÔö','1','sys_oper_type','','info','N','0','admin','2023-07-01 16:01:20','',NULL,'ĞÂÔö²Ù×÷'),(20,2,'ĞŞ¸Ä','2','sys_oper_type','','info','N','0','admin','2023-07-01 16:01:20','',NULL,'ĞŞ¸Ä²Ù×÷'),(21,3,'É¾³ı','3','sys_oper_type','','danger','N','0','admin','2023-07-01 16:01:20','',NULL,'É¾³ı²Ù×÷'),(22,4,'ÊÚÈ¨','4','sys_oper_type','','primary','N','0','admin','2023-07-01 16:01:20','',NULL,'ÊÚÈ¨²Ù×÷'),(23,5,'µ¼³ö','5','sys_oper_type','','warning','N','0','admin','2023-07-01 16:01:20','',NULL,'µ¼³ö²Ù×÷'),(24,6,'µ¼Èë','6','sys_oper_type','','warning','N','0','admin','2023-07-01 16:01:20','',NULL,'µ¼Èë²Ù×÷'),(25,7,'Ç¿ÍË','7','sys_oper_type','','danger','N','0','admin','2023-07-01 16:01:20','',NULL,'Ç¿ÍË²Ù×÷'),(26,8,'Éú³É´úÂë','8','sys_oper_type','','warning','N','0','admin','2023-07-01 16:01:20','',NULL,'Éú³É²Ù×÷'),(27,9,'Çå¿ÕÊı¾İ','9','sys_oper_type','','danger','N','0','admin','2023-07-01 16:01:20','',NULL,'Çå¿Õ²Ù×÷'),(28,1,'³É¹¦','0','sys_common_status','','primary','N','0','admin','2023-07-01 16:01:20','',NULL,'Õı³£×´Ì¬'),(29,2,'Ê§°Ü','1','sys_common_status','','danger','N','0','admin','2023-07-01 16:01:20','',NULL,'Í£ÓÃ×´Ì¬');
+INSERT INTO `sys_dict_data` (`dict_code`, `dict_sort`, `dict_label`, `dict_value`, `dict_type`, `css_class`, `list_class`, `is_default`, `status`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES
+(1, 1, 'ç”·', '0', 'sys_user_sex', '', '', 'Y', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'æ€§åˆ«ç”·'),
+(2, 2, 'å¥³', '1', 'sys_user_sex', '', '', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'æ€§åˆ«å¥³'),
+(3, 3, 'æœªçŸ¥', '2', 'sys_user_sex', '', '', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'æ€§åˆ«æœªçŸ¥'),
+(4, 1, 'æ˜¾ç¤º', '0', 'sys_show_hide', '', 'primary', 'Y', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'æ˜¾ç¤ºèœå•'),
+(5, 2, 'éšè—', '1', 'sys_show_hide', '', 'danger', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'éšè—èœå•'),
+(6, 1, 'æ­£å¸¸', '0', 'sys_normal_disable', '', 'primary', 'Y', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'æ­£å¸¸çŠ¶æ€'),
+(7, 2, 'åœç”¨', '1', 'sys_normal_disable', '', 'danger', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'åœç”¨çŠ¶æ€'),
+(8, 1, 'æ­£å¸¸', '0', 'sys_job_status', '', 'primary', 'Y', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'æ­£å¸¸çŠ¶æ€'),
+(9, 2, 'æš‚åœ', '1', 'sys_job_status', '', 'danger', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'åœç”¨çŠ¶æ€'),
+(10, 1, 'é»˜è®¤', 'DEFAULT', 'sys_job_group', '', '', 'Y', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'é»˜è®¤åˆ†ç»„'),
+(11, 2, 'ç³»ç»Ÿ', 'SYSTEM', 'sys_job_group', '', '', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'ç³»ç»Ÿåˆ†ç»„'),
+(12, 1, 'æ˜¯', 'Y', 'sys_yes_no', '', 'primary', 'Y', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'ç³»ç»Ÿé»˜è®¤æ˜¯'),
+(13, 2, 'å¦', 'N', 'sys_yes_no', '', 'danger', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'ç³»ç»Ÿé»˜è®¤å¦'),
+(14, 1, 'é€šçŸ¥', '1', 'sys_notice_type', '', 'warning', 'Y', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'é€šçŸ¥'),
+(15, 2, 'å…¬å‘Š', '2', 'sys_notice_type', '', 'success', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'å…¬å‘Š'),
+(16, 1, 'æ­£å¸¸', '0', 'sys_notice_status', '', 'primary', 'Y', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'æ­£å¸¸çŠ¶æ€'),
+(17, 2, 'å…³é—­', '1', 'sys_notice_status', '', 'danger', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'å…³é—­çŠ¶æ€'),
+(18, 99, 'å…¶ä»–', '0', 'sys_oper_type', '', 'info', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'å…¶ä»–æ“ä½œ'),
+(19, 1, 'æ–°å¢', '1', 'sys_oper_type', '', 'info', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'æ–°å¢æ“ä½œ'),
+(20, 2, 'ä¿®æ”¹', '2', 'sys_oper_type', '', 'info', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'ä¿®æ”¹æ“ä½œ'),
+(21, 3, 'åˆ é™¤', '3', 'sys_oper_type', '', 'danger', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'åˆ é™¤æ“ä½œ'),
+(22, 4, 'æˆæƒ', '4', 'sys_oper_type', '', 'primary', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'æˆæƒæ“ä½œ'),
+(23, 5, 'å¯¼å‡º', '5', 'sys_oper_type', '', 'warning', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'å¯¼å‡ºæ“ä½œ'),
+(24, 6, 'å¯¼å…¥', '6', 'sys_oper_type', '', 'warning', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'å¯¼å…¥æ“ä½œ'),
+(25, 7, 'å¼ºé€€', '7', 'sys_oper_type', '', 'danger', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'å¼ºé€€æ“ä½œ'),
+(26, 8, 'ç”Ÿæˆä»£ç ', '8', 'sys_oper_type', '', 'warning', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'ç”Ÿæˆæ“ä½œ'),
+(27, 9, 'æ¸…ç©ºæ•°æ®', '9', 'sys_oper_type', '', 'danger', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'æ¸…ç©ºæ“ä½œ'),
+(28, 1, 'æˆåŠŸ', '0', 'sys_common_status', '', 'primary', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'æ­£å¸¸çŠ¶æ€'),
+(29, 2, 'å¤±è´¥', '1', 'sys_common_status', '', 'danger', 'N', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'åœç”¨çŠ¶æ€');
 
-#
-# Structure for table "sys_dict_type"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `sys_dict_type`;
+--
+-- è¡¨çš„ç»“æ„ `sys_dict_type`
+--
+
 CREATE TABLE `sys_dict_type` (
-  `dict_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '×ÖµäÖ÷¼ü',
-  `dict_name` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT '×ÖµäÃû³Æ',
-  `dict_type` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT '×ÖµäÀàĞÍ',
-  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT '×´Ì¬£¨0Õı³£ 1Í£ÓÃ£©',
-  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '´´½¨Õß',
-  `create_time` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '¸üĞÂÕß',
-  `update_time` datetime DEFAULT NULL COMMENT '¸üĞÂÊ±¼ä',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '±¸×¢',
-  PRIMARY KEY (`dict_id`),
-  UNIQUE KEY `dict_type` (`dict_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='×ÖµäÀàĞÍ±í';
+  `dict_id` bigint(20) NOT NULL COMMENT 'å­—å…¸ä¸»é”®',
+  `dict_name` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å­—å…¸åç§°',
+  `dict_type` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å­—å…¸ç±»å‹',
+  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'çŠ¶æ€ï¼ˆ0æ­£å¸¸ 1åœç”¨ï¼‰',
+  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'åˆ›å»ºè€…',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ›´æ–°è€…',
+  `update_time` datetime DEFAULT NULL COMMENT 'æ›´æ–°æ—¶é—´',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¤‡æ³¨'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='å­—å…¸ç±»å‹è¡¨';
 
-#
-# Data for table "sys_dict_type"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_dict_type`
+--
 
-INSERT INTO `sys_dict_type` VALUES (1,'ÓÃ»§ĞÔ±ğ','sys_user_sex','0','admin','2023-07-01 16:01:20','',NULL,'ÓÃ»§ĞÔ±ğÁĞ±í'),(2,'²Ëµ¥×´Ì¬','sys_show_hide','0','admin','2023-07-01 16:01:20','',NULL,'²Ëµ¥×´Ì¬ÁĞ±í'),(3,'ÏµÍ³¿ª¹Ø','sys_normal_disable','0','admin','2023-07-01 16:01:20','',NULL,'ÏµÍ³¿ª¹ØÁĞ±í'),(4,'ÈÎÎñ×´Ì¬','sys_job_status','0','admin','2023-07-01 16:01:20','',NULL,'ÈÎÎñ×´Ì¬ÁĞ±í'),(5,'ÈÎÎñ·Ö×é','sys_job_group','0','admin','2023-07-01 16:01:20','',NULL,'ÈÎÎñ·Ö×éÁĞ±í'),(6,'ÏµÍ³ÊÇ·ñ','sys_yes_no','0','admin','2023-07-01 16:01:20','',NULL,'ÏµÍ³ÊÇ·ñÁĞ±í'),(7,'Í¨ÖªÀàĞÍ','sys_notice_type','0','admin','2023-07-01 16:01:20','',NULL,'Í¨ÖªÀàĞÍÁĞ±í'),(8,'Í¨Öª×´Ì¬','sys_notice_status','0','admin','2023-07-01 16:01:20','',NULL,'Í¨Öª×´Ì¬ÁĞ±í'),(9,'²Ù×÷ÀàĞÍ','sys_oper_type','0','admin','2023-07-01 16:01:20','',NULL,'²Ù×÷ÀàĞÍÁĞ±í'),(10,'ÏµÍ³×´Ì¬','sys_common_status','0','admin','2023-07-01 16:01:20','',NULL,'µÇÂ¼×´Ì¬ÁĞ±í');
+INSERT INTO `sys_dict_type` (`dict_id`, `dict_name`, `dict_type`, `status`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES
+(1, 'ç”¨æˆ·æ€§åˆ«', 'sys_user_sex', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'ç”¨æˆ·æ€§åˆ«åˆ—è¡¨'),
+(2, 'èœå•çŠ¶æ€', 'sys_show_hide', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'èœå•çŠ¶æ€åˆ—è¡¨'),
+(3, 'ç³»ç»Ÿå¼€å…³', 'sys_normal_disable', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'ç³»ç»Ÿå¼€å…³åˆ—è¡¨'),
+(4, 'ä»»åŠ¡çŠ¶æ€', 'sys_job_status', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'ä»»åŠ¡çŠ¶æ€åˆ—è¡¨'),
+(5, 'ä»»åŠ¡åˆ†ç»„', 'sys_job_group', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'ä»»åŠ¡åˆ†ç»„åˆ—è¡¨'),
+(6, 'ç³»ç»Ÿæ˜¯å¦', 'sys_yes_no', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'ç³»ç»Ÿæ˜¯å¦åˆ—è¡¨'),
+(7, 'é€šçŸ¥ç±»å‹', 'sys_notice_type', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'é€šçŸ¥ç±»å‹åˆ—è¡¨'),
+(8, 'é€šçŸ¥çŠ¶æ€', 'sys_notice_status', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'é€šçŸ¥çŠ¶æ€åˆ—è¡¨'),
+(9, 'æ“ä½œç±»å‹', 'sys_oper_type', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'æ“ä½œç±»å‹åˆ—è¡¨'),
+(10, 'ç³»ç»ŸçŠ¶æ€', 'sys_common_status', '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'ç™»å½•çŠ¶æ€åˆ—è¡¨');
 
-#
-# Structure for table "sys_job"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `sys_job`;
+--
+-- è¡¨çš„ç»“æ„ `sys_job`
+--
+
 CREATE TABLE `sys_job` (
-  `job_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ÈÎÎñID',
-  `job_name` varchar(64) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'ÈÎÎñÃû³Æ',
-  `job_group` varchar(64) COLLATE utf8mb4_bin NOT NULL DEFAULT 'DEFAULT' COMMENT 'ÈÎÎñ×éÃû',
-  `invoke_target` varchar(500) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷ÓÃÄ¿±ê×Ö·û´®',
-  `cron_expression` varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'cronÖ´ĞĞ±í´ïÊ½',
-  `misfire_policy` varchar(20) COLLATE utf8mb4_bin DEFAULT '3' COMMENT '¼Æ»®Ö´ĞĞ´íÎó²ßÂÔ£¨1Á¢¼´Ö´ĞĞ 2Ö´ĞĞÒ»´Î 3·ÅÆúÖ´ĞĞ£©',
-  `concurrent` char(1) COLLATE utf8mb4_bin DEFAULT '1' COMMENT 'ÊÇ·ñ²¢·¢Ö´ĞĞ£¨0ÔÊĞí 1½ûÖ¹£©',
-  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT '×´Ì¬£¨0Õı³£ 1ÔİÍ££©',
-  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '´´½¨Õß',
-  `create_time` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '¸üĞÂÕß',
-  `update_time` datetime DEFAULT NULL COMMENT '¸üĞÂÊ±¼ä',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT '' COMMENT '±¸×¢ĞÅÏ¢',
-  PRIMARY KEY (`job_id`,`job_name`,`job_group`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='¶¨Ê±ÈÎÎñµ÷¶È±í';
+  `job_id` bigint(20) NOT NULL COMMENT 'ä»»åŠ¡ID',
+  `job_name` varchar(64) COLLATE utf8mb4_bin NOT NULL DEFAULT '' COMMENT 'ä»»åŠ¡åç§°',
+  `job_group` varchar(64) COLLATE utf8mb4_bin NOT NULL DEFAULT 'DEFAULT' COMMENT 'ä»»åŠ¡ç»„å',
+  `invoke_target` varchar(500) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒç”¨ç›®æ ‡å­—ç¬¦ä¸²',
+  `cron_expression` varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'cronæ‰§è¡Œè¡¨è¾¾å¼',
+  `misfire_policy` varchar(20) COLLATE utf8mb4_bin DEFAULT '3' COMMENT 'è®¡åˆ’æ‰§è¡Œé”™è¯¯ç­–ç•¥ï¼ˆ1ç«‹å³æ‰§è¡Œ 2æ‰§è¡Œä¸€æ¬¡ 3æ”¾å¼ƒæ‰§è¡Œï¼‰',
+  `concurrent` char(1) COLLATE utf8mb4_bin DEFAULT '1' COMMENT 'æ˜¯å¦å¹¶å‘æ‰§è¡Œï¼ˆ0å…è®¸ 1ç¦æ­¢ï¼‰',
+  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'çŠ¶æ€ï¼ˆ0æ­£å¸¸ 1æš‚åœï¼‰',
+  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'åˆ›å»ºè€…',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ›´æ–°è€…',
+  `update_time` datetime DEFAULT NULL COMMENT 'æ›´æ–°æ—¶é—´',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å¤‡æ³¨ä¿¡æ¯'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='å®šæ—¶ä»»åŠ¡è°ƒåº¦è¡¨';
 
-#
-# Data for table "sys_job"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_job`
+--
 
-INSERT INTO `sys_job` VALUES (1,'ÏµÍ³Ä¬ÈÏ£¨ÎŞ²Î£©','DEFAULT','ryTask.ryNoParams','0/10 * * * * ?','3','1','1','admin','2023-07-01 16:01:20','',NULL,''),(2,'ÏµÍ³Ä¬ÈÏ£¨ÓĞ²Î£©','DEFAULT','ryTask.ryParams(\'ry\')','0/15 * * * * ?','3','1','1','admin','2023-07-01 16:01:20','',NULL,''),(3,'ÏµÍ³Ä¬ÈÏ£¨¶à²Î£©','DEFAULT','ryTask.ryMultipleParams(\'ry\', true, 2000L, 316.50D, 100)','0/20 * * * * ?','3','1','1','admin','2023-07-01 16:01:20','',NULL,'');
+INSERT INTO `sys_job` (`job_id`, `job_name`, `job_group`, `invoke_target`, `cron_expression`, `misfire_policy`, `concurrent`, `status`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES
+(1, 'ç³»ç»Ÿé»˜è®¤ï¼ˆæ— å‚ï¼‰', 'DEFAULT', 'ryTask.ryNoParams', '0/10 * * * * ?', '3', '1', '1', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(2, 'ç³»ç»Ÿé»˜è®¤ï¼ˆæœ‰å‚ï¼‰', 'DEFAULT', 'ryTask.ryParams(\'ry\')', '0/15 * * * * ?', '3', '1', '1', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(3, 'ç³»ç»Ÿé»˜è®¤ï¼ˆå¤šå‚ï¼‰', 'DEFAULT', 'ryTask.ryMultipleParams(\'ry\', true, 2000L, 316.50D, 100)', '0/20 * * * * ?', '3', '1', '1', 'admin', '2023-07-01 16:01:20', '', NULL, '');
 
-#
-# Structure for table "sys_job_log"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `sys_job_log`;
+--
+-- è¡¨çš„ç»“æ„ `sys_job_log`
+--
+
 CREATE TABLE `sys_job_log` (
-  `job_log_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ÈÎÎñÈÕÖ¾ID',
-  `job_name` varchar(64) COLLATE utf8mb4_bin NOT NULL COMMENT 'ÈÎÎñÃû³Æ',
-  `job_group` varchar(64) COLLATE utf8mb4_bin NOT NULL COMMENT 'ÈÎÎñ×éÃû',
-  `invoke_target` varchar(500) COLLATE utf8mb4_bin NOT NULL COMMENT 'µ÷ÓÃÄ¿±ê×Ö·û´®',
-  `job_message` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÈÕÖ¾ĞÅÏ¢',
-  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'Ö´ĞĞ×´Ì¬£¨0Õı³£ 1Ê§°Ü£©',
-  `exception_info` varchar(2000) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'Òì³£ĞÅÏ¢',
-  `create_time` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  PRIMARY KEY (`job_log_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='¶¨Ê±ÈÎÎñµ÷¶ÈÈÕÖ¾±í';
+  `job_log_id` bigint(20) NOT NULL COMMENT 'ä»»åŠ¡æ—¥å¿—ID',
+  `job_name` varchar(64) COLLATE utf8mb4_bin NOT NULL COMMENT 'ä»»åŠ¡åç§°',
+  `job_group` varchar(64) COLLATE utf8mb4_bin NOT NULL COMMENT 'ä»»åŠ¡ç»„å',
+  `invoke_target` varchar(500) COLLATE utf8mb4_bin NOT NULL COMMENT 'è°ƒç”¨ç›®æ ‡å­—ç¬¦ä¸²',
+  `job_message` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ—¥å¿—ä¿¡æ¯',
+  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'æ‰§è¡ŒçŠ¶æ€ï¼ˆ0æ­£å¸¸ 1å¤±è´¥ï¼‰',
+  `exception_info` varchar(2000) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å¼‚å¸¸ä¿¡æ¯',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='å®šæ—¶ä»»åŠ¡è°ƒåº¦æ—¥å¿—è¡¨';
 
-#
-# Data for table "sys_job_log"
-#
+-- --------------------------------------------------------
 
+--
+-- è¡¨çš„ç»“æ„ `sys_logininfor`
+--
 
-#
-# Structure for table "sys_logininfor"
-#
-
-DROP TABLE IF EXISTS `sys_logininfor`;
 CREATE TABLE `sys_logininfor` (
-  `info_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '·ÃÎÊID',
-  `user_name` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ÓÃ»§ÕËºÅ',
-  `ipaddr` varchar(128) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'µÇÂ¼IPµØÖ·',
-  `login_location` varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'µÇÂ¼µØµã',
-  `browser` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ä¯ÀÀÆ÷ÀàĞÍ',
-  `os` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT '²Ù×÷ÏµÍ³',
-  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'µÇÂ¼×´Ì¬£¨0³É¹¦ 1Ê§°Ü£©',
-  `msg` varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ÌáÊ¾ÏûÏ¢',
-  `login_time` datetime DEFAULT NULL COMMENT '·ÃÎÊÊ±¼ä',
-  PRIMARY KEY (`info_id`),
-  KEY `idx_sys_logininfor_s` (`status`),
-  KEY `idx_sys_logininfor_lt` (`login_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ÏµÍ³·ÃÎÊ¼ÇÂ¼';
+  `info_id` bigint(20) NOT NULL COMMENT 'è®¿é—®ID',
+  `user_name` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ç”¨æˆ·è´¦å·',
+  `ipaddr` varchar(128) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ç™»å½•IPåœ°å€',
+  `login_location` varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ç™»å½•åœ°ç‚¹',
+  `browser` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æµè§ˆå™¨ç±»å‹',
+  `os` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ“ä½œç³»ç»Ÿ',
+  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'ç™»å½•çŠ¶æ€ï¼ˆ0æˆåŠŸ 1å¤±è´¥ï¼‰',
+  `msg` varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æç¤ºæ¶ˆæ¯',
+  `login_time` datetime DEFAULT NULL COMMENT 'è®¿é—®æ—¶é—´'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ç³»ç»Ÿè®¿é—®è®°å½•';
 
-#
-# Data for table "sys_logininfor"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_logininfor`
+--
 
+INSERT INTO `sys_logininfor` (`info_id`, `user_name`, `ipaddr`, `login_location`, `browser`, `os`, `status`, `msg`, `login_time`) VALUES
+(100, 'admin', '127.0.0.1', 'å†…ç½‘IP', 'Chrome 11', 'Windows 10', '0', 'é€€å‡ºæˆåŠŸ', '2023-07-01 16:19:23'),
+(101, 'admin', '127.0.0.1', 'å†…ç½‘IP', 'Chrome 11', 'Windows 10', '0', 'ç™»å½•æˆåŠŸ', '2023-07-01 16:19:41');
 
-#
-# Structure for table "sys_menu"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `sys_menu`;
+--
+-- è¡¨çš„ç»“æ„ `sys_menu`
+--
+
 CREATE TABLE `sys_menu` (
-  `menu_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '²Ëµ¥ID',
-  `menu_name` varchar(50) COLLATE utf8mb4_bin NOT NULL COMMENT '²Ëµ¥Ãû³Æ',
-  `parent_id` bigint(20) DEFAULT '0' COMMENT '¸¸²Ëµ¥ID',
-  `order_num` int(4) DEFAULT '0' COMMENT 'ÏÔÊ¾Ë³Ğò',
-  `path` varchar(200) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'Â·ÓÉµØÖ·',
-  `component` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '×é¼şÂ·¾¶',
-  `query` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'Â·ÓÉ²ÎÊı',
-  `is_frame` int(1) DEFAULT '1' COMMENT 'ÊÇ·ñÎªÍâÁ´£¨0ÊÇ 1·ñ£©',
-  `is_cache` int(1) DEFAULT '0' COMMENT 'ÊÇ·ñ»º´æ£¨0»º´æ 1²»»º´æ£©',
-  `menu_type` char(1) COLLATE utf8mb4_bin DEFAULT '' COMMENT '²Ëµ¥ÀàĞÍ£¨MÄ¿Â¼ C²Ëµ¥ F°´Å¥£©',
-  `visible` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT '²Ëµ¥×´Ì¬£¨0ÏÔÊ¾ 1Òş²Ø£©',
-  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT '²Ëµ¥×´Ì¬£¨0Õı³£ 1Í£ÓÃ£©',
-  `perms` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'È¨ÏŞ±êÊ¶',
-  `icon` varchar(100) COLLATE utf8mb4_bin DEFAULT '#' COMMENT '²Ëµ¥Í¼±ê',
-  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '´´½¨Õß',
-  `create_time` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '¸üĞÂÕß',
-  `update_time` datetime DEFAULT NULL COMMENT '¸üĞÂÊ±¼ä',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT '' COMMENT '±¸×¢',
-  PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2000 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='²Ëµ¥È¨ÏŞ±í';
+  `menu_id` bigint(20) NOT NULL COMMENT 'èœå•ID',
+  `menu_name` varchar(50) COLLATE utf8mb4_bin NOT NULL COMMENT 'èœå•åç§°',
+  `parent_id` bigint(20) DEFAULT '0' COMMENT 'çˆ¶èœå•ID',
+  `order_num` int(4) DEFAULT '0' COMMENT 'æ˜¾ç¤ºé¡ºåº',
+  `path` varchar(200) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'è·¯ç”±åœ°å€',
+  `component` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ç»„ä»¶è·¯å¾„',
+  `query` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'è·¯ç”±å‚æ•°',
+  `is_frame` int(1) DEFAULT '1' COMMENT 'æ˜¯å¦ä¸ºå¤–é“¾ï¼ˆ0æ˜¯ 1å¦ï¼‰',
+  `is_cache` int(1) DEFAULT '0' COMMENT 'æ˜¯å¦ç¼“å­˜ï¼ˆ0ç¼“å­˜ 1ä¸ç¼“å­˜ï¼‰',
+  `menu_type` char(1) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'èœå•ç±»å‹ï¼ˆMç›®å½• Cèœå• FæŒ‰é’®ï¼‰',
+  `visible` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'èœå•çŠ¶æ€ï¼ˆ0æ˜¾ç¤º 1éšè—ï¼‰',
+  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'èœå•çŠ¶æ€ï¼ˆ0æ­£å¸¸ 1åœç”¨ï¼‰',
+  `perms` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æƒé™æ ‡è¯†',
+  `icon` varchar(100) COLLATE utf8mb4_bin DEFAULT '#' COMMENT 'èœå•å›¾æ ‡',
+  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'åˆ›å»ºè€…',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ›´æ–°è€…',
+  `update_time` datetime DEFAULT NULL COMMENT 'æ›´æ–°æ—¶é—´',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å¤‡æ³¨'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='èœå•æƒé™è¡¨';
 
-#
-# Data for table "sys_menu"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_menu`
+--
 
-INSERT INTO `sys_menu` VALUES (1,'ÏµÍ³¹ÜÀí',0,1,'system',NULL,'',1,0,'M','0','0','','system','admin','2023-07-01 16:01:19','',NULL,'ÏµÍ³¹ÜÀíÄ¿Â¼'),(2,'ÏµÍ³¼à¿Ø',0,2,'monitor',NULL,'',1,0,'M','0','0','','monitor','admin','2023-07-01 16:01:19','',NULL,'ÏµÍ³¼à¿ØÄ¿Â¼'),(3,'ÏµÍ³¹¤¾ß',0,3,'tool',NULL,'',1,0,'M','0','0','','tool','admin','2023-07-01 16:01:19','',NULL,'ÏµÍ³¹¤¾ßÄ¿Â¼'),(4,'ÈôÒÀ¹ÙÍø',0,4,'http://ruoyi.vip',NULL,'',0,0,'M','0','0','','guide','admin','2023-07-01 16:01:19','',NULL,'ÈôÒÀ¹ÙÍøµØÖ·'),(100,'ÓÃ»§¹ÜÀí',1,1,'user','system/user/index','',1,0,'C','0','0','system:user:list','user','admin','2023-07-01 16:01:19','',NULL,'ÓÃ»§¹ÜÀí²Ëµ¥'),(101,'½ÇÉ«¹ÜÀí',1,2,'role','system/role/index','',1,0,'C','0','0','system:role:list','peoples','admin','2023-07-01 16:01:19','',NULL,'½ÇÉ«¹ÜÀí²Ëµ¥'),(102,'²Ëµ¥¹ÜÀí',1,3,'menu','system/menu/index','',1,0,'C','0','0','system:menu:list','tree-table','admin','2023-07-01 16:01:19','',NULL,'²Ëµ¥¹ÜÀí²Ëµ¥'),(103,'²¿ÃÅ¹ÜÀí',1,4,'dept','system/dept/index','',1,0,'C','0','0','system:dept:list','tree','admin','2023-07-01 16:01:19','',NULL,'²¿ÃÅ¹ÜÀí²Ëµ¥'),(104,'¸ÚÎ»¹ÜÀí',1,5,'post','system/post/index','',1,0,'C','0','0','system:post:list','post','admin','2023-07-01 16:01:19','',NULL,'¸ÚÎ»¹ÜÀí²Ëµ¥'),(105,'×Öµä¹ÜÀí',1,6,'dict','system/dict/index','',1,0,'C','0','0','system:dict:list','dict','admin','2023-07-01 16:01:19','',NULL,'×Öµä¹ÜÀí²Ëµ¥'),(106,'²ÎÊıÉèÖÃ',1,7,'config','system/config/index','',1,0,'C','0','0','system:config:list','edit','admin','2023-07-01 16:01:19','',NULL,'²ÎÊıÉèÖÃ²Ëµ¥'),(107,'Í¨Öª¹«¸æ',1,8,'notice','system/notice/index','',1,0,'C','0','0','system:notice:list','message','admin','2023-07-01 16:01:19','',NULL,'Í¨Öª¹«¸æ²Ëµ¥'),(108,'ÈÕÖ¾¹ÜÀí',1,9,'log','','',1,0,'M','0','0','','log','admin','2023-07-01 16:01:19','',NULL,'ÈÕÖ¾¹ÜÀí²Ëµ¥'),(109,'ÔÚÏßÓÃ»§',2,1,'online','monitor/online/index','',1,0,'C','0','0','monitor:online:list','online','admin','2023-07-01 16:01:19','',NULL,'ÔÚÏßÓÃ»§²Ëµ¥'),(110,'¶¨Ê±ÈÎÎñ',2,2,'job','monitor/job/index','',1,0,'C','0','0','monitor:job:list','job','admin','2023-07-01 16:01:19','',NULL,'¶¨Ê±ÈÎÎñ²Ëµ¥'),(111,'Êı¾İ¼à¿Ø',2,3,'druid','monitor/druid/index','',1,0,'C','0','0','monitor:druid:list','druid','admin','2023-07-01 16:01:19','',NULL,'Êı¾İ¼à¿Ø²Ëµ¥'),(112,'·şÎñ¼à¿Ø',2,4,'server','monitor/server/index','',1,0,'C','0','0','monitor:server:list','server','admin','2023-07-01 16:01:19','',NULL,'·şÎñ¼à¿Ø²Ëµ¥'),(113,'»º´æ¼à¿Ø',2,5,'cache','monitor/cache/index','',1,0,'C','0','0','monitor:cache:list','redis','admin','2023-07-01 16:01:19','',NULL,'»º´æ¼à¿Ø²Ëµ¥'),(114,'»º´æÁĞ±í',2,6,'cacheList','monitor/cache/list','',1,0,'C','0','0','monitor:cache:list','redis-list','admin','2023-07-01 16:01:19','',NULL,'»º´æÁĞ±í²Ëµ¥'),(115,'±íµ¥¹¹½¨',3,1,'build','tool/build/index','',1,0,'C','0','0','tool:build:list','build','admin','2023-07-01 16:01:19','',NULL,'±íµ¥¹¹½¨²Ëµ¥'),(116,'´úÂëÉú³É',3,2,'gen','tool/gen/index','',1,0,'C','0','0','tool:gen:list','code','admin','2023-07-01 16:01:19','',NULL,'´úÂëÉú³É²Ëµ¥'),(117,'ÏµÍ³½Ó¿Ú',3,3,'swagger','tool/swagger/index','',1,0,'C','0','0','tool:swagger:list','swagger','admin','2023-07-01 16:01:19','',NULL,'ÏµÍ³½Ó¿Ú²Ëµ¥'),(500,'²Ù×÷ÈÕÖ¾',108,1,'operlog','monitor/operlog/index','',1,0,'C','0','0','monitor:operlog:list','form','admin','2023-07-01 16:01:19','',NULL,'²Ù×÷ÈÕÖ¾²Ëµ¥'),(501,'µÇÂ¼ÈÕÖ¾',108,2,'logininfor','monitor/logininfor/index','',1,0,'C','0','0','monitor:logininfor:list','logininfor','admin','2023-07-01 16:01:19','',NULL,'µÇÂ¼ÈÕÖ¾²Ëµ¥'),(1000,'ÓÃ»§²éÑ¯',100,1,'','','',1,0,'F','0','0','system:user:query','#','admin','2023-07-01 16:01:19','',NULL,''),(1001,'ÓÃ»§ĞÂÔö',100,2,'','','',1,0,'F','0','0','system:user:add','#','admin','2023-07-01 16:01:19','',NULL,''),(1002,'ÓÃ»§ĞŞ¸Ä',100,3,'','','',1,0,'F','0','0','system:user:edit','#','admin','2023-07-01 16:01:19','',NULL,''),(1003,'ÓÃ»§É¾³ı',100,4,'','','',1,0,'F','0','0','system:user:remove','#','admin','2023-07-01 16:01:19','',NULL,''),(1004,'ÓÃ»§µ¼³ö',100,5,'','','',1,0,'F','0','0','system:user:export','#','admin','2023-07-01 16:01:19','',NULL,''),(1005,'ÓÃ»§µ¼Èë',100,6,'','','',1,0,'F','0','0','system:user:import','#','admin','2023-07-01 16:01:19','',NULL,''),(1006,'ÖØÖÃÃÜÂë',100,7,'','','',1,0,'F','0','0','system:user:resetPwd','#','admin','2023-07-01 16:01:19','',NULL,''),(1007,'½ÇÉ«²éÑ¯',101,1,'','','',1,0,'F','0','0','system:role:query','#','admin','2023-07-01 16:01:19','',NULL,''),(1008,'½ÇÉ«ĞÂÔö',101,2,'','','',1,0,'F','0','0','system:role:add','#','admin','2023-07-01 16:01:19','',NULL,''),(1009,'½ÇÉ«ĞŞ¸Ä',101,3,'','','',1,0,'F','0','0','system:role:edit','#','admin','2023-07-01 16:01:19','',NULL,''),(1010,'½ÇÉ«É¾³ı',101,4,'','','',1,0,'F','0','0','system:role:remove','#','admin','2023-07-01 16:01:19','',NULL,''),(1011,'½ÇÉ«µ¼³ö',101,5,'','','',1,0,'F','0','0','system:role:export','#','admin','2023-07-01 16:01:19','',NULL,''),(1012,'²Ëµ¥²éÑ¯',102,1,'','','',1,0,'F','0','0','system:menu:query','#','admin','2023-07-01 16:01:19','',NULL,''),(1013,'²Ëµ¥ĞÂÔö',102,2,'','','',1,0,'F','0','0','system:menu:add','#','admin','2023-07-01 16:01:19','',NULL,''),(1014,'²Ëµ¥ĞŞ¸Ä',102,3,'','','',1,0,'F','0','0','system:menu:edit','#','admin','2023-07-01 16:01:19','',NULL,''),(1015,'²Ëµ¥É¾³ı',102,4,'','','',1,0,'F','0','0','system:menu:remove','#','admin','2023-07-01 16:01:19','',NULL,''),(1016,'²¿ÃÅ²éÑ¯',103,1,'','','',1,0,'F','0','0','system:dept:query','#','admin','2023-07-01 16:01:19','',NULL,''),(1017,'²¿ÃÅĞÂÔö',103,2,'','','',1,0,'F','0','0','system:dept:add','#','admin','2023-07-01 16:01:19','',NULL,''),(1018,'²¿ÃÅĞŞ¸Ä',103,3,'','','',1,0,'F','0','0','system:dept:edit','#','admin','2023-07-01 16:01:19','',NULL,''),(1019,'²¿ÃÅÉ¾³ı',103,4,'','','',1,0,'F','0','0','system:dept:remove','#','admin','2023-07-01 16:01:19','',NULL,''),(1020,'¸ÚÎ»²éÑ¯',104,1,'','','',1,0,'F','0','0','system:post:query','#','admin','2023-07-01 16:01:19','',NULL,''),(1021,'¸ÚÎ»ĞÂÔö',104,2,'','','',1,0,'F','0','0','system:post:add','#','admin','2023-07-01 16:01:19','',NULL,''),(1022,'¸ÚÎ»ĞŞ¸Ä',104,3,'','','',1,0,'F','0','0','system:post:edit','#','admin','2023-07-01 16:01:19','',NULL,''),(1023,'¸ÚÎ»É¾³ı',104,4,'','','',1,0,'F','0','0','system:post:remove','#','admin','2023-07-01 16:01:19','',NULL,''),(1024,'¸ÚÎ»µ¼³ö',104,5,'','','',1,0,'F','0','0','system:post:export','#','admin','2023-07-01 16:01:19','',NULL,''),(1025,'×Öµä²éÑ¯',105,1,'#','','',1,0,'F','0','0','system:dict:query','#','admin','2023-07-01 16:01:19','',NULL,''),(1026,'×ÖµäĞÂÔö',105,2,'#','','',1,0,'F','0','0','system:dict:add','#','admin','2023-07-01 16:01:19','',NULL,''),(1027,'×ÖµäĞŞ¸Ä',105,3,'#','','',1,0,'F','0','0','system:dict:edit','#','admin','2023-07-01 16:01:19','',NULL,''),(1028,'×ÖµäÉ¾³ı',105,4,'#','','',1,0,'F','0','0','system:dict:remove','#','admin','2023-07-01 16:01:19','',NULL,''),(1029,'×Öµäµ¼³ö',105,5,'#','','',1,0,'F','0','0','system:dict:export','#','admin','2023-07-01 16:01:19','',NULL,''),(1030,'²ÎÊı²éÑ¯',106,1,'#','','',1,0,'F','0','0','system:config:query','#','admin','2023-07-01 16:01:19','',NULL,''),(1031,'²ÎÊıĞÂÔö',106,2,'#','','',1,0,'F','0','0','system:config:add','#','admin','2023-07-01 16:01:19','',NULL,''),(1032,'²ÎÊıĞŞ¸Ä',106,3,'#','','',1,0,'F','0','0','system:config:edit','#','admin','2023-07-01 16:01:19','',NULL,''),(1033,'²ÎÊıÉ¾³ı',106,4,'#','','',1,0,'F','0','0','system:config:remove','#','admin','2023-07-01 16:01:19','',NULL,''),(1034,'²ÎÊıµ¼³ö',106,5,'#','','',1,0,'F','0','0','system:config:export','#','admin','2023-07-01 16:01:19','',NULL,''),(1035,'¹«¸æ²éÑ¯',107,1,'#','','',1,0,'F','0','0','system:notice:query','#','admin','2023-07-01 16:01:19','',NULL,''),(1036,'¹«¸æĞÂÔö',107,2,'#','','',1,0,'F','0','0','system:notice:add','#','admin','2023-07-01 16:01:20','',NULL,''),(1037,'¹«¸æĞŞ¸Ä',107,3,'#','','',1,0,'F','0','0','system:notice:edit','#','admin','2023-07-01 16:01:20','',NULL,''),(1038,'¹«¸æÉ¾³ı',107,4,'#','','',1,0,'F','0','0','system:notice:remove','#','admin','2023-07-01 16:01:20','',NULL,''),(1039,'²Ù×÷²éÑ¯',500,1,'#','','',1,0,'F','0','0','monitor:operlog:query','#','admin','2023-07-01 16:01:20','',NULL,''),(1040,'²Ù×÷É¾³ı',500,2,'#','','',1,0,'F','0','0','monitor:operlog:remove','#','admin','2023-07-01 16:01:20','',NULL,''),(1041,'ÈÕÖ¾µ¼³ö',500,3,'#','','',1,0,'F','0','0','monitor:operlog:export','#','admin','2023-07-01 16:01:20','',NULL,''),(1042,'µÇÂ¼²éÑ¯',501,1,'#','','',1,0,'F','0','0','monitor:logininfor:query','#','admin','2023-07-01 16:01:20','',NULL,''),(1043,'µÇÂ¼É¾³ı',501,2,'#','','',1,0,'F','0','0','monitor:logininfor:remove','#','admin','2023-07-01 16:01:20','',NULL,''),(1044,'ÈÕÖ¾µ¼³ö',501,3,'#','','',1,0,'F','0','0','monitor:logininfor:export','#','admin','2023-07-01 16:01:20','',NULL,''),(1045,'ÕË»§½âËø',501,4,'#','','',1,0,'F','0','0','monitor:logininfor:unlock','#','admin','2023-07-01 16:01:20','',NULL,''),(1046,'ÔÚÏß²éÑ¯',109,1,'#','','',1,0,'F','0','0','monitor:online:query','#','admin','2023-07-01 16:01:20','',NULL,''),(1047,'ÅúÁ¿Ç¿ÍË',109,2,'#','','',1,0,'F','0','0','monitor:online:batchLogout','#','admin','2023-07-01 16:01:20','',NULL,''),(1048,'µ¥ÌõÇ¿ÍË',109,3,'#','','',1,0,'F','0','0','monitor:online:forceLogout','#','admin','2023-07-01 16:01:20','',NULL,''),(1049,'ÈÎÎñ²éÑ¯',110,1,'#','','',1,0,'F','0','0','monitor:job:query','#','admin','2023-07-01 16:01:20','',NULL,''),(1050,'ÈÎÎñĞÂÔö',110,2,'#','','',1,0,'F','0','0','monitor:job:add','#','admin','2023-07-01 16:01:20','',NULL,''),(1051,'ÈÎÎñĞŞ¸Ä',110,3,'#','','',1,0,'F','0','0','monitor:job:edit','#','admin','2023-07-01 16:01:20','',NULL,''),(1052,'ÈÎÎñÉ¾³ı',110,4,'#','','',1,0,'F','0','0','monitor:job:remove','#','admin','2023-07-01 16:01:20','',NULL,''),(1053,'×´Ì¬ĞŞ¸Ä',110,5,'#','','',1,0,'F','0','0','monitor:job:changeStatus','#','admin','2023-07-01 16:01:20','',NULL,''),(1054,'ÈÎÎñµ¼³ö',110,6,'#','','',1,0,'F','0','0','monitor:job:export','#','admin','2023-07-01 16:01:20','',NULL,''),(1055,'Éú³É²éÑ¯',116,1,'#','','',1,0,'F','0','0','tool:gen:query','#','admin','2023-07-01 16:01:20','',NULL,''),(1056,'Éú³ÉĞŞ¸Ä',116,2,'#','','',1,0,'F','0','0','tool:gen:edit','#','admin','2023-07-01 16:01:20','',NULL,''),(1057,'Éú³ÉÉ¾³ı',116,3,'#','','',1,0,'F','0','0','tool:gen:remove','#','admin','2023-07-01 16:01:20','',NULL,''),(1058,'µ¼Èë´úÂë',116,4,'#','','',1,0,'F','0','0','tool:gen:import','#','admin','2023-07-01 16:01:20','',NULL,''),(1059,'Ô¤ÀÀ´úÂë',116,5,'#','','',1,0,'F','0','0','tool:gen:preview','#','admin','2023-07-01 16:01:20','',NULL,''),(1060,'Éú³É´úÂë',116,6,'#','','',1,0,'F','0','0','tool:gen:code','#','admin','2023-07-01 16:01:20','',NULL,'');
+INSERT INTO `sys_menu` (`menu_id`, `menu_name`, `parent_id`, `order_num`, `path`, `component`, `query`, `is_frame`, `is_cache`, `menu_type`, `visible`, `status`, `perms`, `icon`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES
+(1, 'ç³»ç»Ÿç®¡ç†', 0, 1, 'system', NULL, '', 1, 0, 'M', '0', '0', '', 'system', 'admin', '2023-07-01 16:01:19', '', NULL, 'ç³»ç»Ÿç®¡ç†ç›®å½•'),
+(2, 'ç³»ç»Ÿç›‘æ§', 0, 2, 'monitor', NULL, '', 1, 0, 'M', '0', '0', '', 'monitor', 'admin', '2023-07-01 16:01:19', '', NULL, 'ç³»ç»Ÿç›‘æ§ç›®å½•'),
+(3, 'ç³»ç»Ÿå·¥å…·', 0, 3, 'tool', NULL, '', 1, 0, 'M', '0', '0', '', 'tool', 'admin', '2023-07-01 16:01:19', '', NULL, 'ç³»ç»Ÿå·¥å…·ç›®å½•'),
+(100, 'ç”¨æˆ·ç®¡ç†', 1, 1, 'user', 'system/user/index', '', 1, 0, 'C', '0', '0', 'system:user:list', 'user', 'admin', '2023-07-01 16:01:19', '', NULL, 'ç”¨æˆ·ç®¡ç†èœå•'),
+(101, 'è§’è‰²ç®¡ç†', 1, 2, 'role', 'system/role/index', '', 1, 0, 'C', '0', '0', 'system:role:list', 'peoples', 'admin', '2023-07-01 16:01:19', '', NULL, 'è§’è‰²ç®¡ç†èœå•'),
+(102, 'èœå•ç®¡ç†', 1, 3, 'menu', 'system/menu/index', '', 1, 0, 'C', '0', '0', 'system:menu:list', 'tree-table', 'admin', '2023-07-01 16:01:19', '', NULL, 'èœå•ç®¡ç†èœå•'),
+(103, 'éƒ¨é—¨ç®¡ç†', 1, 4, 'dept', 'system/dept/index', '', 1, 0, 'C', '0', '0', 'system:dept:list', 'tree', 'admin', '2023-07-01 16:01:19', '', NULL, 'éƒ¨é—¨ç®¡ç†èœå•'),
+(104, 'å²—ä½ç®¡ç†', 1, 5, 'post', 'system/post/index', '', 1, 0, 'C', '0', '0', 'system:post:list', 'post', 'admin', '2023-07-01 16:01:19', '', NULL, 'å²—ä½ç®¡ç†èœå•'),
+(105, 'å­—å…¸ç®¡ç†', 1, 6, 'dict', 'system/dict/index', '', 1, 0, 'C', '0', '0', 'system:dict:list', 'dict', 'admin', '2023-07-01 16:01:19', '', NULL, 'å­—å…¸ç®¡ç†èœå•'),
+(106, 'å‚æ•°è®¾ç½®', 1, 7, 'config', 'system/config/index', '', 1, 0, 'C', '0', '0', 'system:config:list', 'edit', 'admin', '2023-07-01 16:01:19', '', NULL, 'å‚æ•°è®¾ç½®èœå•'),
+(107, 'é€šçŸ¥å…¬å‘Š', 1, 8, 'notice', 'system/notice/index', '', 1, 0, 'C', '0', '0', 'system:notice:list', 'message', 'admin', '2023-07-01 16:01:19', '', NULL, 'é€šçŸ¥å…¬å‘Šèœå•'),
+(108, 'æ—¥å¿—ç®¡ç†', 1, 9, 'log', '', '', 1, 0, 'M', '0', '0', '', 'log', 'admin', '2023-07-01 16:01:19', '', NULL, 'æ—¥å¿—ç®¡ç†èœå•'),
+(109, 'åœ¨çº¿ç”¨æˆ·', 2, 1, 'online', 'monitor/online/index', '', 1, 0, 'C', '0', '0', 'monitor:online:list', 'online', 'admin', '2023-07-01 16:01:19', '', NULL, 'åœ¨çº¿ç”¨æˆ·èœå•'),
+(110, 'å®šæ—¶ä»»åŠ¡', 2, 2, 'job', 'monitor/job/index', '', 1, 0, 'C', '0', '0', 'monitor:job:list', 'job', 'admin', '2023-07-01 16:01:19', '', NULL, 'å®šæ—¶ä»»åŠ¡èœå•'),
+(111, 'æ•°æ®ç›‘æ§', 2, 3, 'druid', 'monitor/druid/index', '', 1, 0, 'C', '0', '0', 'monitor:druid:list', 'druid', 'admin', '2023-07-01 16:01:19', '', NULL, 'æ•°æ®ç›‘æ§èœå•'),
+(112, 'æœåŠ¡ç›‘æ§', 2, 4, 'server', 'monitor/server/index', '', 1, 0, 'C', '0', '0', 'monitor:server:list', 'server', 'admin', '2023-07-01 16:01:19', '', NULL, 'æœåŠ¡ç›‘æ§èœå•'),
+(113, 'ç¼“å­˜ç›‘æ§', 2, 5, 'cache', 'monitor/cache/index', '', 1, 0, 'C', '0', '0', 'monitor:cache:list', 'redis', 'admin', '2023-07-01 16:01:19', '', NULL, 'ç¼“å­˜ç›‘æ§èœå•'),
+(114, 'ç¼“å­˜åˆ—è¡¨', 2, 6, 'cacheList', 'monitor/cache/list', '', 1, 0, 'C', '0', '0', 'monitor:cache:list', 'redis-list', 'admin', '2023-07-01 16:01:19', '', NULL, 'ç¼“å­˜åˆ—è¡¨èœå•'),
+(115, 'è¡¨å•æ„å»º', 3, 1, 'build', 'tool/build/index', '', 1, 0, 'C', '0', '0', 'tool:build:list', 'build', 'admin', '2023-07-01 16:01:19', '', NULL, 'è¡¨å•æ„å»ºèœå•'),
+(116, 'ä»£ç ç”Ÿæˆ', 3, 2, 'gen', 'tool/gen/index', '', 1, 0, 'C', '0', '0', 'tool:gen:list', 'code', 'admin', '2023-07-01 16:01:19', '', NULL, 'ä»£ç ç”Ÿæˆèœå•'),
+(117, 'ç³»ç»Ÿæ¥å£', 3, 3, 'swagger', 'tool/swagger/index', '', 1, 0, 'C', '0', '0', 'tool:swagger:list', 'swagger', 'admin', '2023-07-01 16:01:19', '', NULL, 'ç³»ç»Ÿæ¥å£èœå•'),
+(500, 'æ“ä½œæ—¥å¿—', 108, 1, 'operlog', 'monitor/operlog/index', '', 1, 0, 'C', '0', '0', 'monitor:operlog:list', 'form', 'admin', '2023-07-01 16:01:19', '', NULL, 'æ“ä½œæ—¥å¿—èœå•'),
+(501, 'ç™»å½•æ—¥å¿—', 108, 2, 'logininfor', 'monitor/logininfor/index', '', 1, 0, 'C', '0', '0', 'monitor:logininfor:list', 'logininfor', 'admin', '2023-07-01 16:01:19', '', NULL, 'ç™»å½•æ—¥å¿—èœå•'),
+(1000, 'ç”¨æˆ·æŸ¥è¯¢', 100, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:user:query', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1001, 'ç”¨æˆ·æ–°å¢', 100, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:user:add', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1002, 'ç”¨æˆ·ä¿®æ”¹', 100, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:user:edit', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1003, 'ç”¨æˆ·åˆ é™¤', 100, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:user:remove', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1004, 'ç”¨æˆ·å¯¼å‡º', 100, 5, '', '', '', 1, 0, 'F', '0', '0', 'system:user:export', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1005, 'ç”¨æˆ·å¯¼å…¥', 100, 6, '', '', '', 1, 0, 'F', '0', '0', 'system:user:import', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1006, 'é‡ç½®å¯†ç ', 100, 7, '', '', '', 1, 0, 'F', '0', '0', 'system:user:resetPwd', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1007, 'è§’è‰²æŸ¥è¯¢', 101, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:role:query', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1008, 'è§’è‰²æ–°å¢', 101, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:role:add', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1009, 'è§’è‰²ä¿®æ”¹', 101, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:role:edit', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1010, 'è§’è‰²åˆ é™¤', 101, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:role:remove', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1011, 'è§’è‰²å¯¼å‡º', 101, 5, '', '', '', 1, 0, 'F', '0', '0', 'system:role:export', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1012, 'èœå•æŸ¥è¯¢', 102, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:menu:query', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1013, 'èœå•æ–°å¢', 102, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:menu:add', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1014, 'èœå•ä¿®æ”¹', 102, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:menu:edit', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1015, 'èœå•åˆ é™¤', 102, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:menu:remove', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1016, 'éƒ¨é—¨æŸ¥è¯¢', 103, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:dept:query', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1017, 'éƒ¨é—¨æ–°å¢', 103, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:dept:add', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1018, 'éƒ¨é—¨ä¿®æ”¹', 103, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:dept:edit', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1019, 'éƒ¨é—¨åˆ é™¤', 103, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:dept:remove', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1020, 'å²—ä½æŸ¥è¯¢', 104, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:post:query', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1021, 'å²—ä½æ–°å¢', 104, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:post:add', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1022, 'å²—ä½ä¿®æ”¹', 104, 3, '', '', '', 1, 0, 'F', '0', '0', 'system:post:edit', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1023, 'å²—ä½åˆ é™¤', 104, 4, '', '', '', 1, 0, 'F', '0', '0', 'system:post:remove', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1024, 'å²—ä½å¯¼å‡º', 104, 5, '', '', '', 1, 0, 'F', '0', '0', 'system:post:export', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1025, 'å­—å…¸æŸ¥è¯¢', 105, 1, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:query', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1026, 'å­—å…¸æ–°å¢', 105, 2, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:add', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1027, 'å­—å…¸ä¿®æ”¹', 105, 3, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:edit', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1028, 'å­—å…¸åˆ é™¤', 105, 4, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:remove', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1029, 'å­—å…¸å¯¼å‡º', 105, 5, '#', '', '', 1, 0, 'F', '0', '0', 'system:dict:export', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1030, 'å‚æ•°æŸ¥è¯¢', 106, 1, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:query', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1031, 'å‚æ•°æ–°å¢', 106, 2, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:add', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1032, 'å‚æ•°ä¿®æ”¹', 106, 3, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:edit', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1033, 'å‚æ•°åˆ é™¤', 106, 4, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:remove', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1034, 'å‚æ•°å¯¼å‡º', 106, 5, '#', '', '', 1, 0, 'F', '0', '0', 'system:config:export', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1035, 'å…¬å‘ŠæŸ¥è¯¢', 107, 1, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:query', '#', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(1036, 'å…¬å‘Šæ–°å¢', 107, 2, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:add', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1037, 'å…¬å‘Šä¿®æ”¹', 107, 3, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:edit', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1038, 'å…¬å‘Šåˆ é™¤', 107, 4, '#', '', '', 1, 0, 'F', '0', '0', 'system:notice:remove', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1039, 'æ“ä½œæŸ¥è¯¢', 500, 1, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:operlog:query', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1040, 'æ“ä½œåˆ é™¤', 500, 2, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:operlog:remove', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1041, 'æ—¥å¿—å¯¼å‡º', 500, 3, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:operlog:export', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1042, 'ç™»å½•æŸ¥è¯¢', 501, 1, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:query', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1043, 'ç™»å½•åˆ é™¤', 501, 2, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:remove', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1044, 'æ—¥å¿—å¯¼å‡º', 501, 3, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:export', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1045, 'è´¦æˆ·è§£é”', 501, 4, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:logininfor:unlock', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1046, 'åœ¨çº¿æŸ¥è¯¢', 109, 1, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:online:query', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1047, 'æ‰¹é‡å¼ºé€€', 109, 2, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:online:batchLogout', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1048, 'å•æ¡å¼ºé€€', 109, 3, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:online:forceLogout', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1049, 'ä»»åŠ¡æŸ¥è¯¢', 110, 1, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:query', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1050, 'ä»»åŠ¡æ–°å¢', 110, 2, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:add', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1051, 'ä»»åŠ¡ä¿®æ”¹', 110, 3, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:edit', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1052, 'ä»»åŠ¡åˆ é™¤', 110, 4, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:remove', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1053, 'çŠ¶æ€ä¿®æ”¹', 110, 5, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:changeStatus', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1054, 'ä»»åŠ¡å¯¼å‡º', 110, 6, '#', '', '', 1, 0, 'F', '0', '0', 'monitor:job:export', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1055, 'ç”ŸæˆæŸ¥è¯¢', 116, 1, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:query', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1056, 'ç”Ÿæˆä¿®æ”¹', 116, 2, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:edit', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1057, 'ç”Ÿæˆåˆ é™¤', 116, 3, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:remove', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1058, 'å¯¼å…¥ä»£ç ', 116, 4, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:import', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1059, 'é¢„è§ˆä»£ç ', 116, 5, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:preview', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(1060, 'ç”Ÿæˆä»£ç ', 116, 6, '#', '', '', 1, 0, 'F', '0', '0', 'tool:gen:code', '#', 'admin', '2023-07-01 16:01:20', '', NULL, ''),
+(2000, 'æŒ‚å·', 0, 4, '/index', NULL, NULL, 1, 0, 'C', '0', '0', '', 'peoples', 'admin', '2023-07-01 16:24:56', 'admin', '2023-07-01 16:25:01', ''),
+(2001, 'æ”¶è´¹', 0, 5, '/index', NULL, NULL, 1, 0, 'C', '0', '0', '', 'money', 'admin', '2023-07-01 16:27:41', 'admin', '2023-07-01 16:27:54', ''),
+(2002, 'é—¨è¯Š', 0, 6, '/index', NULL, NULL, 1, 0, 'C', '0', '0', '', '#', 'admin', '2023-07-01 16:28:52', 'admin', '2023-07-01 16:28:59', ''),
+(2003, 'æ£€éªŒç»“æœ', 0, 7, '/index', NULL, NULL, 1, 0, 'C', '0', '0', NULL, '#', 'admin', '2023-07-01 16:29:16', '', NULL, ''),
+(2004, 'å¾…æ£€åˆ—è¡¨', 0, 8, '/index', NULL, NULL, 1, 0, 'C', '0', '0', NULL, '#', 'admin', '2023-07-01 16:29:37', '', NULL, ''),
+(2005, 'åŒ»æŠ€é¡¹ç›®è¡¥å½•', 0, 9, '/index', NULL, NULL, 1, 0, 'C', '0', '0', '', '#', 'admin', '2023-07-01 16:29:52', 'admin', '2023-07-01 16:29:57', ''),
+(2006, 'è¯ç‰©åˆ†å‘', 0, 10, '/index', NULL, NULL, 1, 0, 'C', '0', '0', NULL, '#', 'admin', '2023-07-01 16:30:13', '', NULL, ''),
+(2007, 'è¯å“ç›®å½•ç®¡ç†', 0, 11, '/index', NULL, NULL, 1, 0, 'C', '0', '0', NULL, '#', 'admin', '2023-07-01 16:30:28', '', NULL, ''),
+(2008, 'é—¨è¯Šæ—¥ç»“æ ¸å¯¹', 0, 12, '/index', NULL, NULL, 1, 0, 'M', '0', '0', '', '#', 'admin', '2023-07-01 16:30:43', 'admin', '2023-07-01 16:30:49', ''),
+(2009, 'è´¹ç”¨ç§‘ç›®ç®¡ç†', 0, 13, '/index', NULL, NULL, 1, 0, 'C', '0', '0', NULL, '#', 'admin', '2023-07-01 16:31:11', '', NULL, ''),
+(2010, 'ç§‘å®¤ç®¡ç†', 0, 14, '/index', NULL, NULL, 1, 0, 'M', '0', '0', '', '#', 'admin', '2023-07-01 16:31:39', 'admin', '2023-07-01 16:31:48', ''),
+(2011, 'è¯Šæ–­ç›®å½•ç®¡ç†', 0, 15, '/index', NULL, NULL, 1, 0, 'M', '0', '0', NULL, '#', 'admin', '2023-07-01 16:32:07', '', NULL, '');
 
-#
-# Structure for table "sys_notice"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `sys_notice`;
+--
+-- è¡¨çš„ç»“æ„ `sys_notice`
+--
+
 CREATE TABLE `sys_notice` (
-  `notice_id` int(4) NOT NULL AUTO_INCREMENT COMMENT '¹«¸æID',
-  `notice_title` varchar(50) COLLATE utf8mb4_bin NOT NULL COMMENT '¹«¸æ±êÌâ',
-  `notice_type` char(1) COLLATE utf8mb4_bin NOT NULL COMMENT '¹«¸æÀàĞÍ£¨1Í¨Öª 2¹«¸æ£©',
-  `notice_content` longblob COMMENT '¹«¸æÄÚÈİ',
-  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT '¹«¸æ×´Ì¬£¨0Õı³£ 1¹Ø±Õ£©',
-  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '´´½¨Õß',
-  `create_time` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '¸üĞÂÕß',
-  `update_time` datetime DEFAULT NULL COMMENT '¸üĞÂÊ±¼ä',
-  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '±¸×¢',
-  PRIMARY KEY (`notice_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='Í¨Öª¹«¸æ±í';
+  `notice_id` int(4) NOT NULL COMMENT 'å…¬å‘ŠID',
+  `notice_title` varchar(50) COLLATE utf8mb4_bin NOT NULL COMMENT 'å…¬å‘Šæ ‡é¢˜',
+  `notice_type` char(1) COLLATE utf8mb4_bin NOT NULL COMMENT 'å…¬å‘Šç±»å‹ï¼ˆ1é€šçŸ¥ 2å…¬å‘Šï¼‰',
+  `notice_content` longblob COMMENT 'å…¬å‘Šå†…å®¹',
+  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'å…¬å‘ŠçŠ¶æ€ï¼ˆ0æ­£å¸¸ 1å…³é—­ï¼‰',
+  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'åˆ›å»ºè€…',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ›´æ–°è€…',
+  `update_time` datetime DEFAULT NULL COMMENT 'æ›´æ–°æ—¶é—´',
+  `remark` varchar(255) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¤‡æ³¨'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='é€šçŸ¥å…¬å‘Šè¡¨';
 
-#
-# Data for table "sys_notice"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_notice`
+--
 
-INSERT INTO `sys_notice` VALUES (1,'ÎÂÜ°ÌáĞÑ£º2018-07-01 ÈôÒÀĞÂ°æ±¾·¢²¼À²','2',X'E696B0E78988E69CACE58685E5AEB9','0','admin','2023-07-01 16:01:20','',NULL,'¹ÜÀíÔ±'),(2,'Î¬»¤Í¨Öª£º2018-07-01 ÈôÒÀÏµÍ³Áè³¿Î¬»¤','1',X'E7BBB4E68AA4E58685E5AEB9','0','admin','2023-07-01 16:01:20','',NULL,'¹ÜÀíÔ±');
+INSERT INTO `sys_notice` (`notice_id`, `notice_title`, `notice_type`, `notice_content`, `status`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES
+(1, 'æ¸©é¦¨æé†’ï¼š2018-07-01 è‹¥ä¾æ–°ç‰ˆæœ¬å‘å¸ƒå•¦', '2', 0xe696b0e78988e69cace58685e5aeb9, '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'ç®¡ç†å‘˜'),
+(2, 'ç»´æŠ¤é€šçŸ¥ï¼š2018-07-01 è‹¥ä¾ç³»ç»Ÿå‡Œæ™¨ç»´æŠ¤', '1', 0xe7bbb4e68aa4e58685e5aeb9, '0', 'admin', '2023-07-01 16:01:20', '', NULL, 'ç®¡ç†å‘˜');
 
-#
-# Structure for table "sys_oper_log"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `sys_oper_log`;
+--
+-- è¡¨çš„ç»“æ„ `sys_oper_log`
+--
+
 CREATE TABLE `sys_oper_log` (
-  `oper_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ÈÕÖ¾Ö÷¼ü',
-  `title` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'Ä£¿é±êÌâ',
-  `business_type` int(2) DEFAULT '0' COMMENT 'ÒµÎñÀàĞÍ£¨0ÆäËü 1ĞÂÔö 2ĞŞ¸Ä 3É¾³ı£©',
-  `method` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT '·½·¨Ãû³Æ',
-  `request_method` varchar(10) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ÇëÇó·½Ê½',
-  `operator_type` int(1) DEFAULT '0' COMMENT '²Ù×÷Àà±ğ£¨0ÆäËü 1ºóÌ¨ÓÃ»§ 2ÊÖ»ú¶ËÓÃ»§£©',
-  `oper_name` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT '²Ù×÷ÈËÔ±',
-  `dept_name` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT '²¿ÃÅÃû³Æ',
-  `oper_url` varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ÇëÇóURL',
-  `oper_ip` varchar(128) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'Ö÷»úµØÖ·',
-  `oper_location` varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT '²Ù×÷µØµã',
-  `oper_param` varchar(2000) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ÇëÇó²ÎÊı',
-  `json_result` varchar(2000) COLLATE utf8mb4_bin DEFAULT '' COMMENT '·µ»Ø²ÎÊı',
-  `status` int(1) DEFAULT '0' COMMENT '²Ù×÷×´Ì¬£¨0Õı³£ 1Òì³££©',
-  `error_msg` varchar(2000) COLLATE utf8mb4_bin DEFAULT '' COMMENT '´íÎóÏûÏ¢',
-  `oper_time` datetime DEFAULT NULL COMMENT '²Ù×÷Ê±¼ä',
-  `cost_time` bigint(20) DEFAULT '0' COMMENT 'ÏûºÄÊ±¼ä',
-  PRIMARY KEY (`oper_id`),
-  KEY `idx_sys_oper_log_bt` (`business_type`),
-  KEY `idx_sys_oper_log_s` (`status`),
-  KEY `idx_sys_oper_log_ot` (`oper_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='²Ù×÷ÈÕÖ¾¼ÇÂ¼';
+  `oper_id` bigint(20) NOT NULL COMMENT 'æ—¥å¿—ä¸»é”®',
+  `title` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ¨¡å—æ ‡é¢˜',
+  `business_type` int(2) DEFAULT '0' COMMENT 'ä¸šåŠ¡ç±»å‹ï¼ˆ0å…¶å®ƒ 1æ–°å¢ 2ä¿®æ”¹ 3åˆ é™¤ï¼‰',
+  `method` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ–¹æ³•åç§°',
+  `request_method` varchar(10) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'è¯·æ±‚æ–¹å¼',
+  `operator_type` int(1) DEFAULT '0' COMMENT 'æ“ä½œç±»åˆ«ï¼ˆ0å…¶å®ƒ 1åå°ç”¨æˆ· 2æ‰‹æœºç«¯ç”¨æˆ·ï¼‰',
+  `oper_name` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ“ä½œäººå‘˜',
+  `dept_name` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'éƒ¨é—¨åç§°',
+  `oper_url` varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'è¯·æ±‚URL',
+  `oper_ip` varchar(128) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ä¸»æœºåœ°å€',
+  `oper_location` varchar(255) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ“ä½œåœ°ç‚¹',
+  `oper_param` varchar(2000) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'è¯·æ±‚å‚æ•°',
+  `json_result` varchar(2000) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'è¿”å›å‚æ•°',
+  `status` int(1) DEFAULT '0' COMMENT 'æ“ä½œçŠ¶æ€ï¼ˆ0æ­£å¸¸ 1å¼‚å¸¸ï¼‰',
+  `error_msg` varchar(2000) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'é”™è¯¯æ¶ˆæ¯',
+  `oper_time` datetime DEFAULT NULL COMMENT 'æ“ä½œæ—¶é—´',
+  `cost_time` bigint(20) DEFAULT '0' COMMENT 'æ¶ˆè€—æ—¶é—´'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='æ“ä½œæ—¥å¿—è®°å½•';
 
-#
-# Data for table "sys_oper_log"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_oper_log`
+--
 
+INSERT INTO `sys_oper_log` (`oper_id`, `title`, `business_type`, `method`, `request_method`, `operator_type`, `oper_name`, `dept_name`, `oper_url`, `oper_ip`, `oper_location`, `oper_param`, `json_result`, `status`, `error_msg`, `oper_time`, `cost_time`) VALUES
+(100, 'è§’è‰²ç®¡ç†', 3, 'org.jshand.web.controller.system.SysRoleController.remove()', 'DELETE', 1, 'admin', NULL, '/system/role/2', '127.0.0.1', 'å†…ç½‘IP', '{}', NULL, 1, 'æ™®é€šè§’è‰²å·²åˆ†é…,ä¸èƒ½åˆ é™¤', '2023-07-01 16:17:37', 0),
+(101, 'ç”¨æˆ·ç®¡ç†', 3, 'org.jshand.web.controller.system.SysUserController.remove()', 'DELETE', 1, 'admin', NULL, '/system/user/2', '127.0.0.1', 'å†…ç½‘IP', '{}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:17:42', 0),
+(102, 'è§’è‰²ç®¡ç†', 3, 'org.jshand.web.controller.system.SysRoleController.remove()', 'DELETE', 1, 'admin', NULL, '/system/role/2', '127.0.0.1', 'å†…ç½‘IP', '{}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:17:46', 0),
+(103, 'èœå•ç®¡ç†', 3, 'org.jshand.web.controller.system.SysMenuController.remove()', 'DELETE', 1, 'admin', NULL, '/system/menu/4', '127.0.0.1', 'å†…ç½‘IP', '{}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:17:55', 0),
+(104, 'è§’è‰²ç®¡ç†', 1, 'org.jshand.web.controller.system.SysRoleController.add()', 'POST', 1, 'admin', NULL, '/system/role', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createBy\":\"admin\",\"deptCheckStrictly\":true,\"deptIds\":[],\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[],\"params\":{},\"roleId\":100,\"roleKey\":\"RegFee\",\"roleName\":\"æ”¶è´¹ç®¡ç†å‘˜\",\"roleSort\":0,\"status\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:21:33', 0),
+(105, 'è§’è‰²ç®¡ç†', 1, 'org.jshand.web.controller.system.SysRoleController.add()', 'POST', 1, 'admin', NULL, '/system/role', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createBy\":\"admin\",\"deptCheckStrictly\":true,\"deptIds\":[],\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[],\"params\":{},\"roleId\":101,\"roleKey\":\"Doctor\",\"roleName\":\"é—¨è¯ŠåŒ»ç”Ÿ\",\"roleSort\":0,\"status\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:22:33', 0),
+(106, 'è§’è‰²ç®¡ç†', 1, 'org.jshand.web.controller.system.SysRoleController.add()', 'POST', 1, 'admin', NULL, '/system/role', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createBy\":\"admin\",\"deptCheckStrictly\":true,\"deptIds\":[],\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[],\"params\":{},\"roleId\":102,\"roleKey\":\"TechDoctor\",\"roleName\":\"åŒ»æŠ€åŒ»ç”Ÿ\",\"roleSort\":0,\"status\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:22:42', 0),
+(107, 'è§’è‰²ç®¡ç†', 1, 'org.jshand.web.controller.system.SysRoleController.add()', 'POST', 1, 'admin', NULL, '/system/role', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createBy\":\"admin\",\"deptCheckStrictly\":true,\"deptIds\":[],\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[],\"params\":{},\"roleId\":103,\"roleKey\":\"PhaAdmin\",\"roleName\":\"è¯æˆ¿ç®¡ç†å‘˜\",\"roleSort\":0,\"status\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:22:52', 0),
+(108, 'è§’è‰²ç®¡ç†', 1, 'org.jshand.web.controller.system.SysRoleController.add()', 'POST', 1, 'admin', NULL, '/system/role', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createBy\":\"admin\",\"deptCheckStrictly\":true,\"deptIds\":[],\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[],\"params\":{},\"roleId\":104,\"roleKey\":\"FinaAdmin\",\"roleName\":\"è´¢åŠ¡ç®¡ç†å‘˜\",\"roleSort\":0,\"status\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:23:02', 0),
+(109, 'è§’è‰²ç®¡ç†', 1, 'org.jshand.web.controller.system.SysRoleController.add()', 'POST', 1, 'admin', NULL, '/system/role', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createBy\":\"admin\",\"deptCheckStrictly\":true,\"deptIds\":[],\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[],\"params\":{},\"roleId\":105,\"roleKey\":\"SysAdmin\",\"roleName\":\"ç³»ç»Ÿç®¡ç†å‘˜\",\"roleSort\":0,\"status\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:23:09', 0),
+(110, 'èœå•ç®¡ç†', 1, 'org.jshand.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createBy\":\"admin\",\"icon\":\"peoples\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"æŒ‚å·\",\"menuType\":\"C\",\"orderNum\":5,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:24:56', 0),
+(111, 'èœå•ç®¡ç†', 2, 'org.jshand.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createTime\":\"2023-07-01 16:24:56\",\"icon\":\"peoples\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2000,\"menuName\":\"æŒ‚å·\",\"menuType\":\"C\",\"orderNum\":4,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:25:01', 0),
+(112, 'èœå•ç®¡ç†', 1, 'org.jshand.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createBy\":\"admin\",\"icon\":\"money\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"æ”¶è´¹\",\"menuType\":\"M\",\"orderNum\":5,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:27:42', 0),
+(113, 'èœå•ç®¡ç†', 2, 'org.jshand.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createTime\":\"2023-07-01 16:27:41\",\"icon\":\"money\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2001,\"menuName\":\"æ”¶è´¹\",\"menuType\":\"C\",\"orderNum\":5,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:27:54', 0),
+(114, 'èœå•ç®¡ç†', 1, 'org.jshand.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"é—¨è¯Š\",\"menuType\":\"C\",\"orderNum\":7,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:28:53', 0),
+(115, 'èœå•ç®¡ç†', 2, 'org.jshand.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createTime\":\"2023-07-01 16:28:52\",\"icon\":\"#\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2002,\"menuName\":\"é—¨è¯Š\",\"menuType\":\"C\",\"orderNum\":6,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:28:59', 0),
+(116, 'èœå•ç®¡ç†', 1, 'org.jshand.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"æ£€éªŒç»“æœ\",\"menuType\":\"C\",\"orderNum\":7,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:29:16', 0),
+(117, 'èœå•ç®¡ç†', 1, 'org.jshand.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"å¾…æ£€åˆ—è¡¨\",\"menuType\":\"C\",\"orderNum\":8,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:29:37', 0),
+(118, 'èœå•ç®¡ç†', 1, 'org.jshand.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"åŒ»æŠ€é¡¹ç›®è¡¥å½•\",\"menuType\":\"C\",\"orderNum\":10,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:29:52', 0),
+(119, 'èœå•ç®¡ç†', 2, 'org.jshand.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createTime\":\"2023-07-01 16:29:52\",\"icon\":\"#\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2005,\"menuName\":\"åŒ»æŠ€é¡¹ç›®è¡¥å½•\",\"menuType\":\"C\",\"orderNum\":9,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:29:57', 0),
+(120, 'èœå•ç®¡ç†', 1, 'org.jshand.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"è¯ç‰©åˆ†å‘\",\"menuType\":\"C\",\"orderNum\":10,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:30:13', 0),
+(121, 'èœå•ç®¡ç†', 1, 'org.jshand.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"è¯å“ç›®å½•ç®¡ç†\",\"menuType\":\"C\",\"orderNum\":11,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:30:28', 0),
+(122, 'èœå•ç®¡ç†', 1, 'org.jshand.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"é—¨è¯Šæ—¥ç»“æ ¸å¯¹\",\"menuType\":\"M\",\"orderNum\":11,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:30:43', 0),
+(123, 'èœå•ç®¡ç†', 2, 'org.jshand.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createTime\":\"2023-07-01 16:30:43\",\"icon\":\"#\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2008,\"menuName\":\"é—¨è¯Šæ—¥ç»“æ ¸å¯¹\",\"menuType\":\"M\",\"orderNum\":12,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:30:49', 0),
+(124, 'èœå•ç®¡ç†', 1, 'org.jshand.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"è´¹ç”¨ç§‘ç›®ç®¡ç†\",\"menuType\":\"C\",\"orderNum\":13,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:31:11', 0),
+(125, 'èœå•ç®¡ç†', 1, 'org.jshand.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"ç§‘å®¤ç®¡ç†\",\"menuType\":\"M\",\"orderNum\":13,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:31:39', 0),
+(126, 'èœå•ç®¡ç†', 2, 'org.jshand.web.controller.system.SysMenuController.edit()', 'PUT', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createTime\":\"2023-07-01 16:31:39\",\"icon\":\"#\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2010,\"menuName\":\"ç§‘å®¤ç®¡ç†\",\"menuType\":\"M\",\"orderNum\":14,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"perms\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:31:48', 0),
+(127, 'èœå•ç®¡ç†', 1, 'org.jshand.web.controller.system.SysMenuController.add()', 'POST', 1, 'admin', NULL, '/system/menu', '127.0.0.1', 'å†…ç½‘IP', '{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"è¯Šæ–­ç›®å½•ç®¡ç†\",\"menuType\":\"M\",\"orderNum\":15,\"params\":{},\"parentId\":0,\"path\":\"/index\",\"status\":\"0\",\"visible\":\"0\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:32:07', 0),
+(128, 'è§’è‰²ç®¡ç†', 2, 'org.jshand.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', NULL, '/system/role', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createTime\":\"2023-07-01 16:21:33\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[2000,2001],\"params\":{},\"roleId\":100,\"roleKey\":\"RegFee\",\"roleName\":\"æ”¶è´¹ç®¡ç†å‘˜\",\"roleSort\":0,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:33:15', 0),
+(129, 'è§’è‰²ç®¡ç†', 2, 'org.jshand.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', NULL, '/system/role', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createTime\":\"2023-07-01 16:22:33\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[2002,2003],\"params\":{},\"roleId\":101,\"roleKey\":\"Doctor\",\"roleName\":\"é—¨è¯ŠåŒ»ç”Ÿ\",\"roleSort\":0,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:33:21', 0),
+(130, 'è§’è‰²ç®¡ç†', 2, 'org.jshand.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', NULL, '/system/role', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createTime\":\"2023-07-01 16:22:42\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[2004,2005],\"params\":{},\"roleId\":102,\"roleKey\":\"TechDoctor\",\"roleName\":\"åŒ»æŠ€åŒ»ç”Ÿ\",\"roleSort\":0,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:33:28', 0),
+(131, 'è§’è‰²ç®¡ç†', 2, 'org.jshand.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', NULL, '/system/role', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createTime\":\"2023-07-01 16:22:52\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[2006,2007],\"params\":{},\"roleId\":103,\"roleKey\":\"PhaAdmin\",\"roleName\":\"è¯æˆ¿ç®¡ç†å‘˜\",\"roleSort\":0,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:33:35', 0),
+(132, 'è§’è‰²ç®¡ç†', 2, 'org.jshand.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', NULL, '/system/role', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createTime\":\"2023-07-01 16:23:02\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[2008,2009],\"params\":{},\"roleId\":104,\"roleKey\":\"FinaAdmin\",\"roleName\":\"è´¢åŠ¡ç®¡ç†å‘˜\",\"roleSort\":0,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:33:41', 0),
+(133, 'è§’è‰²ç®¡ç†', 2, 'org.jshand.web.controller.system.SysRoleController.edit()', 'PUT', 1, 'admin', NULL, '/system/role', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createTime\":\"2023-07-01 16:23:09\",\"dataScope\":\"1\",\"delFlag\":\"0\",\"deptCheckStrictly\":true,\"flag\":false,\"menuCheckStrictly\":true,\"menuIds\":[1,100,1000,1001,1002,1003,1004,1005,1006,2010,2011],\"params\":{},\"roleId\":105,\"roleKey\":\"SysAdmin\",\"roleName\":\"ç³»ç»Ÿç®¡ç†å‘˜\",\"roleSort\":0,\"status\":\"0\",\"updateBy\":\"admin\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:33:52', 0),
+(134, 'ç”¨æˆ·ç®¡ç†', 1, 'org.jshand.web.controller.system.SysUserController.add()', 'POST', 1, 'admin', NULL, '/system/user', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createBy\":\"admin\",\"nickName\":\"æ”¶è´¹ç®¡ç†å‘˜\",\"params\":{},\"postIds\":[],\"roleIds\":[100],\"status\":\"0\",\"userId\":100,\"userName\":\"RegFee\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:34:54', 0),
+(135, 'ç”¨æˆ·ç®¡ç†', 1, 'org.jshand.web.controller.system.SysUserController.add()', 'POST', 1, 'admin', NULL, '/system/user', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createBy\":\"admin\",\"nickName\":\"Doctor\",\"params\":{},\"postIds\":[],\"roleIds\":[101],\"status\":\"0\",\"userId\":101,\"userName\":\"Doctor\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:35:05', 0),
+(136, 'ç”¨æˆ·ç®¡ç†', 1, 'org.jshand.web.controller.system.SysUserController.add()', 'POST', 1, 'admin', NULL, '/system/user', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createBy\":\"admin\",\"nickName\":\"TechDoctor\",\"params\":{},\"postIds\":[],\"roleIds\":[102],\"status\":\"0\",\"userId\":102,\"userName\":\"TechDoctor\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:35:16', 0),
+(137, 'ç”¨æˆ·ç®¡ç†', 1, 'org.jshand.web.controller.system.SysUserController.add()', 'POST', 1, 'admin', NULL, '/system/user', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createBy\":\"admin\",\"nickName\":\"PhaAdmin\",\"params\":{},\"postIds\":[],\"roleIds\":[103],\"status\":\"0\",\"userId\":103,\"userName\":\"PhaAdmin\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:35:30', 0),
+(138, 'ç”¨æˆ·ç®¡ç†', 1, 'org.jshand.web.controller.system.SysUserController.add()', 'POST', 1, 'admin', NULL, '/system/user', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createBy\":\"admin\",\"nickName\":\"FinaAdmin\",\"params\":{},\"postIds\":[],\"roleIds\":[104],\"status\":\"0\",\"userId\":104,\"userName\":\"FinaAdmin\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:35:43', 0),
+(139, 'ç”¨æˆ·ç®¡ç†', 1, 'org.jshand.web.controller.system.SysUserController.add()', 'POST', 1, 'admin', NULL, '/system/user', '127.0.0.1', 'å†…ç½‘IP', '{\"admin\":false,\"createBy\":\"admin\",\"nickName\":\"SysAdmin\",\"params\":{},\"postIds\":[],\"roleIds\":[105],\"status\":\"0\",\"userId\":105,\"userName\":\"SysAdmin\"}', '{\"msg\":\"æ“ä½œæˆåŠŸ\",\"code\":200}', 0, NULL, '2023-07-01 16:35:55', 0);
 
-#
-# Structure for table "sys_post"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `sys_post`;
+--
+-- è¡¨çš„ç»“æ„ `sys_post`
+--
+
 CREATE TABLE `sys_post` (
-  `post_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '¸ÚÎ»ID',
-  `post_code` varchar(64) COLLATE utf8mb4_bin NOT NULL COMMENT '¸ÚÎ»±àÂë',
-  `post_name` varchar(50) COLLATE utf8mb4_bin NOT NULL COMMENT '¸ÚÎ»Ãû³Æ',
-  `post_sort` int(4) NOT NULL COMMENT 'ÏÔÊ¾Ë³Ğò',
-  `status` char(1) COLLATE utf8mb4_bin NOT NULL COMMENT '×´Ì¬£¨0Õı³£ 1Í£ÓÃ£©',
-  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '´´½¨Õß',
-  `create_time` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '¸üĞÂÕß',
-  `update_time` datetime DEFAULT NULL COMMENT '¸üĞÂÊ±¼ä',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '±¸×¢',
-  PRIMARY KEY (`post_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='¸ÚÎ»ĞÅÏ¢±í';
+  `post_id` bigint(20) NOT NULL COMMENT 'å²—ä½ID',
+  `post_code` varchar(64) COLLATE utf8mb4_bin NOT NULL COMMENT 'å²—ä½ç¼–ç ',
+  `post_name` varchar(50) COLLATE utf8mb4_bin NOT NULL COMMENT 'å²—ä½åç§°',
+  `post_sort` int(4) NOT NULL COMMENT 'æ˜¾ç¤ºé¡ºåº',
+  `status` char(1) COLLATE utf8mb4_bin NOT NULL COMMENT 'çŠ¶æ€ï¼ˆ0æ­£å¸¸ 1åœç”¨ï¼‰',
+  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'åˆ›å»ºè€…',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ›´æ–°è€…',
+  `update_time` datetime DEFAULT NULL COMMENT 'æ›´æ–°æ—¶é—´',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¤‡æ³¨'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='å²—ä½ä¿¡æ¯è¡¨';
 
-#
-# Data for table "sys_post"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_post`
+--
 
-INSERT INTO `sys_post` VALUES (1,'ceo','¶­ÊÂ³¤',1,'0','admin','2023-07-01 16:01:19','',NULL,''),(2,'se','ÏîÄ¿¾­Àí',2,'0','admin','2023-07-01 16:01:19','',NULL,''),(3,'hr','ÈËÁ¦×ÊÔ´',3,'0','admin','2023-07-01 16:01:19','',NULL,''),(4,'user','ÆÕÍ¨Ô±¹¤',4,'0','admin','2023-07-01 16:01:19','',NULL,'');
+INSERT INTO `sys_post` (`post_id`, `post_code`, `post_name`, `post_sort`, `status`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES
+(1, 'ceo', 'è‘£äº‹é•¿', 1, '0', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(2, 'se', 'é¡¹ç›®ç»ç†', 2, '0', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(3, 'hr', 'äººåŠ›èµ„æº', 3, '0', 'admin', '2023-07-01 16:01:19', '', NULL, ''),
+(4, 'user', 'æ™®é€šå‘˜å·¥', 4, '0', 'admin', '2023-07-01 16:01:19', '', NULL, '');
 
-#
-# Structure for table "sys_role"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `sys_role`;
+--
+-- è¡¨çš„ç»“æ„ `sys_role`
+--
+
 CREATE TABLE `sys_role` (
-  `role_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '½ÇÉ«ID',
-  `role_name` varchar(30) COLLATE utf8mb4_bin NOT NULL COMMENT '½ÇÉ«Ãû³Æ',
-  `role_key` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT '½ÇÉ«È¨ÏŞ×Ö·û´®',
-  `role_sort` int(4) NOT NULL COMMENT 'ÏÔÊ¾Ë³Ğò',
-  `data_scope` char(1) COLLATE utf8mb4_bin DEFAULT '1' COMMENT 'Êı¾İ·¶Î§£¨1£ºÈ«²¿Êı¾İÈ¨ÏŞ 2£º×Ô¶¨Êı¾İÈ¨ÏŞ 3£º±¾²¿ÃÅÊı¾İÈ¨ÏŞ 4£º±¾²¿ÃÅ¼°ÒÔÏÂÊı¾İÈ¨ÏŞ£©',
-  `menu_check_strictly` tinyint(1) DEFAULT '1' COMMENT '²Ëµ¥Ê÷Ñ¡ÔñÏîÊÇ·ñ¹ØÁªÏÔÊ¾',
-  `dept_check_strictly` tinyint(1) DEFAULT '1' COMMENT '²¿ÃÅÊ÷Ñ¡ÔñÏîÊÇ·ñ¹ØÁªÏÔÊ¾',
-  `status` char(1) COLLATE utf8mb4_bin NOT NULL COMMENT '½ÇÉ«×´Ì¬£¨0Õı³£ 1Í£ÓÃ£©',
-  `del_flag` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'É¾³ı±êÖ¾£¨0´ú±í´æÔÚ 2´ú±íÉ¾³ı£©',
-  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '´´½¨Õß',
-  `create_time` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '¸üĞÂÕß',
-  `update_time` datetime DEFAULT NULL COMMENT '¸üĞÂÊ±¼ä',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '±¸×¢',
-  PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='½ÇÉ«ĞÅÏ¢±í';
+  `role_id` bigint(20) NOT NULL COMMENT 'è§’è‰²ID',
+  `role_name` varchar(30) COLLATE utf8mb4_bin NOT NULL COMMENT 'è§’è‰²åç§°',
+  `role_key` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'è§’è‰²æƒé™å­—ç¬¦ä¸²',
+  `role_sort` int(4) NOT NULL COMMENT 'æ˜¾ç¤ºé¡ºåº',
+  `data_scope` char(1) COLLATE utf8mb4_bin DEFAULT '1' COMMENT 'æ•°æ®èŒƒå›´ï¼ˆ1ï¼šå…¨éƒ¨æ•°æ®æƒé™ 2ï¼šè‡ªå®šæ•°æ®æƒé™ 3ï¼šæœ¬éƒ¨é—¨æ•°æ®æƒé™ 4ï¼šæœ¬éƒ¨é—¨åŠä»¥ä¸‹æ•°æ®æƒé™ï¼‰',
+  `menu_check_strictly` tinyint(1) DEFAULT '1' COMMENT 'èœå•æ ‘é€‰æ‹©é¡¹æ˜¯å¦å…³è”æ˜¾ç¤º',
+  `dept_check_strictly` tinyint(1) DEFAULT '1' COMMENT 'éƒ¨é—¨æ ‘é€‰æ‹©é¡¹æ˜¯å¦å…³è”æ˜¾ç¤º',
+  `status` char(1) COLLATE utf8mb4_bin NOT NULL COMMENT 'è§’è‰²çŠ¶æ€ï¼ˆ0æ­£å¸¸ 1åœç”¨ï¼‰',
+  `del_flag` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'åˆ é™¤æ ‡å¿—ï¼ˆ0ä»£è¡¨å­˜åœ¨ 2ä»£è¡¨åˆ é™¤ï¼‰',
+  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'åˆ›å»ºè€…',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ›´æ–°è€…',
+  `update_time` datetime DEFAULT NULL COMMENT 'æ›´æ–°æ—¶é—´',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¤‡æ³¨'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='è§’è‰²ä¿¡æ¯è¡¨';
 
-#
-# Data for table "sys_role"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_role`
+--
 
-INSERT INTO `sys_role` VALUES (1,'³¬¼¶¹ÜÀíÔ±','admin',1,'1',1,1,'0','0','admin','2023-07-01 16:01:19','',NULL,'³¬¼¶¹ÜÀíÔ±'),(2,'ÆÕÍ¨½ÇÉ«','common',2,'2',1,1,'0','0','admin','2023-07-01 16:01:19','',NULL,'ÆÕÍ¨½ÇÉ«');
+INSERT INTO `sys_role` (`role_id`, `role_name`, `role_key`, `role_sort`, `data_scope`, `menu_check_strictly`, `dept_check_strictly`, `status`, `del_flag`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES
+(1, 'è¶…çº§ç®¡ç†å‘˜', 'admin', 1, '1', 1, 1, '0', '0', 'admin', '2023-07-01 16:01:19', '', NULL, 'è¶…çº§ç®¡ç†å‘˜'),
+(2, 'æ™®é€šè§’è‰²', 'common', 2, '2', 1, 1, '0', '2', 'admin', '2023-07-01 16:01:19', '', NULL, 'æ™®é€šè§’è‰²'),
+(100, 'æ”¶è´¹ç®¡ç†å‘˜', 'RegFee', 0, '1', 1, 1, '0', '0', 'admin', '2023-07-01 16:21:33', 'admin', '2023-07-01 16:33:15', NULL),
+(101, 'é—¨è¯ŠåŒ»ç”Ÿ', 'Doctor', 0, '1', 1, 1, '0', '0', 'admin', '2023-07-01 16:22:33', 'admin', '2023-07-01 16:33:21', NULL),
+(102, 'åŒ»æŠ€åŒ»ç”Ÿ', 'TechDoctor', 0, '1', 1, 1, '0', '0', 'admin', '2023-07-01 16:22:42', 'admin', '2023-07-01 16:33:28', NULL),
+(103, 'è¯æˆ¿ç®¡ç†å‘˜', 'PhaAdmin', 0, '1', 1, 1, '0', '0', 'admin', '2023-07-01 16:22:52', 'admin', '2023-07-01 16:33:35', NULL),
+(104, 'è´¢åŠ¡ç®¡ç†å‘˜', 'FinaAdmin', 0, '1', 1, 1, '0', '0', 'admin', '2023-07-01 16:23:02', 'admin', '2023-07-01 16:33:41', NULL),
+(105, 'ç³»ç»Ÿç®¡ç†å‘˜', 'SysAdmin', 0, '1', 1, 1, '0', '0', 'admin', '2023-07-01 16:23:09', 'admin', '2023-07-01 16:33:52', NULL);
 
-#
-# Structure for table "sys_role_dept"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `sys_role_dept`;
+--
+-- è¡¨çš„ç»“æ„ `sys_role_dept`
+--
+
 CREATE TABLE `sys_role_dept` (
-  `role_id` bigint(20) NOT NULL COMMENT '½ÇÉ«ID',
-  `dept_id` bigint(20) NOT NULL COMMENT '²¿ÃÅID',
-  PRIMARY KEY (`role_id`,`dept_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='½ÇÉ«ºÍ²¿ÃÅ¹ØÁª±í';
+  `role_id` bigint(20) NOT NULL COMMENT 'è§’è‰²ID',
+  `dept_id` bigint(20) NOT NULL COMMENT 'éƒ¨é—¨ID'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='è§’è‰²å’Œéƒ¨é—¨å…³è”è¡¨';
 
-#
-# Data for table "sys_role_dept"
-#
+-- --------------------------------------------------------
 
-INSERT INTO `sys_role_dept` VALUES (2,100),(2,101),(2,105);
+--
+-- è¡¨çš„ç»“æ„ `sys_role_menu`
+--
 
-#
-# Structure for table "sys_role_menu"
-#
-
-DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE `sys_role_menu` (
-  `role_id` bigint(20) NOT NULL COMMENT '½ÇÉ«ID',
-  `menu_id` bigint(20) NOT NULL COMMENT '²Ëµ¥ID',
-  PRIMARY KEY (`role_id`,`menu_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='½ÇÉ«ºÍ²Ëµ¥¹ØÁª±í';
+  `role_id` bigint(20) NOT NULL COMMENT 'è§’è‰²ID',
+  `menu_id` bigint(20) NOT NULL COMMENT 'èœå•ID'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='è§’è‰²å’Œèœå•å…³è”è¡¨';
 
-#
-# Data for table "sys_role_menu"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_role_menu`
+--
 
-INSERT INTO `sys_role_menu` VALUES (2,1),(2,2),(2,3),(2,4),(2,100),(2,101),(2,102),(2,103),(2,104),(2,105),(2,106),(2,107),(2,108),(2,109),(2,110),(2,111),(2,112),(2,113),(2,114),(2,115),(2,116),(2,117),(2,500),(2,501),(2,1000),(2,1001),(2,1002),(2,1003),(2,1004),(2,1005),(2,1006),(2,1007),(2,1008),(2,1009),(2,1010),(2,1011),(2,1012),(2,1013),(2,1014),(2,1015),(2,1016),(2,1017),(2,1018),(2,1019),(2,1020),(2,1021),(2,1022),(2,1023),(2,1024),(2,1025),(2,1026),(2,1027),(2,1028),(2,1029),(2,1030),(2,1031),(2,1032),(2,1033),(2,1034),(2,1035),(2,1036),(2,1037),(2,1038),(2,1039),(2,1040),(2,1041),(2,1042),(2,1043),(2,1044),(2,1045),(2,1046),(2,1047),(2,1048),(2,1049),(2,1050),(2,1051),(2,1052),(2,1053),(2,1054),(2,1055),(2,1056),(2,1057),(2,1058),(2,1059),(2,1060);
+INSERT INTO `sys_role_menu` (`role_id`, `menu_id`) VALUES
+(100, 2000),
+(100, 2001),
+(101, 2002),
+(101, 2003),
+(102, 2004),
+(102, 2005),
+(103, 2006),
+(103, 2007),
+(104, 2008),
+(104, 2009),
+(105, 1),
+(105, 100),
+(105, 1000),
+(105, 1001),
+(105, 1002),
+(105, 1003),
+(105, 1004),
+(105, 1005),
+(105, 1006),
+(105, 2010),
+(105, 2011);
 
-#
-# Structure for table "sys_user"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `sys_user`;
+--
+-- è¡¨çš„ç»“æ„ `sys_user`
+--
+
 CREATE TABLE `sys_user` (
-  `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ÓÃ»§ID',
-  `dept_id` bigint(20) DEFAULT NULL COMMENT '²¿ÃÅID',
-  `user_name` varchar(30) COLLATE utf8mb4_bin NOT NULL COMMENT 'ÓÃ»§ÕËºÅ',
-  `nick_name` varchar(30) COLLATE utf8mb4_bin NOT NULL COMMENT 'ÓÃ»§êÇ³Æ',
-  `user_type` varchar(2) COLLATE utf8mb4_bin DEFAULT '00' COMMENT 'ÓÃ»§ÀàĞÍ£¨00ÏµÍ³ÓÃ»§£©',
-  `email` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ÓÃ»§ÓÊÏä',
-  `phonenumber` varchar(11) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ÊÖ»úºÅÂë',
-  `sex` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'ÓÃ»§ĞÔ±ğ£¨0ÄĞ 1Å® 2Î´Öª£©',
-  `avatar` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'Í·ÏñµØÖ·',
-  `password` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ÃÜÂë',
-  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'ÕÊºÅ×´Ì¬£¨0Õı³£ 1Í£ÓÃ£©',
-  `del_flag` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'É¾³ı±êÖ¾£¨0´ú±í´æÔÚ 2´ú±íÉ¾³ı£©',
-  `login_ip` varchar(128) COLLATE utf8mb4_bin DEFAULT '' COMMENT '×îºóµÇÂ¼IP',
-  `login_date` datetime DEFAULT NULL COMMENT '×îºóµÇÂ¼Ê±¼ä',
-  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '´´½¨Õß',
-  `create_time` datetime DEFAULT NULL COMMENT '´´½¨Ê±¼ä',
-  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT '¸üĞÂÕß',
-  `update_time` datetime DEFAULT NULL COMMENT '¸üĞÂÊ±¼ä',
-  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '±¸×¢',
-  PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ÓÃ»§ĞÅÏ¢±í';
+  `user_id` bigint(20) NOT NULL COMMENT 'ç”¨æˆ·ID',
+  `dept_id` bigint(20) DEFAULT NULL COMMENT 'éƒ¨é—¨ID',
+  `user_name` varchar(30) COLLATE utf8mb4_bin NOT NULL COMMENT 'ç”¨æˆ·è´¦å·',
+  `nick_name` varchar(30) COLLATE utf8mb4_bin NOT NULL COMMENT 'ç”¨æˆ·æ˜µç§°',
+  `user_type` varchar(2) COLLATE utf8mb4_bin DEFAULT '00' COMMENT 'ç”¨æˆ·ç±»å‹ï¼ˆ00ç³»ç»Ÿç”¨æˆ·ï¼‰',
+  `email` varchar(50) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'ç”¨æˆ·é‚®ç®±',
+  `phonenumber` varchar(11) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ‰‹æœºå·ç ',
+  `sex` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'ç”¨æˆ·æ€§åˆ«ï¼ˆ0ç”· 1å¥³ 2æœªçŸ¥ï¼‰',
+  `avatar` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å¤´åƒåœ°å€',
+  `password` varchar(100) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'å¯†ç ',
+  `status` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'å¸å·çŠ¶æ€ï¼ˆ0æ­£å¸¸ 1åœç”¨ï¼‰',
+  `del_flag` char(1) COLLATE utf8mb4_bin DEFAULT '0' COMMENT 'åˆ é™¤æ ‡å¿—ï¼ˆ0ä»£è¡¨å­˜åœ¨ 2ä»£è¡¨åˆ é™¤ï¼‰',
+  `login_ip` varchar(128) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æœ€åç™»å½•IP',
+  `login_date` datetime DEFAULT NULL COMMENT 'æœ€åç™»å½•æ—¶é—´',
+  `create_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'åˆ›å»ºè€…',
+  `create_time` datetime DEFAULT NULL COMMENT 'åˆ›å»ºæ—¶é—´',
+  `update_by` varchar(64) COLLATE utf8mb4_bin DEFAULT '' COMMENT 'æ›´æ–°è€…',
+  `update_time` datetime DEFAULT NULL COMMENT 'æ›´æ–°æ—¶é—´',
+  `remark` varchar(500) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¤‡æ³¨'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ç”¨æˆ·ä¿¡æ¯è¡¨';
 
-#
-# Data for table "sys_user"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_user`
+--
 
-INSERT INTO `sys_user` VALUES (1,103,'admin','ÈôÒÀ','00','ry@163.com','15888888888','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2023-07-01 16:01:19','admin','2023-07-01 16:01:19','',NULL,'¹ÜÀíÔ±'),(2,105,'ry','ÈôÒÀ','00','ry@qq.com','15666666666','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2023-07-01 16:01:19','admin','2023-07-01 16:01:19','',NULL,'²âÊÔÔ±');
+INSERT INTO `sys_user` (`user_id`, `dept_id`, `user_name`, `nick_name`, `user_type`, `email`, `phonenumber`, `sex`, `avatar`, `password`, `status`, `del_flag`, `login_ip`, `login_date`, `create_by`, `create_time`, `update_by`, `update_time`, `remark`) VALUES
+(1, 103, 'admin', 'è‹¥ä¾', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2023-07-01 16:19:41', 'admin', '2023-07-01 16:01:19', '', '2023-07-01 16:19:41', 'ç®¡ç†å‘˜'),
+(2, 105, 'ry', 'è‹¥ä¾', '00', 'ry@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '2', '127.0.0.1', '2023-07-01 16:01:19', 'admin', '2023-07-01 16:01:19', '', NULL, 'æµ‹è¯•å‘˜'),
+(100, NULL, 'RegFee', 'æ”¶è´¹ç®¡ç†å‘˜', '00', '', '', '0', '', '$2a$10$cYVHURym62g.fGcO3rCGCeHzpXxs7GydNvLOO41ZFVvgB0gXQ0g1q', '0', '0', '', NULL, 'admin', '2023-07-01 16:34:54', '', NULL, NULL),
+(101, NULL, 'Doctor', 'Doctor', '00', '', '', '0', '', '$2a$10$4etZeADJrC6M1v6mc6UcbuJi6wISmm7FNcB3PZ261UIoRHUi9sNFa', '0', '0', '', NULL, 'admin', '2023-07-01 16:35:05', '', NULL, NULL),
+(102, NULL, 'TechDoctor', 'TechDoctor', '00', '', '', '0', '', '$2a$10$ivDKURWT7plGyAShS7CiXeM/NC0lnu53VNhUA7/0575au6MeZhlYq', '0', '0', '', NULL, 'admin', '2023-07-01 16:35:16', '', NULL, NULL),
+(103, NULL, 'PhaAdmin', 'PhaAdmin', '00', '', '', '0', '', '$2a$10$9PXtRGKpuqCIwY4ppIC1Ce5WapfNMAfCQVVVBwgdN/MNipWBgVmUK', '0', '0', '', NULL, 'admin', '2023-07-01 16:35:30', '', NULL, NULL),
+(104, NULL, 'FinaAdmin', 'FinaAdmin', '00', '', '', '0', '', '$2a$10$k9EnG1Nzr.M7mGZ.lLbG/ObeLWX0dGAtQgdfJYNQoN2MOcmtBOONi', '0', '0', '', NULL, 'admin', '2023-07-01 16:35:43', '', NULL, NULL),
+(105, NULL, 'SysAdmin', 'SysAdmin', '00', '', '', '0', '', '$2a$10$0a4LNSfV026tXMDTxPJR5O1NL3FqA/jHUselCgcjD4iF0GI0N5qIO', '0', '0', '', NULL, 'admin', '2023-07-01 16:35:55', '', NULL, NULL);
 
-#
-# Structure for table "sys_user_post"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `sys_user_post`;
+--
+-- è¡¨çš„ç»“æ„ `sys_user_post`
+--
+
 CREATE TABLE `sys_user_post` (
-  `user_id` bigint(20) NOT NULL COMMENT 'ÓÃ»§ID',
-  `post_id` bigint(20) NOT NULL COMMENT '¸ÚÎ»ID',
-  PRIMARY KEY (`user_id`,`post_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ÓÃ»§Óë¸ÚÎ»¹ØÁª±í';
+  `user_id` bigint(20) NOT NULL COMMENT 'ç”¨æˆ·ID',
+  `post_id` bigint(20) NOT NULL COMMENT 'å²—ä½ID'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ç”¨æˆ·ä¸å²—ä½å…³è”è¡¨';
 
-#
-# Data for table "sys_user_post"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_user_post`
+--
 
-INSERT INTO `sys_user_post` VALUES (1,1),(2,2);
+INSERT INTO `sys_user_post` (`user_id`, `post_id`) VALUES
+(1, 1);
 
-#
-# Structure for table "sys_user_role"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `sys_user_role`;
+--
+-- è¡¨çš„ç»“æ„ `sys_user_role`
+--
+
 CREATE TABLE `sys_user_role` (
-  `user_id` bigint(20) NOT NULL COMMENT 'ÓÃ»§ID',
-  `role_id` bigint(20) NOT NULL COMMENT '½ÇÉ«ID',
-  PRIMARY KEY (`user_id`,`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ÓÃ»§ºÍ½ÇÉ«¹ØÁª±í';
+  `user_id` bigint(20) NOT NULL COMMENT 'ç”¨æˆ·ID',
+  `role_id` bigint(20) NOT NULL COMMENT 'è§’è‰²ID'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ç”¨æˆ·å’Œè§’è‰²å…³è”è¡¨';
 
-#
-# Data for table "sys_user_role"
-#
+--
+-- è½¬å­˜è¡¨ä¸­çš„æ•°æ® `sys_user_role`
+--
 
-INSERT INTO `sys_user_role` VALUES (1,1),(2,2);
+INSERT INTO `sys_user_role` (`user_id`, `role_id`) VALUES
+(1, 1),
+(100, 100),
+(101, 101),
+(102, 102),
+(103, 103),
+(104, 104),
+(105, 105);
 
-#
-# Structure for table "user"
-#
+-- --------------------------------------------------------
 
-DROP TABLE IF EXISTS `user`;
+--
+-- è¡¨çš„ç»“æ„ `user`
+--
+
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL COMMENT 'id',
-  `UserName` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'µÇÂ¼Ãû',
-  `Password` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÃÜÂë',
-  `RealName` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'ÕæÊµĞÕÃû',
-  `UserTypeID` bigint(20) DEFAULT NULL COMMENT '1 - ¹ÒºÅÈËÔ±\r\n            2 - ÃÅÕïÒ½Éú\r\n            3 - Ò½¼¼Ò½Éú\r\n            4 - Ò©·¿ÈËÔ±\r\n            5 - ²ÆÎñÈËÔ±\r\n            6 - ĞĞÕşÈËÔ±\r\n            ',
-  `DocTitleID` bigint(20) DEFAULT NULL COMMENT 'Ò½ÉúÖ°³Æ',
-  `IsScheduling` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'ÊÇ·ñÅÅ°à',
-  `DeptId` bigint(20) NOT NULL COMMENT 'ËùÔÚ¿ÆÊÒID',
-  `RegistId` bigint(20) DEFAULT NULL COMMENT '¹ÒºÅ¼¶±ğID',
-  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'É¾³ı±ê¼Ç',
-  PRIMARY KEY (`id`),
-  KEY `FK_¿ÆÊÒid` (`DeptId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ÓÃ»§±í(Ò½ÔºÔ±¹¤±í)';
+  `UserName` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'ç™»å½•å',
+  `Password` varchar(100) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'å¯†ç ',
+  `RealName` varchar(100) COLLATE utf8mb4_bin NOT NULL COMMENT 'çœŸå®å§“å',
+  `UserTypeID` bigint(20) DEFAULT NULL COMMENT '1 - æŒ‚å·äººå‘˜\r\n            2 - é—¨è¯ŠåŒ»ç”Ÿ\r\n            3 - åŒ»æŠ€åŒ»ç”Ÿ\r\n            4 - è¯æˆ¿äººå‘˜\r\n            5 - è´¢åŠ¡äººå‘˜\r\n            6 - è¡Œæ”¿äººå‘˜\r\n            ',
+  `DocTitleID` bigint(20) DEFAULT NULL COMMENT 'åŒ»ç”ŸèŒç§°',
+  `IsScheduling` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'æ˜¯å¦æ’ç­',
+  `DeptId` bigint(20) NOT NULL COMMENT 'æ‰€åœ¨ç§‘å®¤ID',
+  `RegistId` bigint(20) DEFAULT NULL COMMENT 'æŒ‚å·çº§åˆ«ID',
+  `DelMark` char(1) COLLATE utf8mb4_bin DEFAULT NULL COMMENT 'åˆ é™¤æ ‡è®°'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ç”¨æˆ·è¡¨(åŒ»é™¢å‘˜å·¥è¡¨)';
 
-#
-# Data for table "user"
-#
+-- --------------------------------------------------------
 
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+--
+-- è¡¨çš„ç»“æ„ `ç—…å†ç–¾ç—…è¯Šæ–­`
+--
 
-#
-# Structure for table "²¡Àú¼²²¡Õï¶Ï"
-#
-
-DROP TABLE IF EXISTS `²¡Àú¼²²¡Õï¶Ï`;
-CREATE TABLE `²¡Àú¼²²¡Õï¶Ï` (
+CREATE TABLE `ç—…å†ç–¾ç—…è¯Šæ–­` (
   `id` bigint(20) DEFAULT NULL COMMENT 'id',
-  `MedicalId` bigint(20) DEFAULT NULL COMMENT '²¡Àúid',
-  `DrugId` bigint(20) DEFAULT NULL COMMENT '¼²²¡id',
-  `state` bigint(20) DEFAULT NULL COMMENT '×´Ì¬',
-  KEY `FK_Reference_38` (`MedicalId`),
-  KEY `FK_Reference_39` (`DrugId`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='²¡Àú¼²²¡Õï¶Ï';
+  `MedicalId` bigint(20) DEFAULT NULL COMMENT 'ç—…å†id',
+  `DrugId` bigint(20) DEFAULT NULL COMMENT 'ç–¾ç—…id',
+  `state` bigint(20) DEFAULT NULL COMMENT 'çŠ¶æ€'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='ç—…å†ç–¾ç—…è¯Šæ–­';
 
-#
-# Data for table "²¡Àú¼²²¡Õï¶Ï"
-#
+--
+-- è½¬å‚¨è¡¨çš„ç´¢å¼•
+--
 
-/*!40000 ALTER TABLE `²¡Àú¼²²¡Õï¶Ï` DISABLE KEYS */;
-/*!40000 ALTER TABLE `²¡Àú¼²²¡Õï¶Ï` ENABLE KEYS */;
+--
+-- è¡¨çš„ç´¢å¼• `checkapply`
+--
+ALTER TABLE `checkapply`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_ç—…å†id` (`Medical_Id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `checkdetailed`
+--
+ALTER TABLE `checkdetailed`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_æ£€æŸ¥äººå‘˜id` (`UserId`),
+  ADD KEY `FK_æ£€æŸ¥ç§‘å®¤id` (`DeptId`),
+  ADD KEY `FK_ç”³è¯·id` (`CheckAppId`),
+  ADD KEY `FK_é¡¹ç›®id` (`CheckProjId`);
+
+--
+-- è¡¨çš„ç´¢å¼• `checkrelation`
+--
+ALTER TABLE `checkrelation`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_æ£€æŸ¥id` (`CheckProjId`),
+  ADD KEY `FK_æ¨¡æ¿id` (`CheckTempId`);
+
+--
+-- è¡¨çš„ç´¢å¼• `checktemplate`
+--
+ALTER TABLE `checktemplate`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_åŒ»ç”Ÿid` (`UserId`);
+
+--
+-- è¡¨çš„ç´¢å¼• `constantitem`
+--
+ALTER TABLE `constantitem`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_å¸¸æ•°ç±»åˆ«` (`ConstantTypeId`);
+
+--
+-- è¡¨çš„ç´¢å¼• `constanttype`
+--
+ALTER TABLE `constanttype`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `disease`
+--
+ALTER TABLE `disease`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `drugs`
+--
+ALTER TABLE `drugs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `drugsdetailed`
+--
+ALTER TABLE `drugsdetailed`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_æˆè¯å“id` (`Drugs_Id`),
+  ADD KEY `FK_æˆè¯æ¨¡æ¿id` (`DrugsTemp_Id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `drugstemplate`
+--
+ALTER TABLE `drugstemplate`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_åŒ»ç”Ÿid` (`UserId`);
+
+--
+-- è¡¨çš„ç´¢å¼• `fmeditem`
+--
+ALTER TABLE `fmeditem`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_Reference_42` (`ExpClassID`),
+  ADD KEY `FK_æ‰§è¡Œç§‘å®¤id` (`DeptId`);
+
+--
+-- è¡¨çš„ç´¢å¼• `gen_table`
+--
+ALTER TABLE `gen_table`
+  ADD PRIMARY KEY (`table_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `gen_table_column`
+--
+ALTER TABLE `gen_table_column`
+  ADD PRIMARY KEY (`column_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `invoice`
+--
+ALTER TABLE `invoice`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_å¼€ç«‹äººå‘˜id` (`UserId`);
+
+--
+-- è¡¨çš„ç´¢å¼• `medicalrecord`
+--
+ALTER TABLE `medicalrecord`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_æŒ‚å·id` (`Register_Id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `patientcosts`
+--
+ALTER TABLE `patientcosts`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_å‘ç¥¨å·ç ` (`InvoiceId`),
+  ADD KEY `FK_æŒ‚å·id` (`RegisterId`);
+
+--
+-- è¡¨çš„ç´¢å¼• `prescription`
+--
+ALTER TABLE `prescription`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_å¼€ç«‹åŒ»ç”Ÿid` (`User_Id`),
+  ADD KEY `FK_ç—…å†id` (`Medical_Id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `qrtz_blob_triggers`
+--
+ALTER TABLE `qrtz_blob_triggers`
+  ADD PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`);
+
+--
+-- è¡¨çš„ç´¢å¼• `qrtz_calendars`
+--
+ALTER TABLE `qrtz_calendars`
+  ADD PRIMARY KEY (`sched_name`,`calendar_name`);
+
+--
+-- è¡¨çš„ç´¢å¼• `qrtz_cron_triggers`
+--
+ALTER TABLE `qrtz_cron_triggers`
+  ADD PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`);
+
+--
+-- è¡¨çš„ç´¢å¼• `qrtz_fired_triggers`
+--
+ALTER TABLE `qrtz_fired_triggers`
+  ADD PRIMARY KEY (`sched_name`,`entry_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `qrtz_job_details`
+--
+ALTER TABLE `qrtz_job_details`
+  ADD PRIMARY KEY (`sched_name`,`job_name`,`job_group`);
+
+--
+-- è¡¨çš„ç´¢å¼• `qrtz_locks`
+--
+ALTER TABLE `qrtz_locks`
+  ADD PRIMARY KEY (`sched_name`,`lock_name`);
+
+--
+-- è¡¨çš„ç´¢å¼• `qrtz_paused_trigger_grps`
+--
+ALTER TABLE `qrtz_paused_trigger_grps`
+  ADD PRIMARY KEY (`sched_name`,`trigger_group`);
+
+--
+-- è¡¨çš„ç´¢å¼• `qrtz_scheduler_state`
+--
+ALTER TABLE `qrtz_scheduler_state`
+  ADD PRIMARY KEY (`sched_name`,`instance_name`);
+
+--
+-- è¡¨çš„ç´¢å¼• `qrtz_simple_triggers`
+--
+ALTER TABLE `qrtz_simple_triggers`
+  ADD PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`);
+
+--
+-- è¡¨çš„ç´¢å¼• `qrtz_simprop_triggers`
+--
+ALTER TABLE `qrtz_simprop_triggers`
+  ADD PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`);
+
+--
+-- è¡¨çš„ç´¢å¼• `qrtz_triggers`
+--
+ALTER TABLE `qrtz_triggers`
+  ADD PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`),
+  ADD KEY `sched_name` (`sched_name`,`job_name`,`job_group`);
+
+--
+-- è¡¨çš„ç´¢å¼• `register`
+--
+ALTER TABLE `register`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_åŒ»ç”Ÿid` (`UserId`),
+  ADD KEY `FK_æŒ‚å·çº§åˆ«id` (`RegistId`),
+  ADD KEY `FK_ç»“ç®—ç±»åˆ«id` (`SettleID`);
+
+--
+-- è¡¨çš„ç´¢å¼• `registlevel`
+--
+ALTER TABLE `registlevel`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `registwork`
+--
+ALTER TABLE `registwork`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_å‘˜å·¥id` (`UserId`);
+
+--
+-- è¡¨çš„ç´¢å¼• `rule`
+--
+ALTER TABLE `rule`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_åŒ»ç”Ÿid` (`UserId`),
+  ADD KEY `FK_ç§‘å®¤id` (`DeptId`);
+
+--
+-- è¡¨çš„ç´¢å¼• `scheduling`
+--
+ALTER TABLE `scheduling`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_åŒ»ç”Ÿid` (`UserId`),
+  ADD KEY `FK_ç§‘å®¤id` (`DeptId`),
+  ADD KEY `FK_è§„åˆ™id` (`RuleId`);
+
+--
+-- è¡¨çš„ç´¢å¼• `settlecategory`
+--
+ALTER TABLE `settlecategory`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_config`
+--
+ALTER TABLE `sys_config`
+  ADD PRIMARY KEY (`config_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_dept`
+--
+ALTER TABLE `sys_dept`
+  ADD PRIMARY KEY (`dept_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_dict_data`
+--
+ALTER TABLE `sys_dict_data`
+  ADD PRIMARY KEY (`dict_code`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_dict_type`
+--
+ALTER TABLE `sys_dict_type`
+  ADD PRIMARY KEY (`dict_id`),
+  ADD UNIQUE KEY `dict_type` (`dict_type`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_job`
+--
+ALTER TABLE `sys_job`
+  ADD PRIMARY KEY (`job_id`,`job_name`,`job_group`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_job_log`
+--
+ALTER TABLE `sys_job_log`
+  ADD PRIMARY KEY (`job_log_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_logininfor`
+--
+ALTER TABLE `sys_logininfor`
+  ADD PRIMARY KEY (`info_id`),
+  ADD KEY `idx_sys_logininfor_s` (`status`),
+  ADD KEY `idx_sys_logininfor_lt` (`login_time`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_menu`
+--
+ALTER TABLE `sys_menu`
+  ADD PRIMARY KEY (`menu_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_notice`
+--
+ALTER TABLE `sys_notice`
+  ADD PRIMARY KEY (`notice_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_oper_log`
+--
+ALTER TABLE `sys_oper_log`
+  ADD PRIMARY KEY (`oper_id`),
+  ADD KEY `idx_sys_oper_log_bt` (`business_type`),
+  ADD KEY `idx_sys_oper_log_s` (`status`),
+  ADD KEY `idx_sys_oper_log_ot` (`oper_time`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_post`
+--
+ALTER TABLE `sys_post`
+  ADD PRIMARY KEY (`post_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_role`
+--
+ALTER TABLE `sys_role`
+  ADD PRIMARY KEY (`role_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_role_dept`
+--
+ALTER TABLE `sys_role_dept`
+  ADD PRIMARY KEY (`role_id`,`dept_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_role_menu`
+--
+ALTER TABLE `sys_role_menu`
+  ADD PRIMARY KEY (`role_id`,`menu_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_user`
+--
+ALTER TABLE `sys_user`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_user_post`
+--
+ALTER TABLE `sys_user_post`
+  ADD PRIMARY KEY (`user_id`,`post_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `sys_user_role`
+--
+ALTER TABLE `sys_user_role`
+  ADD PRIMARY KEY (`user_id`,`role_id`);
+
+--
+-- è¡¨çš„ç´¢å¼• `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_ç§‘å®¤id` (`DeptId`);
+
+--
+-- è¡¨çš„ç´¢å¼• `ç—…å†ç–¾ç—…è¯Šæ–­`
+--
+ALTER TABLE `ç—…å†ç–¾ç—…è¯Šæ–­`
+  ADD KEY `FK_Reference_38` (`MedicalId`),
+  ADD KEY `FK_Reference_39` (`DrugId`);
+
+--
+-- åœ¨å¯¼å‡ºçš„è¡¨ä½¿ç”¨AUTO_INCREMENT
+--
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `department`
+--
+ALTER TABLE `department`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id';
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `gen_table`
+--
+ALTER TABLE `gen_table`
+  MODIFY `table_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ç¼–å·';
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `gen_table_column`
+--
+ALTER TABLE `gen_table_column`
+  MODIFY `column_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ç¼–å·';
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `registlevel`
+--
+ALTER TABLE `registlevel`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id';
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `settlecategory`
+--
+ALTER TABLE `settlecategory`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'id';
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `sys_config`
+--
+ALTER TABLE `sys_config`
+  MODIFY `config_id` int(5) NOT NULL AUTO_INCREMENT COMMENT 'å‚æ•°ä¸»é”®', AUTO_INCREMENT=100;
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `sys_dept`
+--
+ALTER TABLE `sys_dept`
+  MODIFY `dept_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'éƒ¨é—¨id', AUTO_INCREMENT=200;
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `sys_dict_data`
+--
+ALTER TABLE `sys_dict_data`
+  MODIFY `dict_code` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'å­—å…¸ç¼–ç ', AUTO_INCREMENT=100;
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `sys_dict_type`
+--
+ALTER TABLE `sys_dict_type`
+  MODIFY `dict_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'å­—å…¸ä¸»é”®', AUTO_INCREMENT=100;
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `sys_job`
+--
+ALTER TABLE `sys_job`
+  MODIFY `job_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ä»»åŠ¡ID', AUTO_INCREMENT=100;
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `sys_job_log`
+--
+ALTER TABLE `sys_job_log`
+  MODIFY `job_log_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ä»»åŠ¡æ—¥å¿—ID';
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `sys_logininfor`
+--
+ALTER TABLE `sys_logininfor`
+  MODIFY `info_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'è®¿é—®ID', AUTO_INCREMENT=102;
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `sys_menu`
+--
+ALTER TABLE `sys_menu`
+  MODIFY `menu_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'èœå•ID', AUTO_INCREMENT=2012;
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `sys_notice`
+--
+ALTER TABLE `sys_notice`
+  MODIFY `notice_id` int(4) NOT NULL AUTO_INCREMENT COMMENT 'å…¬å‘ŠID', AUTO_INCREMENT=10;
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `sys_oper_log`
+--
+ALTER TABLE `sys_oper_log`
+  MODIFY `oper_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'æ—¥å¿—ä¸»é”®', AUTO_INCREMENT=140;
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `sys_post`
+--
+ALTER TABLE `sys_post`
+  MODIFY `post_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'å²—ä½ID', AUTO_INCREMENT=5;
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `sys_role`
+--
+ALTER TABLE `sys_role`
+  MODIFY `role_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'è§’è‰²ID', AUTO_INCREMENT=106;
+
+--
+-- ä½¿ç”¨è¡¨AUTO_INCREMENT `sys_user`
+--
+ALTER TABLE `sys_user`
+  MODIFY `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ç”¨æˆ·ID', AUTO_INCREMENT=106;
+
+--
+-- é™åˆ¶å¯¼å‡ºçš„è¡¨
+--
+
+--
+-- é™åˆ¶è¡¨ `qrtz_blob_triggers`
+--
+ALTER TABLE `qrtz_blob_triggers`
+  ADD CONSTRAINT `qrtz_blob_triggers_ibfk_1` FOREIGN KEY (`sched_name`,`trigger_name`,`trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`);
+
+--
+-- é™åˆ¶è¡¨ `qrtz_cron_triggers`
+--
+ALTER TABLE `qrtz_cron_triggers`
+  ADD CONSTRAINT `qrtz_cron_triggers_ibfk_1` FOREIGN KEY (`sched_name`,`trigger_name`,`trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`);
+
+--
+-- é™åˆ¶è¡¨ `qrtz_simple_triggers`
+--
+ALTER TABLE `qrtz_simple_triggers`
+  ADD CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`sched_name`,`trigger_name`,`trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`);
+
+--
+-- é™åˆ¶è¡¨ `qrtz_simprop_triggers`
+--
+ALTER TABLE `qrtz_simprop_triggers`
+  ADD CONSTRAINT `qrtz_simprop_triggers_ibfk_1` FOREIGN KEY (`sched_name`,`trigger_name`,`trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`);
+
+--
+-- é™åˆ¶è¡¨ `qrtz_triggers`
+--
+ALTER TABLE `qrtz_triggers`
+  ADD CONSTRAINT `qrtz_triggers_ibfk_1` FOREIGN KEY (`sched_name`,`job_name`,`job_group`) REFERENCES `qrtz_job_details` (`sched_name`, `job_name`, `job_group`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
