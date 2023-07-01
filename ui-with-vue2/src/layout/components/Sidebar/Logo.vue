@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      title: '项目管理系统',
+      title: 'HIS',
       logo: logoImg
     }
   }
