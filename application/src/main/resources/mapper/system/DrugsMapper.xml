@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jshand.system.mapper.DrugsMapper">
+
+    <resultMap type="Drugs" id="DrugsResult">
+            <result property="id" column="id"/>
+            <result property="drugsCode" column="Drugs_Code"/>
+            <result property="drugsName" column="Drugs_Name"/>
+            <result property="drugsFormat" column="Drugs_Format"/>
+            <result property="drugsUnit" column="Drugs_Unit"/>
+            <result property="manufacturer" column="Manufacturer"/>
+            <result property="drugsDosage" column="Drugs_Dosage"/>
+            <result property="drugsType" column="Drugs_Type"/>
+            <result property="drugsPrice" column="Drugs_Price"/>
+            <result property="mnemonicCode" column="Mnemonic_Code"/>
+            <result property="isDelete" column="is_delete"/>
+            <result property="remark" column="remark"/>
+            <result property="updateTime" column="update_time"/>
+            <result property="updateBy" column="update_by"/>
+            <result property="createBy" column="create_by"/>
+            <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectDrugsVo">
+        select id, Drugs_Code, Drugs_Name, Drugs_Format, Drugs_Unit, Manufacturer, Drugs_Dosage, Drugs_Type, Drugs_Price, Mnemonic_Code, is_delete, remark, update_time, update_by, create_by, create_time
+        from drugs
+    </sql>
+
+    <select id="selectDrugsList" parameterType="Drugs" resultMap="DrugsResult">
+        <include refid="selectDrugsVo"/>
+        <where>
+                        <if test="drugsCode != null  and drugsCode != ''">
+                            and Drugs_Code = #{drugsCode}
+                        </if>
+                        <if test="drugsName != null  and drugsName != ''">
+                            and Drugs_Name like concat('%', #{drugsName}, '%')
+                        </if>
+                        <if test="drugsFormat != null  and drugsFormat != ''">
+                            and Drugs_Format = #{drugsFormat}
+                        </if>
+                        <if test="drugsUnit != null  and drugsUnit != ''">
+                            and Drugs_Unit = #{drugsUnit}
+                        </if>
+                        <if test="manufacturer != null  and manufacturer != ''">
+                            and Manufacturer = #{manufacturer}
+                        </if>
+                        <if test="drugsDosage != null  and drugsDosage != ''">
+                            and Drugs_Dosage = #{drugsDosage}
+                        </if>
+                        <if test="drugsType != null  and drugsType != ''">
+                            and Drugs_Type = #{drugsType}
+                        </if>
+                        <if test="drugsPrice != null ">
+                            and Drugs_Price = #{drugsPrice}
+                        </if>
+                        <if test="mnemonicCode != null  and mnemonicCode != ''">
+                            and Mnemonic_Code = #{mnemonicCode}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectDrugsById" parameterType="Long"
+            resultMap="DrugsResult">
+            <include refid="selectDrugsVo"/>
+            where id = #{id}
+    </select>
+
+    <insert id="insertDrugs" parameterType="Drugs">
+        insert into drugs
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="id != null">id,
+                    </if>
+                    <if test="drugsCode != null">Drugs_Code,
+                    </if>
+                    <if test="drugsName != null">Drugs_Name,
+                    </if>
+                    <if test="drugsFormat != null">Drugs_Format,
+                    </if>
+                    <if test="drugsUnit != null">Drugs_Unit,
+                    </if>
+                    <if test="manufacturer != null">Manufacturer,
+                    </if>
+                    <if test="drugsDosage != null">Drugs_Dosage,
+                    </if>
+                    <if test="drugsType != null">Drugs_Type,
+                    </if>
+                    <if test="drugsPrice != null">Drugs_Price,
+                    </if>
+                    <if test="mnemonicCode != null">Mnemonic_Code,
+                    </if>
+                    <if test="isDelete != null">is_delete,
+                    </if>
+                    <if test="remark != null">remark,
+                    </if>
+                    <if test="updateTime != null">update_time,
+                    </if>
+                    <if test="updateBy != null">update_by,
+                    </if>
+                    <if test="createBy != null">create_by,
+                    </if>
+                    <if test="createTime != null">create_time,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="id != null">#{id},
+                    </if>
+                    <if test="drugsCode != null">#{drugsCode},
+                    </if>
+                    <if test="drugsName != null">#{drugsName},
+                    </if>
+                    <if test="drugsFormat != null">#{drugsFormat},
+                    </if>
+                    <if test="drugsUnit != null">#{drugsUnit},
+                    </if>
+                    <if test="manufacturer != null">#{manufacturer},
+                    </if>
+                    <if test="drugsDosage != null">#{drugsDosage},
+                    </if>
+                    <if test="drugsType != null">#{drugsType},
+                    </if>
+                    <if test="drugsPrice != null">#{drugsPrice},
+                    </if>
+                    <if test="mnemonicCode != null">#{mnemonicCode},
+                    </if>
+                    <if test="isDelete != null">#{isDelete},
+                    </if>
+                    <if test="remark != null">#{remark},
+                    </if>
+                    <if test="updateTime != null">#{updateTime},
+                    </if>
+                    <if test="updateBy != null">#{updateBy},
+                    </if>
+                    <if test="createBy != null">#{createBy},
+                    </if>
+                    <if test="createTime != null">#{createTime},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updateDrugs" parameterType="Drugs">
+        update drugs
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="drugsCode != null">Drugs_Code =
+                        #{drugsCode},
+                    </if>
+                    <if test="drugsName != null">Drugs_Name =
+                        #{drugsName},
+                    </if>
+                    <if test="drugsFormat != null">Drugs_Format =
+                        #{drugsFormat},
+                    </if>
+                    <if test="drugsUnit != null">Drugs_Unit =
+                        #{drugsUnit},
+                    </if>
+                    <if test="manufacturer != null">Manufacturer =
+                        #{manufacturer},
+                    </if>
+                    <if test="drugsDosage != null">Drugs_Dosage =
+                        #{drugsDosage},
+                    </if>
+                    <if test="drugsType != null">Drugs_Type =
+                        #{drugsType},
+                    </if>
+                    <if test="drugsPrice != null">Drugs_Price =
+                        #{drugsPrice},
+                    </if>
+                    <if test="mnemonicCode != null">Mnemonic_Code =
+                        #{mnemonicCode},
+                    </if>
+                    <if test="isDelete != null">is_delete =
+                        #{isDelete},
+                    </if>
+                    <if test="remark != null">remark =
+                        #{remark},
+                    </if>
+                    <if test="updateTime != null">update_time =
+                        #{updateTime},
+                    </if>
+                    <if test="updateBy != null">update_by =
+                        #{updateBy},
+                    </if>
+                    <if test="createBy != null">create_by =
+                        #{createBy},
+                    </if>
+                    <if test="createTime != null">create_time =
+                        #{createTime},
+                    </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteDrugsById" parameterType="Long">
+        delete
+        from drugs where id = #{id}
+    </delete>
+
+    <delete id="deleteDrugsByIds" parameterType="String">
+        delete from drugs where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
