@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jshand.module.system.mapper.DepartmentMapper">
+
+    <resultMap type="Department" id="DepartmentResult">
+            <result property="id" column="ID"/>
+            <result property="deptcode" column="DeptCode"/>
+            <result property="deptname" column="DeptName"/>
+            <result property="deptcategoryid" column="DeptCategoryID"/>
+            <result property="depttype" column="DeptType"/>
+            <result property="isDelete" column="is_delete"/>
+            <result property="remark" column="remark"/>
+            <result property="updateTime" column="update_time"/>
+            <result property="updateBy" column="update_by"/>
+            <result property="createBy" column="create_by"/>
+            <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectDepartmentVo">
+        select ID, DeptCode, DeptName, DeptCategoryID, DeptType, is_delete, remark, update_time, update_by, create_by, create_time
+        from department
+    </sql>
+
+    <select id="selectDepartmentList" parameterType="Department" resultMap="DepartmentResult">
+        <include refid="selectDepartmentVo"/>
+        <where>
+                        <if test="deptcode != null  and deptcode != ''">
+                            and DeptCode = #{deptcode}
+                        </if>
+                        <if test="deptname != null  and deptname != ''">
+                            and DeptName like concat('%', #{deptname}, '%')
+                        </if>
+                        <if test="deptcategoryid != null ">
+                            and DeptCategoryID = #{deptcategoryid}
+                        </if>
+                        <if test="depttype != null ">
+                            and DeptType = #{depttype}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectDepartmentById" parameterType="Long"
+            resultMap="DepartmentResult">
+            <include refid="selectDepartmentVo"/>
+            where ID = #{id}
+    </select>
+
+    <insert id="insertDepartment" parameterType="Department" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into department
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="deptcode != null and deptcode != ''">DeptCode,
+                    </if>
+                    <if test="deptname != null and deptname != ''">DeptName,
+                    </if>
+                    <if test="deptcategoryid != null">DeptCategoryID,
+                    </if>
+                    <if test="depttype != null">DeptType,
+                    </if>
+                    <if test="isDelete != null">is_delete,
+                    </if>
+                    <if test="remark != null">remark,
+                    </if>
+                    <if test="updateTime != null">update_time,
+                    </if>
+                    <if test="updateBy != null">update_by,
+                    </if>
+                    <if test="createBy != null">create_by,
+                    </if>
+                    <if test="createTime != null">create_time,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="deptcode != null and deptcode != ''">#{deptcode},
+                    </if>
+                    <if test="deptname != null and deptname != ''">#{deptname},
+                    </if>
+                    <if test="deptcategoryid != null">#{deptcategoryid},
+                    </if>
+                    <if test="depttype != null">#{depttype},
+                    </if>
+                    <if test="isDelete != null">#{isDelete},
+                    </if>
+                    <if test="remark != null">#{remark},
+                    </if>
+                    <if test="updateTime != null">#{updateTime},
+                    </if>
+                    <if test="updateBy != null">#{updateBy},
+                    </if>
+                    <if test="createBy != null">#{createBy},
+                    </if>
+                    <if test="createTime != null">#{createTime},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updateDepartment" parameterType="Department">
+        update department
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="deptcode != null and deptcode != ''">DeptCode =
+                        #{deptcode},
+                    </if>
+                    <if test="deptname != null and deptname != ''">DeptName =
+                        #{deptname},
+                    </if>
+                    <if test="deptcategoryid != null">DeptCategoryID =
+                        #{deptcategoryid},
+                    </if>
+                    <if test="depttype != null">DeptType =
+                        #{depttype},
+                    </if>
+                    <if test="isDelete != null">is_delete =
+                        #{isDelete},
+                    </if>
+                    <if test="remark != null">remark =
+                        #{remark},
+                    </if>
+                    <if test="updateTime != null">update_time =
+                        #{updateTime},
+                    </if>
+                    <if test="updateBy != null">update_by =
+                        #{updateBy},
+                    </if>
+                    <if test="createBy != null">create_by =
+                        #{createBy},
+                    </if>
+                    <if test="createTime != null">create_time =
+                        #{createTime},
+                    </if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteDepartmentById" parameterType="Long">
+        delete
+        from department where ID = #{id}
+    </delete>
+
+    <delete id="deleteDepartmentByIds" parameterType="String">
+        delete from department where ID in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
