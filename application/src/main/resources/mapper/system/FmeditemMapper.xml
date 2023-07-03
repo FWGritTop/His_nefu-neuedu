@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jshand.system.mapper.FmeditemMapper">
+
+    <resultMap type="Fmeditem" id="FmeditemResult">
+            <result property="id" column="ID"/>
+            <result property="itemcode" column="ItemCode"/>
+            <result property="itemname" column="ItemName"/>
+            <result property="format" column="Format"/>
+            <result property="price" column="Price"/>
+            <result property="expclassid" column="ExpClassID"/>
+            <result property="deptid" column="DeptID"/>
+            <result property="mnemoniccode" column="MnemonicCode"/>
+            <result property="creationdate" column="CreationDate"/>
+            <result property="lastupdatedate" column="LastUpdateDate"/>
+            <result property="recordtype" column="RecordType"/>
+            <result property="delmark" column="DelMark"/>
+            <result property="isDelete" column="is_delete"/>
+            <result property="remark" column="remark"/>
+            <result property="updateTime" column="update_time"/>
+            <result property="updateBy" column="update_by"/>
+            <result property="createBy" column="create_by"/>
+            <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectFmeditemVo">
+        select ID, ItemCode, ItemName, Format, Price, ExpClassID, DeptID, MnemonicCode, CreationDate, LastUpdateDate, RecordType, DelMark, is_delete, remark, update_time, update_by, create_by, create_time
+        from fmeditem
+    </sql>
+
+    <select id="selectFmeditemList" parameterType="Fmeditem" resultMap="FmeditemResult">
+        <include refid="selectFmeditemVo"/>
+        <where>
+                        <if test="itemcode != null  and itemcode != ''">
+                            and ItemCode = #{itemcode}
+                        </if>
+                        <if test="itemname != null  and itemname != ''">
+                            and ItemName like concat('%', #{itemname}, '%')
+                        </if>
+                        <if test="format != null  and format != ''">
+                            and Format = #{format}
+                        </if>
+                        <if test="price != null ">
+                            and Price = #{price}
+                        </if>
+                        <if test="expclassid != null ">
+                            and ExpClassID = #{expclassid}
+                        </if>
+                        <if test="deptid != null ">
+                            and DeptID = #{deptid}
+                        </if>
+                        <if test="mnemoniccode != null  and mnemoniccode != ''">
+                            and MnemonicCode = #{mnemoniccode}
+                        </if>
+                        <if test="recordtype != null ">
+                            and RecordType = #{recordtype}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectFmeditemById" parameterType="Long"
+            resultMap="FmeditemResult">
+            <include refid="selectFmeditemVo"/>
+            where ID = #{id}
+    </select>
+
+    <insert id="insertFmeditem" parameterType="Fmeditem" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into fmeditem
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="itemcode != null and itemcode != ''">ItemCode,
+                    </if>
+                    <if test="itemname != null and itemname != ''">ItemName,
+                    </if>
+                    <if test="format != null">Format,
+                    </if>
+                    <if test="price != null">Price,
+                    </if>
+                    <if test="expclassid != null">ExpClassID,
+                    </if>
+                    <if test="deptid != null">DeptID,
+                    </if>
+                    <if test="mnemoniccode != null">MnemonicCode,
+                    </if>
+                    <if test="creationdate != null">CreationDate,
+                    </if>
+                    <if test="lastupdatedate != null">LastUpdateDate,
+                    </if>
+                    <if test="recordtype != null">RecordType,
+                    </if>
+                    <if test="delmark != null">DelMark,
+                    </if>
+                    <if test="isDelete != null">is_delete,
+                    </if>
+                    <if test="remark != null">remark,
+                    </if>
+                    <if test="updateTime != null">update_time,
+                    </if>
+                    <if test="updateBy != null">update_by,
+                    </if>
+                    <if test="createBy != null">create_by,
+                    </if>
+                    <if test="createTime != null">create_time,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="itemcode != null and itemcode != ''">#{itemcode},
+                    </if>
+                    <if test="itemname != null and itemname != ''">#{itemname},
+                    </if>
+                    <if test="format != null">#{format},
+                    </if>
+                    <if test="price != null">#{price},
+                    </if>
+                    <if test="expclassid != null">#{expclassid},
+                    </if>
+                    <if test="deptid != null">#{deptid},
+                    </if>
+                    <if test="mnemoniccode != null">#{mnemoniccode},
+                    </if>
+                    <if test="creationdate != null">#{creationdate},
+                    </if>
+                    <if test="lastupdatedate != null">#{lastupdatedate},
+                    </if>
+                    <if test="recordtype != null">#{recordtype},
+                    </if>
+                    <if test="delmark != null">#{delmark},
+                    </if>
+                    <if test="isDelete != null">#{isDelete},
+                    </if>
+                    <if test="remark != null">#{remark},
+                    </if>
+                    <if test="updateTime != null">#{updateTime},
+                    </if>
+                    <if test="updateBy != null">#{updateBy},
+                    </if>
+                    <if test="createBy != null">#{createBy},
+                    </if>
+                    <if test="createTime != null">#{createTime},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updateFmeditem" parameterType="Fmeditem">
+        update fmeditem
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="itemcode != null and itemcode != ''">ItemCode =
+                        #{itemcode},
+                    </if>
+                    <if test="itemname != null and itemname != ''">ItemName =
+                        #{itemname},
+                    </if>
+                    <if test="format != null">Format =
+                        #{format},
+                    </if>
+                    <if test="price != null">Price =
+                        #{price},
+                    </if>
+                    <if test="expclassid != null">ExpClassID =
+                        #{expclassid},
+                    </if>
+                    <if test="deptid != null">DeptID =
+                        #{deptid},
+                    </if>
+                    <if test="mnemoniccode != null">MnemonicCode =
+                        #{mnemoniccode},
+                    </if>
+                    <if test="creationdate != null">CreationDate =
+                        #{creationdate},
+                    </if>
+                    <if test="lastupdatedate != null">LastUpdateDate =
+                        #{lastupdatedate},
+                    </if>
+                    <if test="recordtype != null">RecordType =
+                        #{recordtype},
+                    </if>
+                    <if test="delmark != null">DelMark =
+                        #{delmark},
+                    </if>
+                    <if test="isDelete != null">is_delete =
+                        #{isDelete},
+                    </if>
+                    <if test="remark != null">remark =
+                        #{remark},
+                    </if>
+                    <if test="updateTime != null">update_time =
+                        #{updateTime},
+                    </if>
+                    <if test="updateBy != null">update_by =
+                        #{updateBy},
+                    </if>
+                    <if test="createBy != null">create_by =
+                        #{createBy},
+                    </if>
+                    <if test="createTime != null">create_time =
+                        #{createTime},
+                    </if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deleteFmeditemById" parameterType="Long">
+        delete
+        from fmeditem where ID = #{id}
+    </delete>
+
+    <delete id="deleteFmeditemByIds" parameterType="String">
+        delete from fmeditem where ID in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -50,5 +50,21 @@ root
 
  # 怎么样正确导入包
  1. 选取表
-   
- 2. 
+   生产代码
+ 2. 执行sql语句
+ 3. 导入前后端文件
+ 4. 后端修改sysTest--  register
+ 5. 后端导入包array
+ 6. 后端导入包base···
+ 7. 前端row修改成records
+ 8. 修改页数选项
+```html
+<el-pagination
+        @size-change="getList"
+        @current-change="getList"
+        :current-page.sync="queryParams.current" 
+        :page-size.sync= "queryParams.size"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="total"
+      ></el-pagination>
+```
