@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jshand.system.mapper.PrescriptionMapper">
+
+    <resultMap type="Prescription" id="PrescriptionResult">
+            <result property="id" column="id"/>
+            <result property="medicalId" column="Medical_Id"/>
+            <result property="userId" column="User_Id"/>
+            <result property="prescriptionName" column="Prescription_Name"/>
+            <result property="prescriptionState" column="Prescription_State"/>
+            <result property="prescriptionTime" column="Prescription_Time"/>
+            <result property="invoiceId" column="Invoice_id"/>
+            <result property="delmark" column="DelMark"/>
+            <result property="isDelete" column="is_delete"/>
+            <result property="remark" column="remark"/>
+            <result property="updateTime" column="update_time"/>
+            <result property="updateBy" column="update_by"/>
+            <result property="createBy" column="create_by"/>
+            <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectPrescriptionVo">
+        select id, Medical_Id, User_Id, Prescription_Name, Prescription_State, Prescription_Time, Invoice_id, DelMark, is_delete, remark, update_time, update_by, create_by, create_time
+        from prescription
+    </sql>
+
+    <select id="selectPrescriptionList" parameterType="Prescription" resultMap="PrescriptionResult">
+        <include refid="selectPrescriptionVo"/>
+        <where>
+                        <if test="medicalId != null ">
+                            and Medical_Id = #{medicalId}
+                        </if>
+                        <if test="userId != null ">
+                            and User_Id = #{userId}
+                        </if>
+                        <if test="prescriptionName != null  and prescriptionName != ''">
+                            and Prescription_Name like concat('%', #{prescriptionName}, '%')
+                        </if>
+                        <if test="prescriptionState != null ">
+                            and Prescription_State = #{prescriptionState}
+                        </if>
+                        <if test="prescriptionTime != null ">
+                            and Prescription_Time = #{prescriptionTime}
+                        </if>
+                        <if test="invoiceId != null  and invoiceId != ''">
+                            and Invoice_id = #{invoiceId}
+                        </if>
+                        <if test="delmark != null  and delmark != ''">
+                            and DelMark = #{delmark}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectPrescriptionById" parameterType="Long"
+            resultMap="PrescriptionResult">
+            <include refid="selectPrescriptionVo"/>
+            where id = #{id}
+    </select>
+
+    <insert id="insertPrescription" parameterType="Prescription">
+        insert into prescription
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="id != null">id,
+                    </if>
+                    <if test="medicalId != null">Medical_Id,
+                    </if>
+                    <if test="userId != null">User_Id,
+                    </if>
+                    <if test="prescriptionName != null">Prescription_Name,
+                    </if>
+                    <if test="prescriptionState != null">Prescription_State,
+                    </if>
+                    <if test="prescriptionTime != null">Prescription_Time,
+                    </if>
+                    <if test="invoiceId != null">Invoice_id,
+                    </if>
+                    <if test="delmark != null">DelMark,
+                    </if>
+                    <if test="isDelete != null">is_delete,
+                    </if>
+                    <if test="remark != null">remark,
+                    </if>
+                    <if test="updateTime != null">update_time,
+                    </if>
+                    <if test="updateBy != null">update_by,
+                    </if>
+                    <if test="createBy != null">create_by,
+                    </if>
+                    <if test="createTime != null">create_time,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="id != null">#{id},
+                    </if>
+                    <if test="medicalId != null">#{medicalId},
+                    </if>
+                    <if test="userId != null">#{userId},
+                    </if>
+                    <if test="prescriptionName != null">#{prescriptionName},
+                    </if>
+                    <if test="prescriptionState != null">#{prescriptionState},
+                    </if>
+                    <if test="prescriptionTime != null">#{prescriptionTime},
+                    </if>
+                    <if test="invoiceId != null">#{invoiceId},
+                    </if>
+                    <if test="delmark != null">#{delmark},
+                    </if>
+                    <if test="isDelete != null">#{isDelete},
+                    </if>
+                    <if test="remark != null">#{remark},
+                    </if>
+                    <if test="updateTime != null">#{updateTime},
+                    </if>
+                    <if test="updateBy != null">#{updateBy},
+                    </if>
+                    <if test="createBy != null">#{createBy},
+                    </if>
+                    <if test="createTime != null">#{createTime},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updatePrescription" parameterType="Prescription">
+        update prescription
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="medicalId != null">Medical_Id =
+                        #{medicalId},
+                    </if>
+                    <if test="userId != null">User_Id =
+                        #{userId},
+                    </if>
+                    <if test="prescriptionName != null">Prescription_Name =
+                        #{prescriptionName},
+                    </if>
+                    <if test="prescriptionState != null">Prescription_State =
+                        #{prescriptionState},
+                    </if>
+                    <if test="prescriptionTime != null">Prescription_Time =
+                        #{prescriptionTime},
+                    </if>
+                    <if test="invoiceId != null">Invoice_id =
+                        #{invoiceId},
+                    </if>
+                    <if test="delmark != null">DelMark =
+                        #{delmark},
+                    </if>
+                    <if test="isDelete != null">is_delete =
+                        #{isDelete},
+                    </if>
+                    <if test="remark != null">remark =
+                        #{remark},
+                    </if>
+                    <if test="updateTime != null">update_time =
+                        #{updateTime},
+                    </if>
+                    <if test="updateBy != null">update_by =
+                        #{updateBy},
+                    </if>
+                    <if test="createBy != null">create_by =
+                        #{createBy},
+                    </if>
+                    <if test="createTime != null">create_time =
+                        #{createTime},
+                    </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePrescriptionById" parameterType="Long">
+        delete
+        from prescription where id = #{id}
+    </delete>
+
+    <delete id="deletePrescriptionByIds" parameterType="String">
+        delete from prescription where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
