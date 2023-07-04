@@ -17,7 +17,7 @@ import org.jshand.support.common.annotation.Excel;
  * 成药处方对象 prescription
  *
  * @author ljp
- * @date 2023-07-03
+ * @date 2023-07-04
  */
 @Data
 @Accessors(chain = true)
@@ -54,7 +54,7 @@ private static final long serialVersionUID=1L;
             @Excel(name = "处方状态")
     @ApiModelProperty("处方状态")
         @TableField("Prescription_State")
-    private Long prescriptionState;
+    private String prescriptionState;
 
     /** 开立时间 */
             @JsonFormat(pattern = "yyyy-MM-dd")
@@ -74,7 +74,6 @@ private static final long serialVersionUID=1L;
     @ApiModelProperty("删除标记")
         @TableField("DelMark")
     private String delmark;
-
 
 
 
