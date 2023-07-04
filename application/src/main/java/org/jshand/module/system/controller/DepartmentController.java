@@ -47,8 +47,8 @@ public class DepartmentController extends BaseController {
 @PreAuthorize("@ss.hasPermi('system:department:list')")
 @GetMapping("/list")
     public Page<Department> list(Department entity, Page<Department> page) {
-
         LambdaQueryWrapper<Department> lambdaQueryWrapper = new LambdaQueryWrapper<Department>();
+        if(entity.getDeptname()!=null){lambdaQueryWrapper.like(Department::getDeptname,entity.getDeptname());}
         return departmentService.page(page, lambdaQueryWrapper);
     }
 

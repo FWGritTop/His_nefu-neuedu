@@ -1,4 +1,4 @@
-package org.jshand.system.controller;
+package org.jshand.module.system.system.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +23,8 @@ import org.jshand.support.common.annotation.Log;
 import org.jshand.support.common.core.controller.BaseController;
 import org.jshand.support.common.core.domain.AjaxResult;
 import org.jshand.support.common.enums.BusinessType;
-import org.jshand.system.domain.Prescription;
-import org.jshand.system.service.IPrescriptionService;
+import org.jshand.module.system.system.domain.Prescription;
+import org.jshand.module.system.system.service.IPrescriptionService;
 import org.jshand.support.common.utils.poi.ExcelUtil;
 
 /**

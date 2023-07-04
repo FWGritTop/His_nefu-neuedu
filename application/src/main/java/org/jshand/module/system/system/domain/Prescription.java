@@ -1,4 +1,4 @@
-package org.jshand.system.domain;
+package org.jshand.module.system.system.domain;
 
     import java.util.Date;
     import com.fasterxml.jackson.annotation.JsonFormat;

@@ -1,7 +1,7 @@
-package org.jshand.system.service;
+package org.jshand.module.system.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import org.jshand.system.domain.Prescription;
+import org.jshand.module.system.system.domain.Prescription;
 
 /**
  * 成药处方Service接口

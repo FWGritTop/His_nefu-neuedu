@@ -1,9 +1,8 @@
-package org.jshand.system.domain;
+package org.jshand.module.system.system.domain;
 
     import java.math.BigDecimal;
-    import java.util.Date;
-    import com.fasterxml.jackson.annotation.JsonFormat;
-import com.baomidou.mybatisplus.annotation.IdType;
+
+    import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

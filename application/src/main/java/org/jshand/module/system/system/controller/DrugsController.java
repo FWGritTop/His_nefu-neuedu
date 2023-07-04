@@ -1,4 +1,4 @@
-package org.jshand.system.controller;
+package org.jshand.module.system.system.controller;
 
 import java.util.Arrays;
 import java.util.List;
@@ -9,8 +9,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-import org.jshand.system.mapper.DrugsMapper;
-import org.springframework.cglib.beans.BeanMap;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,8 +23,8 @@ import org.jshand.support.common.annotation.Log;
 import org.jshand.support.common.core.controller.BaseController;
 import org.jshand.support.common.core.domain.AjaxResult;
 import org.jshand.support.common.enums.BusinessType;
-import org.jshand.system.domain.Drugs;
-import org.jshand.system.service.IDrugsService;
+import org.jshand.module.system.system.domain.Drugs;
+import org.jshand.module.system.system.service.IDrugsService;
 import org.jshand.support.common.utils.poi.ExcelUtil;
 
 /**

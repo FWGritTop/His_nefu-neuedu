@@ -1,6 +1,6 @@
-package org.jshand.system.mapper;
+package org.jshand.module.system.system.mapper;
 
-import org.jshand.system.domain.Drugs;
+import org.jshand.module.system.system.domain.Drugs;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
