@@ -152,6 +152,15 @@
         @pagination="getList"
     />
 
+    <el-pagination
+      @size-change="getList"
+      @current-change="getList"
+      :current-page.sync="queryParams.current"
+      :page-size.sync= "queryParams.size"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total"
+    ></el-pagination>
+
     <!-- 添加或修改成药处方对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
@@ -195,6 +204,7 @@
     </el-dialog>
   </div>
 </template>
+
 
 <script>
   import { listPrescription, getPrescription, delPrescription, addPrescription, updatePrescription } from "@/api/system/prescription";
