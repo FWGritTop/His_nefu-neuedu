@@ -1,4 +1,4 @@
-package org.jshand.module.system.system.domain;
+package org.jshand.module.system.domain;
 
     import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;

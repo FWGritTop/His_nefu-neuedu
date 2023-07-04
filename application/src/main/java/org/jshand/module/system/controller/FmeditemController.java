@@ -1,4 +1,4 @@
-package org.jshand.module.system.system.controller;
+package org.jshand.module.system.controller;
 
 import java.util.Arrays;
 import java.util.List;
@@ -23,8 +23,8 @@ import org.jshand.support.common.annotation.Log;
 import org.jshand.support.common.core.controller.BaseController;
 import org.jshand.support.common.core.domain.AjaxResult;
 import org.jshand.support.common.enums.BusinessType;
-import org.jshand.module.system.system.domain.Fmeditem;
-import org.jshand.module.system.system.service.IFmeditemService;
+import org.jshand.module.system.domain.Fmeditem;
+import org.jshand.module.system.service.IFmeditemService;
 import org.jshand.support.common.utils.poi.ExcelUtil;
 
 /**

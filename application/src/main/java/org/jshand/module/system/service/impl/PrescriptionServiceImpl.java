@@ -1,11 +1,11 @@
-package org.jshand.module.system.system.service.impl;
+package org.jshand.module.system.service.impl;
 
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.jshand.module.system.service.IPrescriptionService;
 import org.springframework.stereotype.Service;
-import org.jshand.module.system.system.mapper.PrescriptionMapper;
-import org.jshand.module.system.system.domain.Prescription;
-import org.jshand.module.system.system.service.IPrescriptionService;
+import org.jshand.module.system.mapper.PrescriptionMapper;
+import org.jshand.module.system.domain.Prescription;
 
 /**
  * 成药处方Service业务层处理

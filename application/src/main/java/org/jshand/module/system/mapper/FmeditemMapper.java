@@ -1,6 +1,6 @@
-package org.jshand.module.system.system.mapper;
+package org.jshand.module.system.mapper;
 
-import org.jshand.module.system.system.domain.Fmeditem;
+import org.jshand.module.system.domain.Fmeditem;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

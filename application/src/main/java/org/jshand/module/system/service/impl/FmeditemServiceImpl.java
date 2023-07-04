@@ -1,11 +1,11 @@
-package org.jshand.module.system.system.service.impl;
+package org.jshand.module.system.service.impl;
 
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.jshand.module.system.service.IFmeditemService;
 import org.springframework.stereotype.Service;
-import org.jshand.module.system.system.mapper.FmeditemMapper;
-import org.jshand.module.system.system.domain.Fmeditem;
-import org.jshand.module.system.system.service.IFmeditemService;
+import org.jshand.module.system.mapper.FmeditemMapper;
+import org.jshand.module.system.domain.Fmeditem;
 
 /**
  * 非药品收费Service业务层处理

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.jshand.module.system.mapper.DrugsMapper">
+<mapper namespace="org.jshand.system.mapper.DrugslistMapper">
 
-    <resultMap type="Drugs" id="DrugsResult">
+    <resultMap type="Drugslist" id="DrugslistResult">
             <result property="id" column="id"/>
             <result property="drugsCode" column="Drugs_Code"/>
             <result property="drugsName" column="Drugs_Name"/>
@@ -23,13 +23,13 @@
             <result property="createTime" column="create_time"/>
     </resultMap>
 
-    <sql id="selectDrugsVo">
+    <sql id="selectDrugslistVo">
         select id, Drugs_Code, Drugs_Name, Drugs_Format, Drugs_Unit, Manufacturer, Drugs_Dosage, Drugs_Type, Drugs_Price, Mnemonic_Code, is_delete, remark, update_time, update_by, create_by, create_time
         from drugs
     </sql>
 
-    <select id="selectDrugsList" parameterType="Drugs" resultMap="DrugsResult">
-        <include refid="selectDrugsVo"/>
+    <select id="selectDrugslistList" parameterType="Drugslist" resultMap="DrugslistResult">
+        <include refid="selectDrugslistVo"/>
         <where>
                         <if test="drugsCode != null  and drugsCode != ''">
                             and Drugs_Code = #{drugsCode}
@@ -61,13 +61,13 @@
         </where>
     </select>
 
-    <select id="selectDrugsById" parameterType="Long"
-            resultMap="DrugsResult">
-            <include refid="selectDrugsVo"/>
+    <select id="selectDrugslistById" parameterType="Long"
+            resultMap="DrugslistResult">
+            <include refid="selectDrugslistVo"/>
             where id = #{id}
     </select>
 
-    <insert id="insertDrugs" parameterType="Drugs">
+    <insert id="insertDrugslist" parameterType="Drugslist">
         insert into drugs
         <trim prefix="(" suffix=")" suffixOverrides=",">
                     <if test="id != null">id,
@@ -139,7 +139,7 @@
         </trim>
     </insert>
 
-    <update id="updateDrugs" parameterType="Drugs">
+    <update id="updateDrugslist" parameterType="Drugslist">
         update drugs
         <trim prefix="SET" suffixOverrides=",">
                     <if test="drugsCode != null">Drugs_Code =
@@ -191,12 +191,12 @@
         where id = #{id}
     </update>
 
-    <delete id="deleteDrugsById" parameterType="Long">
+    <delete id="deleteDrugslistById" parameterType="Long">
         delete
         from drugs where id = #{id}
     </delete>
 
-    <delete id="deleteDrugsByIds" parameterType="String">
+    <delete id="deleteDrugslistByIds" parameterType="String">
         delete from drugs where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
