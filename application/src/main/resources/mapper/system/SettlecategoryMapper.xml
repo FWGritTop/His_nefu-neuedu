@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jshand.module.system.mapper.SettlecategoryMapper">
+
+    <resultMap type="Settlecategory" id="SettlecategoryResult">
+            <result property="id" column="id"/>
+            <result property="settlecode" column="SettleCode"/>
+            <result property="settlename" column="SettleName"/>
+            <result property="isdefault" column="IsDefault"/>
+            <result property="sequence" column="Sequence"/>
+            <result property="delmark" column="DelMark"/>
+            <result property="isDelete" column="is_delete"/>
+            <result property="remark" column="remark"/>
+            <result property="updateTime" column="update_time"/>
+            <result property="updateBy" column="update_by"/>
+            <result property="createBy" column="create_by"/>
+            <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectSettlecategoryVo">
+        select id, SettleCode, SettleName, IsDefault, Sequence, DelMark, is_delete, remark, update_time, update_by, create_by, create_time
+        from settlecategory
+    </sql>
+
+    <select id="selectSettlecategoryList" parameterType="Settlecategory" resultMap="SettlecategoryResult">
+        <include refid="selectSettlecategoryVo"/>
+        <where>
+                        <if test="settlecode != null  and settlecode != ''">
+                            and SettleCode = #{settlecode}
+                        </if>
+                        <if test="settlename != null  and settlename != ''">
+                            and SettleName like concat('%', #{settlename}, '%')
+                        </if>
+                        <if test="isdefault != null ">
+                            and IsDefault = #{isdefault}
+                        </if>
+                        <if test="sequence != null ">
+                            and Sequence = #{sequence}
+                        </if>
+                        <if test="delmark != null ">
+                            and DelMark = #{delmark}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectSettlecategoryById" parameterType="Long"
+            resultMap="SettlecategoryResult">
+            <include refid="selectSettlecategoryVo"/>
+            where id = #{id}
+    </select>
+
+    <insert id="insertSettlecategory" parameterType="Settlecategory" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into settlecategory
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="settlecode != null and settlecode != ''">SettleCode,
+                    </if>
+                    <if test="settlename != null and settlename != ''">SettleName,
+                    </if>
+                    <if test="isdefault != null">IsDefault,
+                    </if>
+                    <if test="sequence != null">Sequence,
+                    </if>
+                    <if test="delmark != null">DelMark,
+                    </if>
+                    <if test="isDelete != null">is_delete,
+                    </if>
+                    <if test="remark != null">remark,
+                    </if>
+                    <if test="updateTime != null">update_time,
+                    </if>
+                    <if test="updateBy != null">update_by,
+                    </if>
+                    <if test="createBy != null">create_by,
+                    </if>
+                    <if test="createTime != null">create_time,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="settlecode != null and settlecode != ''">#{settlecode},
+                    </if>
+                    <if test="settlename != null and settlename != ''">#{settlename},
+                    </if>
+                    <if test="isdefault != null">#{isdefault},
+                    </if>
+                    <if test="sequence != null">#{sequence},
+                    </if>
+                    <if test="delmark != null">#{delmark},
+                    </if>
+                    <if test="isDelete != null">#{isDelete},
+                    </if>
+                    <if test="remark != null">#{remark},
+                    </if>
+                    <if test="updateTime != null">#{updateTime},
+                    </if>
+                    <if test="updateBy != null">#{updateBy},
+                    </if>
+                    <if test="createBy != null">#{createBy},
+                    </if>
+                    <if test="createTime != null">#{createTime},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updateSettlecategory" parameterType="Settlecategory">
+        update settlecategory
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="settlecode != null and settlecode != ''">SettleCode =
+                        #{settlecode},
+                    </if>
+                    <if test="settlename != null and settlename != ''">SettleName =
+                        #{settlename},
+                    </if>
+                    <if test="isdefault != null">IsDefault =
+                        #{isdefault},
+                    </if>
+                    <if test="sequence != null">Sequence =
+                        #{sequence},
+                    </if>
+                    <if test="delmark != null">DelMark =
+                        #{delmark},
+                    </if>
+                    <if test="isDelete != null">is_delete =
+                        #{isDelete},
+                    </if>
+                    <if test="remark != null">remark =
+                        #{remark},
+                    </if>
+                    <if test="updateTime != null">update_time =
+                        #{updateTime},
+                    </if>
+                    <if test="updateBy != null">update_by =
+                        #{updateBy},
+                    </if>
+                    <if test="createBy != null">create_by =
+                        #{createBy},
+                    </if>
+                    <if test="createTime != null">create_time =
+                        #{createTime},
+                    </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSettlecategoryById" parameterType="Long">
+        delete
+        from settlecategory where id = #{id}
+    </delete>
+
+    <delete id="deleteSettlecategoryByIds" parameterType="String">
+        delete from settlecategory where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -132,9 +132,9 @@ public class BaseEntity implements Serializable {
         this.remark = remark;
     }
 
-    public Integer getIsDelete() {
-        return isDelete;
-    }
+//    public Integer getIsDelete() {
+//        return isDelete;
+//    }
 
     public void setIsDelete(Integer isDelete) {
         this.isDelete = isDelete;
