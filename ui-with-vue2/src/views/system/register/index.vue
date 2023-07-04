@@ -80,7 +80,7 @@
     <el-table v-loading="loading" :data="registerList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
               <el-table-column label="患者ID" align="center" prop="id" />
-              <el-table-column label="患者名称" align="center" prop="name" />
+              <el-table-column label="患者名称" align="center" prop="realname" />
               <el-table-column label="出生日期" align="center" prop="birthday" width="180">
                 <template slot-scope="scope">
                   <span>{{ parseTime(scope.row.birthday, '{y}-{m}-{d}') }}</span>
@@ -123,8 +123,8 @@
     <!-- 添加或修改挂号信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-                        <el-form-item label="患者名称" prop="name">
-                          <el-input v-model="form.name" type="textarea" placeholder="请输入内容" />
+                        <el-form-item label="患者名称" prop="realname">
+                          <el-input v-model="form.realname" type="textarea" placeholder="请输入内容" />
                         </el-form-item>
                         <el-form-item label="出生日期" prop="birthday">
                           <el-date-picker clearable
@@ -153,7 +153,7 @@
   import { listRegister, getRegister, delRegister, addRegister, updateRegister } from "@/api/system/register";
 
   export default {
-    name: "Register",
+    realname: "Register",
     dicts:["sys_user_sex"],
     data() {
       return {
@@ -179,7 +179,7 @@
         queryParams: {
           pageNum: 1,
           pageSize: 10,
-          name: null,
+          realname: null,
           birthday: null,
           gender: null,
           fee: null
@@ -213,7 +213,7 @@
       reset() {
         this.form = {
                         id: null,
-                        name: null,
+                        realname: null,
                         birthday: null,
                         gender: null,
                         fee: null

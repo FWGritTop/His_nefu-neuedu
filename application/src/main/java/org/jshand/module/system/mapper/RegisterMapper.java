@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 /**
  * 挂号信息Mapper接口
  *
- * @author 金山
- * @date 2023-06-29
+ * @author FireWin
+ * @date 2023-07-04
  */
 public interface RegisterMapper extends BaseMapper<Register> {
 

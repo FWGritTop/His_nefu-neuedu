@@ -20,7 +20,7 @@
           ></el-button>
         </el-row>
         <div class="head-container" style="padding: 3px">
-          <el-tag v-for="(item, index) in deptOptions">{{
+          <el-tag v-for="(item, index) in deptOptions" @click="userdeptQuery(item.id)">{{
             item.deptname
           }}</el-tag>
           <el-tag type="info">更多科室请进行搜索查询</el-tag>
@@ -304,13 +304,12 @@
             </el-form-item>
           </el-col>
           <el-col :span="12"
-            >科室
-            <el-form-item label="归属科室" prop="deptId">
-              <treeselect
+            >
+            <el-form-item label="科室id" prop="deptId">
+              <el-input
                 v-model="form.deptId"
-                :options="deptOptions"
-                :show-count="true"
-                placeholder="请选择归属科室"
+                placeholder="请输入科室id"
+                maxlength="30"
               />
             </el-form-item>
           </el-col>
@@ -393,20 +392,12 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="岗位">
-              <el-select
-                v-model="form.postIds"
-                multiple
-                placeholder="请选择岗位"
-              >
-                <el-option
-                  v-for="item in postOptions"
-                  :key="item.postId"
-                  :label="item.postName"
-                  :value="item.postId"
-                  :disabled="item.status == 1"
-                ></el-option>
-              </el-select>
+            <el-form-item label="请输入真实姓名">
+              <el-input
+                v-model="form.realname"
+                placeholder="请输入真实姓名"
+                maxlength="50"
+              />
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -570,13 +561,14 @@ export default {
         phonenumber: undefined,
         status: undefined,
         deptname: undefined,
+        deptid:undefined
       },
       // 列信息
       columns: [
         { key: 0, label: `用户编号`, visible: true },
         { key: 1, label: `用户名称`, visible: true },
         { key: 2, label: `用户昵称`, visible: true },
-        { key: 3, label: `科室`, visible: true },
+        { key: 3, label: `科室id`, visible: true },
         { key: 4, label: `手机号码`, visible: true },
         { key: 5, label: `状态`, visible: true },
         { key: 6, label: `创建时间`, visible: true },
@@ -594,6 +586,12 @@ export default {
         ],
         nickName: [
           { required: true, message: "用户昵称不能为空", trigger: "blur" },
+        ],
+        realname: [
+          { required: true, message: "真实姓名不能为空", trigger: "blur" },
+        ],
+        deptId: [
+          { required: true, message: "科室id不能为空", trigger: "blur" },
         ],
         password: [
           { required: true, message: "用户密码不能为空", trigger: "blur" },
@@ -654,12 +652,17 @@ export default {
     },
     deptQuery() {
       this.queryParams.deptname = this.deptname
-      console.log(this.queryParams.deptname);
       listDepartment(this.queryParams).then((response) => {
         this.deptOptions = response.records;
       });
+      console.log(this.deptOptions);
     },
     // 筛选节点
+    userdeptQuery(id){
+      this.queryParams.deptId=id;
+      console.log(id);
+      this.getList();
+    },
     filterNode(value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
@@ -702,6 +705,7 @@ export default {
         sex: undefined,
         status: "0",
         remark: undefined,
+        realname:undefined,
         postIds: [],
         roleIds: [],
       };
@@ -717,7 +721,6 @@ export default {
       this.dateRange = [];
       this.resetForm("queryForm");
       this.queryParams.deptId = undefined;
-      this.$refs.tree.setCurrentKey(null);
       this.handleQuery();
     },
     // 多选框选中数据

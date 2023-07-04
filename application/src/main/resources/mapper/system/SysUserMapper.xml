@@ -23,19 +23,24 @@
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
         <result property="remark" column="remark"/>
-        <association property="dept" column="dept_id" javaType="SysDept" resultMap="deptResult"/>
+        <association property="dept" column="dept_id" javaType="Department" resultMap="deptResult"/>
         <collection property="roles" javaType="java.util.List" resultMap="RoleResult"/>
     </resultMap>
 
-    <resultMap id="deptResult" type="SysDept">
-        <id property="deptId" column="dept_id"/>
-        <result property="parentId" column="parent_id"/>
-        <result property="deptName" column="dept_name"/>
-        <result property="ancestors" column="ancestors"/>
-        <result property="orderNum" column="order_num"/>
-        <result property="leader" column="leader"/>
-        <result property="status" column="dept_status"/>
+    <resultMap type="Department" id="deptResult">
+        <result property="id" column="ID"/>
+        <result property="deptcode" column="DeptCode"/>
+        <result property="deptname" column="DeptName"/>
+        <result property="deptcategoryid" column="DeptCategoryID"/>
+        <result property="depttype" column="DeptType"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="remark" column="remark"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
     </resultMap>
+
 
     <resultMap id="RoleResult" type="SysRole">
         <id property="roleId" column="role_id"/>
@@ -84,9 +89,9 @@
 
     <select id="selectUserList" parameterType="SysUser" resultMap="SysUserResult">
         select u.user_id, u.dept_id, u.nick_name, u.user_name, u.email, u.avatar, u.phonenumber, u.sex, u.status,
-        u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark, d.dept_name, d.leader from sys_user
+        u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark, d.DeptName from sys_user
         u
-        left join sys_dept d on u.dept_id = d.dept_id
+        left join department d on u.dept_id = d.ID
         where u.del_flag = '0'
         <if test="userId != null and userId != 0">
             AND u.user_id = #{userId}
@@ -107,8 +112,7 @@
             AND date_format(u.create_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
         </if>
         <if test="deptId != null and deptId != 0">
-            AND (u.dept_id = #{deptId} OR u.dept_id IN ( SELECT t.dept_id FROM sys_dept t WHERE find_in_set(#{deptId},
-            ancestors) ))
+            AND (u.dept_id = #{deptId} )
         </if>
         <!-- 数据范围过滤 -->
         ${params.dataScope}

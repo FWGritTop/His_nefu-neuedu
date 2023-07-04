@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="org.jshand.system.mapper.PrescriptionMapper">
+<mapper namespace="org.jshand.module.system.mapper.PrescriptionMapper">
 
     <resultMap type="Prescription" id="PrescriptionResult">
             <result property="id" column="id"/>
@@ -38,7 +38,7 @@
                         <if test="prescriptionName != null  and prescriptionName != ''">
                             and Prescription_Name like concat('%', #{prescriptionName}, '%')
                         </if>
-                        <if test="prescriptionState != null  and prescriptionState != ''">
+                        <if test="prescriptionState != null ">
                             and Prescription_State = #{prescriptionState}
                         </if>
                         <if test="prescriptionTime != null ">

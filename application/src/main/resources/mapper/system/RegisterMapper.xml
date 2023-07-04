@@ -6,31 +6,74 @@
 
     <resultMap type="Register" id="RegisterResult">
             <result property="id" column="id"/>
-            <result property="name" column="name"/>
-            <result property="birthday" column="birthday"/>
-            <result property="gender" column="gender"/>
-            <result property="fee" column="fee"/>
+            <result property="realname" column="RealName"/>
+            <result property="gender" column="Gender"/>
+            <result property="idnumber" column="IDnumber"/>
+            <result property="birthdate" column="BirthDate"/>
+            <result property="age" column="Age"/>
+            <result property="agetype" column="AgeType"/>
+            <result property="homeaddress" column="HomeAddress"/>
+            <result property="casenumber" column="CaseNumber"/>
+            <result property="visitdate" column="VisitDate"/>
+            <result property="deptid" column="DeptId"/>
+            <result property="userid" column="UserId"/>
+            <result property="registid" column="RegistId"/>
+            <result property="settleid" column="SettleID"/>
+            <result property="isbook" column="IsBook"/>
+            <result property="registertime" column="RegisterTime"/>
+            <result property="registerid" column="RegisterID"/>
+            <result property="visitstate" column="VisitState"/>
+            <result property="isDelete" column="is_delete"/>
+            <result property="remark" column="remark"/>
+            <result property="updateTime" column="update_time"/>
+            <result property="updateBy" column="update_by"/>
+            <result property="createBy" column="create_by"/>
+            <result property="createTime" column="create_time"/>
     </resultMap>
 
     <sql id="selectRegisterVo">
-        select id, name, birthday, gender, fee
+        select id, RealName, Gender, IDnumber, BirthDate, Age, AgeType, HomeAddress, CaseNumber, VisitDate, DeptId, UserId, RegistId, SettleID, IsBook, RegisterTime, RegisterID, VisitState, is_delete, remark, update_time, update_by, create_by, create_time
         from register
     </sql>
 
     <select id="selectRegisterList" parameterType="Register" resultMap="RegisterResult">
         <include refid="selectRegisterVo"/>
         <where>
-                        <if test="name != null  and name != ''">
-                            and name like concat('%', #{name}, '%')
+                        <if test="realname != null  and realname != ''">
+                            and RealName like concat('%', #{realname}, '%')
                         </if>
-                        <if test="birthday != null ">
-                            and birthday = #{birthday}
+                        <if test="gender != null ">
+                            and Gender = #{gender}
                         </if>
-                        <if test="gender != null  and gender != ''">
-                            and gender = #{gender}
+                        <if test="idnumber != null  and idnumber != ''">
+                            and IDnumber = #{idnumber}
                         </if>
-                        <if test="fee != null ">
-                            and fee = #{fee}
+                        <if test="age != null ">
+                            and Age = #{age}
+                        </if>
+                        <if test="casenumber != null  and casenumber != ''">
+                            and CaseNumber = #{casenumber}
+                        </if>
+                        <if test="visitdate != null ">
+                            and VisitDate = #{visitdate}
+                        </if>
+                        <if test="deptid != null ">
+                            and DeptId = #{deptid}
+                        </if>
+                        <if test="userid != null ">
+                            and UserId = #{userid}
+                        </if>
+                        <if test="settleid != null ">
+                            and SettleID = #{settleid}
+                        </if>
+                        <if test="registertime != null ">
+                            and RegisterTime = #{registertime}
+                        </if>
+                        <if test="registerid != null ">
+                            and RegisterID = #{registerid}
+                        </if>
+                        <if test="visitstate != null ">
+                            and VisitState = #{visitstate}
                         </if>
         </where>
     </select>
@@ -41,27 +84,106 @@
             where id = #{id}
     </select>
 
-    <insert id="insertRegister" parameterType="Register" useGeneratedKeys="true"
-            keyProperty="id">
+    <insert id="insertRegister" parameterType="Register">
         insert into register
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                    <if test="name != null">name,
+                    <if test="id != null">id,
                     </if>
-                    <if test="birthday != null">birthday,
+                    <if test="realname != null">RealName,
                     </if>
-                    <if test="gender != null">gender,
+                    <if test="gender != null">Gender,
                     </if>
-                    <if test="fee != null">fee,
+                    <if test="idnumber != null">IDnumber,
+                    </if>
+                    <if test="birthdate != null">BirthDate,
+                    </if>
+                    <if test="age != null">Age,
+                    </if>
+                    <if test="agetype != null">AgeType,
+                    </if>
+                    <if test="homeaddress != null">HomeAddress,
+                    </if>
+                    <if test="casenumber != null">CaseNumber,
+                    </if>
+                    <if test="visitdate != null">VisitDate,
+                    </if>
+                    <if test="deptid != null">DeptId,
+                    </if>
+                    <if test="userid != null">UserId,
+                    </if>
+                    <if test="registid != null">RegistId,
+                    </if>
+                    <if test="settleid != null">SettleID,
+                    </if>
+                    <if test="isbook != null">IsBook,
+                    </if>
+                    <if test="registertime != null">RegisterTime,
+                    </if>
+                    <if test="registerid != null">RegisterID,
+                    </if>
+                    <if test="visitstate != null">VisitState,
+                    </if>
+                    <if test="isDelete != null">is_delete,
+                    </if>
+                    <if test="remark != null">remark,
+                    </if>
+                    <if test="updateTime != null">update_time,
+                    </if>
+                    <if test="updateBy != null">update_by,
+                    </if>
+                    <if test="createBy != null">create_by,
+                    </if>
+                    <if test="createTime != null">create_time,
                     </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-                    <if test="name != null">#{name},
+                    <if test="id != null">#{id},
                     </if>
-                    <if test="birthday != null">#{birthday},
+                    <if test="realname != null">#{realname},
                     </if>
                     <if test="gender != null">#{gender},
                     </if>
-                    <if test="fee != null">#{fee},
+                    <if test="idnumber != null">#{idnumber},
+                    </if>
+                    <if test="birthdate != null">#{birthdate},
+                    </if>
+                    <if test="age != null">#{age},
+                    </if>
+                    <if test="agetype != null">#{agetype},
+                    </if>
+                    <if test="homeaddress != null">#{homeaddress},
+                    </if>
+                    <if test="casenumber != null">#{casenumber},
+                    </if>
+                    <if test="visitdate != null">#{visitdate},
+                    </if>
+                    <if test="deptid != null">#{deptid},
+                    </if>
+                    <if test="userid != null">#{userid},
+                    </if>
+                    <if test="registid != null">#{registid},
+                    </if>
+                    <if test="settleid != null">#{settleid},
+                    </if>
+                    <if test="isbook != null">#{isbook},
+                    </if>
+                    <if test="registertime != null">#{registertime},
+                    </if>
+                    <if test="registerid != null">#{registerid},
+                    </if>
+                    <if test="visitstate != null">#{visitstate},
+                    </if>
+                    <if test="isDelete != null">#{isDelete},
+                    </if>
+                    <if test="remark != null">#{remark},
+                    </if>
+                    <if test="updateTime != null">#{updateTime},
+                    </if>
+                    <if test="updateBy != null">#{updateBy},
+                    </if>
+                    <if test="createBy != null">#{createBy},
+                    </if>
+                    <if test="createTime != null">#{createTime},
                     </if>
         </trim>
     </insert>
@@ -69,17 +191,74 @@
     <update id="updateRegister" parameterType="Register">
         update register
         <trim prefix="SET" suffixOverrides=",">
-                    <if test="name != null">name =
-                        #{name},
+                    <if test="realname != null">RealName =
+                        #{realname},
                     </if>
-                    <if test="birthday != null">birthday =
-                        #{birthday},
-                    </if>
-                    <if test="gender != null">gender =
+                    <if test="gender != null">Gender =
                         #{gender},
                     </if>
-                    <if test="fee != null">fee =
-                        #{fee},
+                    <if test="idnumber != null">IDnumber =
+                        #{idnumber},
+                    </if>
+                    <if test="birthdate != null">BirthDate =
+                        #{birthdate},
+                    </if>
+                    <if test="age != null">Age =
+                        #{age},
+                    </if>
+                    <if test="agetype != null">AgeType =
+                        #{agetype},
+                    </if>
+                    <if test="homeaddress != null">HomeAddress =
+                        #{homeaddress},
+                    </if>
+                    <if test="casenumber != null">CaseNumber =
+                        #{casenumber},
+                    </if>
+                    <if test="visitdate != null">VisitDate =
+                        #{visitdate},
+                    </if>
+                    <if test="deptid != null">DeptId =
+                        #{deptid},
+                    </if>
+                    <if test="userid != null">UserId =
+                        #{userid},
+                    </if>
+                    <if test="registid != null">RegistId =
+                        #{registid},
+                    </if>
+                    <if test="settleid != null">SettleID =
+                        #{settleid},
+                    </if>
+                    <if test="isbook != null">IsBook =
+                        #{isbook},
+                    </if>
+                    <if test="registertime != null">RegisterTime =
+                        #{registertime},
+                    </if>
+                    <if test="registerid != null">RegisterID =
+                        #{registerid},
+                    </if>
+                    <if test="visitstate != null">VisitState =
+                        #{visitstate},
+                    </if>
+                    <if test="isDelete != null">is_delete =
+                        #{isDelete},
+                    </if>
+                    <if test="remark != null">remark =
+                        #{remark},
+                    </if>
+                    <if test="updateTime != null">update_time =
+                        #{updateTime},
+                    </if>
+                    <if test="updateBy != null">update_by =
+                        #{updateBy},
+                    </if>
+                    <if test="createBy != null">create_by =
+                        #{createBy},
+                    </if>
+                    <if test="createTime != null">create_time =
+                        #{createTime},
                     </if>
         </trim>
         where id = #{id}

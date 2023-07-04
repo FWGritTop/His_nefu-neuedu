@@ -2,6 +2,7 @@ package org.jshand.support.common.core.domain.entity;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.jshand.module.system.domain.Department;
 import org.jshand.support.common.annotation.Excel;
 import org.jshand.support.common.annotation.Excels;
 import org.jshand.support.common.core.domain.BaseEntity;
@@ -103,7 +104,7 @@ public class SysUser extends BaseEntity {
             @Excel(name = "部门名称", targetAttr = "deptName", type = Excel.Type.EXPORT),
             @Excel(name = "部门负责人", targetAttr = "leader", type = Excel.Type.EXPORT)
     })
-    private SysDept dept;
+    private Department dept;
 
     /**
      * 角色对象
@@ -253,11 +254,11 @@ public class SysUser extends BaseEntity {
         this.loginDate = loginDate;
     }
 
-    public SysDept getDept() {
+    public Department getDept() {
         return dept;
     }
 
-    public void setDept(SysDept dept) {
+    public void setDept(Department dept) {
         this.dept = dept;
     }
 

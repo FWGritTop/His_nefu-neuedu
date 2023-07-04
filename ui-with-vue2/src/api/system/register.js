@@ -19,6 +19,7 @@ export function getRegister(id) {
 
 // 新增挂号信息
 export function addRegister(data) {
+    console.log(data);
     return request({
         url: '/system/register',
         method: 'post',
