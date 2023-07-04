@@ -115,7 +115,11 @@
               <el-table-column label="病历id" align="center" prop="medicalId" />
               <el-table-column label="开立医生id" align="center" prop="userId" />
               <el-table-column label="处方名称" align="center" prop="prescriptionName" />
-              <el-table-column label="处方状态" align="center" prop="prescriptionState" />
+              <el-table-column label="处方状态" align="center" prop="prescriptionState">
+                <template slot-scope="scope">
+                      <dict-tag :options="dict.type.sys_prescription_status" :value="scope.row.prescriptionState"/>
+                </template>
+              </el-table-column>
               <el-table-column label="开立时间" align="center" prop="prescriptionTime" width="180">
                 <template slot-scope="scope">
                   <span>{{ parseTime(scope.row.prescriptionTime, '{y}-{m}-{d}') }}</span>
@@ -143,14 +147,6 @@
         </template>
       </el-table-column>
     </el-table>
-
-    <pagination
-        v-show="total>0"
-        :total="total"
-        :page.sync="queryParams.pageNum"
-        :limit.sync="queryParams.pageSize"
-        @pagination="getList"
-    />
 
     <el-pagination
       @size-change="getList"
@@ -205,12 +201,12 @@
   </div>
 </template>
 
-
 <script>
   import { listPrescription, getPrescription, delPrescription, addPrescription, updatePrescription } from "@/api/system/prescription";
 
   export default {
     name: "Prescription",
+    dicts:["sys_prescription_status"],
     data() {
       return {
         // 遮罩层
