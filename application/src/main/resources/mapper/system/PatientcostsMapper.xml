@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jshand.module.system.mapper.PatientcostsMapper">
+
+    <resultMap type="Patientcosts" id="PatientcostsResult">
+            <result property="id" column="ID"/>
+            <result property="registid" column="RegistID"/>
+            <result property="invoiceid" column="InvoiceID"/>
+            <result property="itemid" column="ItemID"/>
+            <result property="itemtype" column="ItemType"/>
+            <result property="name" column="Name"/>
+            <result property="price" column="Price"/>
+            <result property="amount" column="Amount"/>
+            <result property="deptid" column="DeptID"/>
+            <result property="createtime" column="Createtime"/>
+            <result property="createoperid" column="CreateOperID"/>
+            <result property="paytime" column="PayTime"/>
+            <result property="registerid" column="RegisterID"/>
+            <result property="feetype" column="FeeType"/>
+            <result property="backid" column="BackID"/>
+    </resultMap>
+
+    <sql id="selectPatientcostsVo">
+        select ID, RegistID, InvoiceID, ItemID, ItemType, Name, Price, Amount, DeptID, Createtime, CreateOperID, PayTime, RegisterID, FeeType, BackID
+        from patientcosts
+    </sql>
+
+    <select id="selectPatientcostsList" parameterType="Patientcosts" resultMap="PatientcostsResult">
+        <include refid="selectPatientcostsVo"/>
+        <where>
+                        <if test="registid != null ">
+                            and RegistID = #{registid}
+                        </if>
+                        <if test="invoiceid != null ">
+                            and InvoiceID = #{invoiceid}
+                        </if>
+                        <if test="itemid != null ">
+                            and ItemID = #{itemid}
+                        </if>
+                        <if test="itemtype != null ">
+                            and ItemType = #{itemtype}
+                        </if>
+                        <if test="name != null  and name != ''">
+                            and Name like concat('%', #{name}, '%')
+                        </if>
+                        <if test="price != null ">
+                            and Price = #{price}
+                        </if>
+                        <if test="amount != null ">
+                            and Amount = #{amount}
+                        </if>
+                        <if test="deptid != null ">
+                            and DeptID = #{deptid}
+                        </if>
+                        <if test="createtime != null ">
+                            and Createtime = #{createtime}
+                        </if>
+                        <if test="createoperid != null ">
+                            and CreateOperID = #{createoperid}
+                        </if>
+                        <if test="paytime != null ">
+                            and PayTime = #{paytime}
+                        </if>
+                        <if test="registerid != null ">
+                            and RegisterID = #{registerid}
+                        </if>
+                        <if test="feetype != null ">
+                            and FeeType = #{feetype}
+                        </if>
+                        <if test="backid != null ">
+                            and BackID = #{backid}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectPatientcostsById" parameterType="Long"
+            resultMap="PatientcostsResult">
+            <include refid="selectPatientcostsVo"/>
+            where ID = #{id}
+    </select>
+
+    <insert id="insertPatientcosts" parameterType="Patientcosts" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into patientcosts
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="registid != null">RegistID,
+                    </if>
+                    <if test="invoiceid != null">InvoiceID,
+                    </if>
+                    <if test="itemid != null">ItemID,
+                    </if>
+                    <if test="itemtype != null">ItemType,
+                    </if>
+                    <if test="name != null and name != ''">Name,
+                    </if>
+                    <if test="price != null">Price,
+                    </if>
+                    <if test="amount != null">Amount,
+                    </if>
+                    <if test="deptid != null">DeptID,
+                    </if>
+                    <if test="createtime != null">Createtime,
+                    </if>
+                    <if test="createoperid != null">CreateOperID,
+                    </if>
+                    <if test="paytime != null">PayTime,
+                    </if>
+                    <if test="registerid != null">RegisterID,
+                    </if>
+                    <if test="feetype != null">FeeType,
+                    </if>
+                    <if test="backid != null">BackID,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="registid != null">#{registid},
+                    </if>
+                    <if test="invoiceid != null">#{invoiceid},
+                    </if>
+                    <if test="itemid != null">#{itemid},
+                    </if>
+                    <if test="itemtype != null">#{itemtype},
+                    </if>
+                    <if test="name != null and name != ''">#{name},
+                    </if>
+                    <if test="price != null">#{price},
+                    </if>
+                    <if test="amount != null">#{amount},
+                    </if>
+                    <if test="deptid != null">#{deptid},
+                    </if>
+                    <if test="createtime != null">#{createtime},
+                    </if>
+                    <if test="createoperid != null">#{createoperid},
+                    </if>
+                    <if test="paytime != null">#{paytime},
+                    </if>
+                    <if test="registerid != null">#{registerid},
+                    </if>
+                    <if test="feetype != null">#{feetype},
+                    </if>
+                    <if test="backid != null">#{backid},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updatePatientcosts" parameterType="Patientcosts">
+        update patientcosts
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="registid != null">RegistID =
+                        #{registid},
+                    </if>
+                    <if test="invoiceid != null">InvoiceID =
+                        #{invoiceid},
+                    </if>
+                    <if test="itemid != null">ItemID =
+                        #{itemid},
+                    </if>
+                    <if test="itemtype != null">ItemType =
+                        #{itemtype},
+                    </if>
+                    <if test="name != null and name != ''">Name =
+                        #{name},
+                    </if>
+                    <if test="price != null">Price =
+                        #{price},
+                    </if>
+                    <if test="amount != null">Amount =
+                        #{amount},
+                    </if>
+                    <if test="deptid != null">DeptID =
+                        #{deptid},
+                    </if>
+                    <if test="createtime != null">Createtime =
+                        #{createtime},
+                    </if>
+                    <if test="createoperid != null">CreateOperID =
+                        #{createoperid},
+                    </if>
+                    <if test="paytime != null">PayTime =
+                        #{paytime},
+                    </if>
+                    <if test="registerid != null">RegisterID =
+                        #{registerid},
+                    </if>
+                    <if test="feetype != null">FeeType =
+                        #{feetype},
+                    </if>
+                    <if test="backid != null">BackID =
+                        #{backid},
+                    </if>
+        </trim>
+        where ID = #{id}
+    </update>
+
+    <delete id="deletePatientcostsById" parameterType="Long">
+        delete
+        from patientcosts where ID = #{id}
+    </delete>
+
+    <delete id="deletePatientcostsByIds" parameterType="String">
+        delete from patientcosts where ID in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

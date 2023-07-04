@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jshand.module.system.mapper.CheckapplyMapper">
+
+    <resultMap type="Checkapply" id="CheckapplyResult">
+            <result property="id" column="id"/>
+            <result property="name" column="Name"/>
+            <result property="medicalId" column="Medical_Id"/>
+            <result property="creationTime" column="Creation_Time"/>
+            <result property="totalSum" column="Total_Sum"/>
+            <result property="objective" column="Objective"/>
+            <result property="userId" column="User_Id"/>
+            <result property="state" column="state"/>
+            <result property="invoiceNumber" column="Invoice_Number"/>
+            <result property="delmark" column="DelMark"/>
+            <result property="isDelete" column="is_delete"/>
+            <result property="remark" column="remark"/>
+            <result property="updateTime" column="update_time"/>
+            <result property="updateBy" column="update_by"/>
+            <result property="createBy" column="create_by"/>
+            <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectCheckapplyVo">
+        select id, Name, Medical_Id, Creation_Time, Total_Sum, Objective, User_Id, state, Invoice_Number, DelMark, is_delete, remark, update_time, update_by, create_by, create_time
+        from checkapply
+    </sql>
+
+    <select id="selectCheckapplyList" parameterType="Checkapply" resultMap="CheckapplyResult">
+        <include refid="selectCheckapplyVo"/>
+        <where>
+                        <if test="name != null  and name != ''">
+                            and Name like concat('%', #{name}, '%')
+                        </if>
+                        <if test="medicalId != null ">
+                            and Medical_Id = #{medicalId}
+                        </if>
+                        <if test="creationTime != null ">
+                            and Creation_Time = #{creationTime}
+                        </if>
+                        <if test="totalSum != null ">
+                            and Total_Sum = #{totalSum}
+                        </if>
+                        <if test="objective != null  and objective != ''">
+                            and Objective = #{objective}
+                        </if>
+                        <if test="userId != null ">
+                            and User_Id = #{userId}
+                        </if>
+                        <if test="state != null ">
+                            and state = #{state}
+                        </if>
+                        <if test="invoiceNumber != null  and invoiceNumber != ''">
+                            and Invoice_Number = #{invoiceNumber}
+                        </if>
+                        <if test="delmark != null  and delmark != ''">
+                            and DelMark = #{delmark}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectCheckapplyById" parameterType="Long"
+            resultMap="CheckapplyResult">
+            <include refid="selectCheckapplyVo"/>
+            where id = #{id}
+    </select>
+
+    <insert id="insertCheckapply" parameterType="Checkapply">
+        insert into checkapply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="id != null">id,
+                    </if>
+                    <if test="id == null">
+                        -- 在此处可以抛出异常或给出错误提示
+                    </if>
+                    <if test="name != null">Name,
+                    </if>
+                    <if test="medicalId != null">Medical_Id,
+                    </if>
+                    <if test="creationTime != null">Creation_Time,
+                    </if>
+                    <if test="totalSum != null">Total_Sum,
+                    </if>
+                    <if test="objective != null">Objective,
+                    </if>
+                    <if test="userId != null">User_Id,
+                    </if>
+                    <if test="state != null">state,
+                    </if>
+                    <if test="invoiceNumber != null">Invoice_Number,
+                    </if>
+                    <if test="delmark != null">DelMark,
+                    </if>
+                    <if test="isDelete != null">is_delete,
+                    </if>
+                    <if test="remark != null">remark,
+                    </if>
+                    <if test="updateTime != null">update_time,
+                    </if>
+                    <if test="updateBy != null">update_by,
+                    </if>
+                    <if test="createBy != null">create_by,
+                    </if>
+                    <if test="createTime != null">create_time,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="id != null">#{id},
+                    </if>
+                    <if test="name != null">#{name},
+                    </if>
+                    <if test="medicalId != null">#{medicalId},
+                    </if>
+                    <if test="creationTime != null">#{creationTime},
+                    </if>
+                    <if test="totalSum != null">#{totalSum},
+                    </if>
+                    <if test="objective != null">#{objective},
+                    </if>
+                    <if test="userId != null">#{userId},
+                    </if>
+                    <if test="state != null">#{state},
+                    </if>
+                    <if test="invoiceNumber != null">#{invoiceNumber},
+                    </if>
+                    <if test="delmark != null">#{delmark},
+                    </if>
+                    <if test="isDelete != null">#{isDelete},
+                    </if>
+                    <if test="remark != null">#{remark},
+                    </if>
+                    <if test="updateTime != null">#{updateTime},
+                    </if>
+                    <if test="updateBy != null">#{updateBy},
+                    </if>
+                    <if test="createBy != null">#{createBy},
+                    </if>
+                    <if test="createTime != null">#{createTime},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updateCheckapply" parameterType="Checkapply">
+        update checkapply
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="name != null">Name =
+                        #{name},
+                    </if>
+                    <if test="medicalId != null">Medical_Id =
+                        #{medicalId},
+                    </if>
+                    <if test="creationTime != null">Creation_Time =
+                        #{creationTime},
+                    </if>
+                    <if test="totalSum != null">Total_Sum =
+                        #{totalSum},
+                    </if>
+                    <if test="objective != null">Objective =
+                        #{objective},
+                    </if>
+                    <if test="userId != null">User_Id =
+                        #{userId},
+                    </if>
+                    <if test="state != null">state =
+                        #{state},
+                    </if>
+                    <if test="invoiceNumber != null">Invoice_Number =
+                        #{invoiceNumber},
+                    </if>
+                    <if test="delmark != null">DelMark =
+                        #{delmark},
+                    </if>
+                    <if test="isDelete != null">is_delete =
+                        #{isDelete},
+                    </if>
+                    <if test="remark != null">remark =
+                        #{remark},
+                    </if>
+                    <if test="updateTime != null">update_time =
+                        #{updateTime},
+                    </if>
+                    <if test="updateBy != null">update_by =
+                        #{updateBy},
+                    </if>
+                    <if test="createBy != null">create_by =
+                        #{createBy},
+                    </if>
+                    <if test="createTime != null">create_time =
+                        #{createTime},
+                    </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCheckapplyById" parameterType="Long">
+        delete
+        from checkapply where id = #{id}
+    </delete>
+
+    <delete id="deleteCheckapplyByIds" parameterType="String">
+        delete from checkapply where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
