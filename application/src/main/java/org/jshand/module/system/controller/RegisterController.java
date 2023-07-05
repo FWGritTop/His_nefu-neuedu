@@ -51,6 +51,18 @@ public class RegisterController extends BaseController {
     /*
         LambdaQueryWrapper<Register> lambdaQueryWrapper = new LambdaQueryWrapper<Register>();
         return registerService.page(page, lambdaQueryWrapper);*/
+        //entity.setUserid(getUserId());
+        return getDataTable(registerService.selectRegisterList(entity));
+    }
+
+    @ApiOperation(value = "查询挂号信息列表")
+    @PreAuthorize("@ss.hasPermi('system:register:list')")
+    @GetMapping("/listbyuser")
+    public TableDataInfo listbyuser(Register entity, Page<Register> page) {
+    /*
+        LambdaQueryWrapper<Register> lambdaQueryWrapper = new LambdaQueryWrapper<Register>();
+        return registerService.page(page, lambdaQueryWrapper);*/
+        entity.setUserid(getUserId());
         return getDataTable(registerService.selectRegisterList(entity));
     }
 

@@ -91,7 +91,8 @@
         </el-button>
       </el-form-item>
       <el-form-item size="large">
-        <el-button type="primary" @click="submitForm">提交</el-button>
+        <el-button type="primary" @click="submitForm"
+        v-hasPermi="['system:register:add']">提交</el-button>
         <el-button @click="resetForm">重置</el-button>
       </el-form-item>
     </el-form>
@@ -146,7 +147,8 @@
         </el-option>
       </el-select>
       <div slot="footer">
-        <el-button type="primary" @click="handleConfirm">确定</el-button>
+        <el-button type="primary" @click="handleConfirm"
+        >确定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -287,7 +289,7 @@ export default {
     getdoctor() {
       listUser(this.queryParams).then((response) => {
         this.deptOptionofuser = response.rows;
-        console.log(this.deptOptionofuser);
+        //console.log(this.deptOptionofuser);
       });
     },
     userdeptQuery(id) {
@@ -301,6 +303,9 @@ export default {
       listDepartment(this.queryParams).then((response) => {
         this.deptOptions = response.records;
       });
+      this.formData.deptid=undefined;
+      this.$forceUpdate();
+      
     },
     deptChanged(e) {
       // 强制刷新
@@ -312,7 +317,7 @@ export default {
     },
     doctorChanged() {
       this.$forceUpdate();
-      console.log(this.formData.userid);
+      //console.log(this.formData.userid);
     },
   },
 };

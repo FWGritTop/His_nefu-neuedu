@@ -174,6 +174,10 @@
           >
           </el-date-picker>
         </el-form-item>
+        <el-form-item label="年龄" prop="age">
+          <el-input v-model="form.age" placeholder="请输入年龄" />
+        </el-form-item>
+        </el-form-item>
         <el-form-item label="性别" prop="gender">
         <el-select
           v-model="form.gender"
@@ -188,11 +192,17 @@
             :disabled="item.disabled"
           ></el-option>
         </el-select>
+        
+      </el-form-item>
+        <el-form-item label="身份证号" prop="idnumber">
+          <el-input v-model="form.idnumber" placeholder="请输入身份证号" />
+        </el-form-item>
       </el-form-item>
         <el-form-item label="家庭地址" prop="homeaddress">
           <el-input v-model="form.homeaddress" placeholder="请输入家庭地址" />
         </el-form-item>
       </el-form>
+      
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
