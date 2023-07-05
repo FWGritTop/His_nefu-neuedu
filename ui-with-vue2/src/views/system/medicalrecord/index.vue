@@ -103,7 +103,6 @@
 
     <el-table v-loading="loading" :data="medicalrecordList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-              <el-table-column label="id" align="center" prop="id" />
               <el-table-column label="病历号" align="center" prop="caseNumber" />
               <el-table-column label="挂号id" align="center" prop="registerId" />
               <el-table-column label="主诉" align="center" prop="medicalReadme" />
@@ -116,11 +115,10 @@
               <el-table-column label="检验建议" align="center" prop="checkOrder" />
               <el-table-column label="检查结果" align="center" prop="medicalTested" />
               <el-table-column label="检验结果" align="center" prop="medicalChecked" />
-      <el-table-column label="检查操作" align="center" >
+      <el-table-column label="检查申请操作" align="center" width="100px">
         <template slot-scope="scope">
           <el-button
             type="danger"
-            icon="el-icon-mouse"
             size="mini"
             @click="handleAdd_check"
           >检查申请</el-button>
@@ -258,11 +256,11 @@
                         <el-form-item label="病历状态" prop="caseState">
                           <el-select v-model="form.caseState" placeholder="请选择病历状态" />
                           <el-option
-                            v-for="dict in caseStateOption"
-                            :key="dict.dictValue"
-                            :label="dict.label"
-                            :value="dict.dictValue"
-                            :disabled="dict.disabled"
+                            v-for="(item, index) in caseStateOption"
+                            :key="index"
+                            :label="item.label"
+                            :value="item.value"
+                            :disabled="item.disabled"
                           ></el-option>
                         </el-form-item>
                         <el-form-item label="删除标记" prop="delmark">
@@ -506,12 +504,12 @@
       submitForm_check() {
         this.$refs["form_check"].validate(valid => {
           if (valid) {
-            if (this.form.id != null) {
+            if (this.form_check.id != null) {
                 this.$modal.msgWarning("申请已存在");
                 this.open_check = false;
               }
             else {
-              addCheckapply(this.form).then(response => {
+              addCheckapply(this.form_check).then(response => {
                 this.$modal.msgSuccess("新增申请成功");
                 this.open_check = false;
               });
