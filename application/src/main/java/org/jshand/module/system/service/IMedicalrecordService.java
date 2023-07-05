@@ -6,8 +6,8 @@ import org.jshand.module.system.domain.Medicalrecord;
 /**
  * 病历信息Service接口
  *
- * @author lhl&ljp
- * @date 2023-07-05
+ * @author lhl
+ * @date 2023-07-04
  */
 public interface IMedicalrecordService extends IService<Medicalrecord> {
 

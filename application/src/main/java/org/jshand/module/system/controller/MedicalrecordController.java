@@ -1,5 +1,6 @@
 package org.jshand.module.system.controller;
 
+import java.util.Arrays;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,7 +9,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-import org.assertj.core.util.Arrays;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,8 +30,8 @@ import org.jshand.support.common.utils.poi.ExcelUtil;
 /**
  * 病历信息Controller
  *
- * @author lhl&ljp
- * @date 2023-07-05
+ * @author lhl
+ * @date 2023-07-04
  */
 @Api(tags = "病历信息模块")
 @RestController

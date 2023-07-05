@@ -257,7 +257,7 @@
 <!-- 图片预览 -->
     <el-dialog class="el-dialog-img" title="病例结果" :visible.sync="previewVisible" :before-close="handleClose" width="50%">
             <img class="previewImg" :src="''+ previewPath" >
-            <!-- {{ previewPath }} -->
+            {{ previewPath }}
       </el-dialog>
   </div>
 </template>
@@ -456,8 +456,6 @@ export default {
     handleClose(done) {
         this.$confirm('确认关闭？')
           .then(_ => {
-            this.previewPath = '';
-            this.previewVisible = false;
             done();
           })
           .catch(_ => {});

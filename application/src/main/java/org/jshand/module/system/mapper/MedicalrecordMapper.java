@@ -6,8 +6,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 /**
  * 病历信息Mapper接口
  *
- * @author lhl&ljp
- * @date 2023-07-05
+ * @author lhl
+ * @date 2023-07-04
  */
 public interface MedicalrecordMapper extends BaseMapper<Medicalrecord> {
 
