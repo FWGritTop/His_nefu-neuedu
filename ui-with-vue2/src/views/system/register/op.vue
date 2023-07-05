@@ -16,14 +16,14 @@
           :style="{ width: '100%' }"
         ></el-input>
       </el-form-item>
-      <el-form-item label="性别" prop="sex">
+      <el-form-item label="性别" prop="gender">
         <el-select
-          v-model="formData.sex"
+          v-model="formData.gender"
           placeholder="请选择性别"
           :style="{ width: '100%' }"
         >
           <el-option
-            v-for="(item, index) in sexOptions"
+            v-for="(item, index) in genderOptions"
             :key="index"
             :label="item.label"
             :value="item.value"
@@ -31,16 +31,16 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="身份证号" prop="idcard">
+      <el-form-item label="身份证号" prop="idnumber">
         <el-input
-          v-model="formData.idcard"
+          v-model="formData.idnumber"
           placeholder="请输入身份证号"
           :style="{ width: '100%' }"
         ></el-input>
       </el-form-item>
-      <el-form-item label="出生日期" prop="birthday">
+      <el-form-item label="出生日期" prop="birthdate">
         <el-date-picker
-          v-model="formData.birthday"
+          v-model="formData.birthdate"
           format="yyyy-MM-dd"
           value-format="yyyy-MM-dd"
           :style="{ width: '100%' }"
@@ -54,9 +54,9 @@
           :style="{ width: '100%' }"
         ></el-input>
       </el-form-item>
-      <el-form-item label="家庭住址" prop="place">
+      <el-form-item label="家庭住址" prop="homeaddress">
         <el-input
-          v-model="formData.place"
+          v-model="formData.homeaddress"
           placeholder="请输入家庭住址"
           :style="{ width: '100%' }"
         ></el-input>
@@ -120,7 +120,7 @@
         搜索科室
       </el-button>
       <el-select
-        v-model="formData.deptId"
+        v-model="formData.deptid"
         placeholder="请选择科室"
         @change="deptChanged()"
       >
@@ -162,16 +162,16 @@ export default {
     return {
       formData: {
         realname: "",
-        sex: undefined,
-        idcard: undefined,
-        birthday: null,
+        gender: undefined,
+        idnumber: undefined,
+        birthdate: null,
         age: undefined,
-        place: undefined,
+        homeaddress: undefined,
         registertime: null,
         getoper: undefined,
         getdocter: undefined,
         deptname: "",
-        deptId: undefined,
+        deptid: undefined,
         userid: undefined,
         registerid:undefined
       },
@@ -194,11 +194,11 @@ export default {
             trigger: "blur",
           },
         ],
-        sex: [],
-        idcard: [],
-        birthday: [],
+        gender: [],
+        idnumber: [],
+        birthdate: [],
         age: [],
-        place: [],
+        homeaddress: [],
         registertime: [
           {
             required: true,
@@ -207,7 +207,7 @@ export default {
           },
         ],
       },
-      sexOptions: [
+      genderOptions: [
         {
           label: "男",
           value: 0,
@@ -231,7 +231,7 @@ export default {
         this.formData.registerid=this.oper.id
         if (
           this.formData.userid == undefined ||
-          this.formData.deptId == undefined ||
+          this.formData.deptid == undefined ||
           this.formData.registerid == undefined
         ) {
           this.$message({
@@ -244,6 +244,7 @@ export default {
           this.open = false;
           this.getList();
         });
+        this.resetForm();
       });
     },
     resetForm() {
@@ -270,7 +271,7 @@ export default {
       this.open = false;
       if (
         this.formData.userid != undefined &&
-        this.formData.deptId != undefined
+        this.formData.deptid != undefined
       ) {
         this.$message({
           type: "success",
@@ -305,7 +306,7 @@ export default {
       // 强制刷新
       this.$forceUpdate();
       this.deptOptionofuser = undefined;
-      this.queryParams.deptId = this.formData.deptId;
+      this.queryParams.deptId = this.formData.deptid;
       //console.log(this.formData.deptId);
       this.getdoctor();
     },
