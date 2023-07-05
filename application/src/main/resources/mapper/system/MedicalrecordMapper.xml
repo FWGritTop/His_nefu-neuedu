@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.jshand.module.system.mapper.MedicalrecordMapper">
+
+    <resultMap type="Medicalrecord" id="MedicalrecordResult">
+            <result property="id" column="id"/>
+            <result property="caseNumber" column="Case_Number"/>
+            <result property="registerId" column="Register_Id"/>
+            <result property="medicalReadme" column="Medical_Readme"/>
+            <result property="medicalPresent" column="Medical_Present"/>
+            <result property="presentTreat" column="Present_Treat"/>
+            <result property="medicalHistory" column="Medical_History"/>
+            <result property="medicalAllergy" column="Medical_Allergy"/>
+            <result property="medicalPhysique" column="Medical_Physique"/>
+            <result property="testOrder" column="Test_Order"/>
+            <result property="checkOrder" column="Check_Order"/>
+            <result property="medicalTested" column="Medical_Tested"/>
+            <result property="medicalChecked" column="Medical_Checked"/>
+            <result property="medicalDiagnosis" column="Medical_Diagnosis"/>
+            <result property="medicalHandling" column="Medical_Handling"/>
+            <result property="caseState" column="Case_State"/>
+            <result property="delmark" column="DelMark"/>
+            <result property="isDelete" column="is_delete"/>
+            <result property="remark" column="remark"/>
+            <result property="updateTime" column="update_time"/>
+            <result property="updateBy" column="update_by"/>
+            <result property="createBy" column="create_by"/>
+            <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <sql id="selectMedicalrecordVo">
+        select id, Case_Number, Register_Id, Medical_Readme, Medical_Present, Present_Treat, Medical_History, Medical_Allergy, Medical_Physique, Test_Order, Check_Order, Medical_Tested, Medical_Checked, Medical_Diagnosis, Medical_Handling, Case_State, DelMark, is_delete, remark, update_time, update_by, create_by, create_time
+        from medicalrecord
+    </sql>
+
+    <select id="selectMedicalrecordList" parameterType="Medicalrecord" resultMap="MedicalrecordResult">
+        <include refid="selectMedicalrecordVo"/>
+        <where>
+                        <if test="caseNumber != null  and caseNumber != ''">
+                            and Case_Number = #{caseNumber}
+                        </if>
+                        <if test="registerId != null ">
+                            and Register_Id = #{registerId}
+                        </if>
+                        <if test="medicalReadme != null  and medicalReadme != ''">
+                            and Medical_Readme = #{medicalReadme}
+                        </if>
+                        <if test="medicalPresent != null  and medicalPresent != ''">
+                            and Medical_Present = #{medicalPresent}
+                        </if>
+                        <if test="presentTreat != null  and presentTreat != ''">
+                            and Present_Treat = #{presentTreat}
+                        </if>
+                        <if test="medicalHistory != null  and medicalHistory != ''">
+                            and Medical_History = #{medicalHistory}
+                        </if>
+                        <if test="medicalAllergy != null  and medicalAllergy != ''">
+                            and Medical_Allergy = #{medicalAllergy}
+                        </if>
+                        <if test="medicalPhysique != null  and medicalPhysique != ''">
+                            and Medical_Physique = #{medicalPhysique}
+                        </if>
+                        <if test="testOrder != null  and testOrder != ''">
+                            and Test_Order = #{testOrder}
+                        </if>
+                        <if test="checkOrder != null  and checkOrder != ''">
+                            and Check_Order = #{checkOrder}
+                        </if>
+                        <if test="medicalTested != null  and medicalTested != ''">
+                            and Medical_Tested = #{medicalTested}
+                        </if>
+                        <if test="medicalChecked != null  and medicalChecked != ''">
+                            and Medical_Checked = #{medicalChecked}
+                        </if>
+                        <if test="medicalDiagnosis != null  and medicalDiagnosis != ''">
+                            and Medical_Diagnosis = #{medicalDiagnosis}
+                        </if>
+                        <if test="medicalHandling != null  and medicalHandling != ''">
+                            and Medical_Handling = #{medicalHandling}
+                        </if>
+                        <if test="caseState != null  and caseState != ''">
+                            and Case_State = #{caseState}
+                        </if>
+                        <if test="delmark != null  and delmark != ''">
+                            and DelMark = #{delmark}
+                        </if>
+        </where>
+    </select>
+
+    <select id="selectMedicalrecordById" parameterType="Long"
+            resultMap="MedicalrecordResult">
+            <include refid="selectMedicalrecordVo"/>
+            where id = #{id}
+    </select>
+
+    <insert id="insertMedicalrecord" parameterType="Medicalrecord">
+        insert into medicalrecord
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="id != null">id,
+                    </if>
+                    <if test="caseNumber != null and caseNumber != ''">Case_Number,
+                    </if>
+                    <if test="registerId != null">Register_Id,
+                    </if>
+                    <if test="medicalReadme != null">Medical_Readme,
+                    </if>
+                    <if test="medicalPresent != null">Medical_Present,
+                    </if>
+                    <if test="presentTreat != null">Present_Treat,
+                    </if>
+                    <if test="medicalHistory != null">Medical_History,
+                    </if>
+                    <if test="medicalAllergy != null">Medical_Allergy,
+                    </if>
+                    <if test="medicalPhysique != null">Medical_Physique,
+                    </if>
+                    <if test="testOrder != null">Test_Order,
+                    </if>
+                    <if test="checkOrder != null">Check_Order,
+                    </if>
+                    <if test="medicalTested != null and medicalTested != ''">Medical_Tested,
+                    </if>
+                    <if test="medicalChecked != null">Medical_Checked,
+                    </if>
+                    <if test="medicalDiagnosis != null">Medical_Diagnosis,
+                    </if>
+                    <if test="medicalHandling != null">Medical_Handling,
+                    </if>
+                    <if test="caseState != null">Case_State,
+                    </if>
+                    <if test="delmark != null">DelMark,
+                    </if>
+                    <if test="isDelete != null">is_delete,
+                    </if>
+                    <if test="remark != null">remark,
+                    </if>
+                    <if test="updateTime != null">update_time,
+                    </if>
+                    <if test="updateBy != null">update_by,
+                    </if>
+                    <if test="createBy != null">create_by,
+                    </if>
+                    <if test="createTime != null">create_time,
+                    </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                    <if test="id != null">#{id},
+                    </if>
+                    <if test="caseNumber != null and caseNumber != ''">#{caseNumber},
+                    </if>
+                    <if test="registerId != null">#{registerId},
+                    </if>
+                    <if test="medicalReadme != null">#{medicalReadme},
+                    </if>
+                    <if test="medicalPresent != null">#{medicalPresent},
+                    </if>
+                    <if test="presentTreat != null">#{presentTreat},
+                    </if>
+                    <if test="medicalHistory != null">#{medicalHistory},
+                    </if>
+                    <if test="medicalAllergy != null">#{medicalAllergy},
+                    </if>
+                    <if test="medicalPhysique != null">#{medicalPhysique},
+                    </if>
+                    <if test="testOrder != null">#{testOrder},
+                    </if>
+                    <if test="checkOrder != null">#{checkOrder},
+                    </if>
+                    <if test="medicalTested != null and medicalTested != ''">#{medicalTested},
+                    </if>
+                    <if test="medicalChecked != null">#{medicalChecked},
+                    </if>
+                    <if test="medicalDiagnosis != null">#{medicalDiagnosis},
+                    </if>
+                    <if test="medicalHandling != null">#{medicalHandling},
+                    </if>
+                    <if test="caseState != null">#{caseState},
+                    </if>
+                    <if test="delmark != null">#{delmark},
+                    </if>
+                    <if test="isDelete != null">#{isDelete},
+                    </if>
+                    <if test="remark != null">#{remark},
+                    </if>
+                    <if test="updateTime != null">#{updateTime},
+                    </if>
+                    <if test="updateBy != null">#{updateBy},
+                    </if>
+                    <if test="createBy != null">#{createBy},
+                    </if>
+                    <if test="createTime != null">#{createTime},
+                    </if>
+        </trim>
+    </insert>
+
+    <update id="updateMedicalrecord" parameterType="Medicalrecord">
+        update medicalrecord
+        <trim prefix="SET" suffixOverrides=",">
+                    <if test="caseNumber != null and caseNumber != ''">Case_Number =
+                        #{caseNumber},
+                    </if>
+                    <if test="registerId != null">Register_Id =
+                        #{registerId},
+                    </if>
+                    <if test="medicalReadme != null">Medical_Readme =
+                        #{medicalReadme},
+                    </if>
+                    <if test="medicalPresent != null">Medical_Present =
+                        #{medicalPresent},
+                    </if>
+                    <if test="presentTreat != null">Present_Treat =
+                        #{presentTreat},
+                    </if>
+                    <if test="medicalHistory != null">Medical_History =
+                        #{medicalHistory},
+                    </if>
+                    <if test="medicalAllergy != null">Medical_Allergy =
+                        #{medicalAllergy},
+                    </if>
+                    <if test="medicalPhysique != null">Medical_Physique =
+                        #{medicalPhysique},
+                    </if>
+                    <if test="testOrder != null">Test_Order =
+                        #{testOrder},
+                    </if>
+                    <if test="checkOrder != null">Check_Order =
+                        #{checkOrder},
+                    </if>
+                    <if test="medicalTested != null and medicalTested != ''">Medical_Tested =
+                        #{medicalTested},
+                    </if>
+                    <if test="medicalChecked != null">Medical_Checked =
+                        #{medicalChecked},
+                    </if>
+                    <if test="medicalDiagnosis != null">Medical_Diagnosis =
+                        #{medicalDiagnosis},
+                    </if>
+                    <if test="medicalHandling != null">Medical_Handling =
+                        #{medicalHandling},
+                    </if>
+                    <if test="caseState != null">Case_State =
+                        #{caseState},
+                    </if>
+                    <if test="delmark != null">DelMark =
+                        #{delmark},
+                    </if>
+                    <if test="isDelete != null">is_delete =
+                        #{isDelete},
+                    </if>
+                    <if test="remark != null">remark =
+                        #{remark},
+                    </if>
+                    <if test="updateTime != null">update_time =
+                        #{updateTime},
+                    </if>
+                    <if test="updateBy != null">update_by =
+                        #{updateBy},
+                    </if>
+                    <if test="createBy != null">create_by =
+                        #{createBy},
+                    </if>
+                    <if test="createTime != null">create_time =
+                        #{createTime},
+                    </if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMedicalrecordById" parameterType="Long">
+        delete
+        from medicalrecord where id = #{id}
+    </delete>
+
+    <delete id="deleteMedicalrecordByIds" parameterType="String">
+        delete from medicalrecord where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

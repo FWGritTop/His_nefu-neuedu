@@ -116,9 +116,23 @@
               <el-table-column label="检验建议" align="center" prop="checkOrder" />
               <el-table-column label="检查结果" align="center" prop="medicalTested" />
               <el-table-column label="检验结果" align="center" prop="medicalChecked" />
+      <el-table-column label="检查操作" align="center" >
+        <template slot-scope="scope">
+          <el-button
+            type="danger"
+            icon="el-icon-mouse"
+            size="mini"
+            @click="handleAdd_check"
+          >检查申请</el-button>
+        </template>
+      </el-table-column>
               <el-table-column label="诊断结果" align="center" prop="medicalDiagnosis" />
               <el-table-column label="处理意见" align="center" prop="medicalHandling" />
-              <el-table-column label="病历状态" align="center" prop="caseState" />
+              <el-table-column label="病历状态" align="center" prop="caseState">
+                <template slot-scope="scope">
+                      <dict-tag :options="dict.type.case_state" :value="scope.row.caseState"/>
+                </template>
+              </el-table-column>
               <el-table-column label="删除标记" align="center" prop="delmark" />
               <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -144,11 +158,58 @@
     <pagination
         v-show="total>0"
         :total="total"
-        :page.sync="queryParams.current"
-        :limit.sync="queryParams.size"
+        :page.sync="queryParams.pageNum"
+        :limit.sync="queryParams.pageSize"
         @pagination="getList"
     />
 
+    <!--添加检查申请表对话框-->
+    <el-dialog :title="title_check" :visible.sync="open_check" width="500px" append-to-body>
+      <el-form ref="form_check" :model="form_check" :rules="rules" label-width="80px">
+            <el-form-item label="申请名称" prop="name">
+              <el-input v-model="form_check.name" placeholder="请输入申请名称" />
+            </el-form-item>
+            <el-form-item label="病历id" prop="medicalId">
+              <el-input v-model="form_check.medicalId" placeholder="请输入病历id" />
+            </el-form-item>
+            <el-form-item label="申请时间" prop="creationTime">
+              <el-date-picker clearable
+                              v-model="form_check.creationTime"
+                              type="date"
+                              value-format="yyyy-MM-dd"
+                              placeholder="请选择申请时间">
+              </el-date-picker>
+            </el-form-item>
+            <el-form-item label="总金额" prop="totalSum">
+              <el-input v-model="form_check.totalSum" placeholder="请输入总金额" />
+            </el-form-item>
+            <el-form-item label="目的要求" prop="objective">
+              <el-input v-model="form_check.objective" type="textarea" placeholder="请输入内容" />
+            </el-form-item>
+            <el-form-item label="开立医生id" prop="userId">
+              <el-input v-model="form_check.userId" placeholder="请输入开立医生id" />
+            </el-form-item>
+            <el-form-item label="状态" prop="state">
+              <el-input v-model="form_check.state" placeholder="请输入状态" />
+            </el-form-item>
+            <el-form-item label="发票编号" prop="invoiceNumber">
+              <el-input v-model="form_check.invoiceNumber" placeholder="请输入发票编号" />
+            </el-form-item>
+            <el-form-item label="删除标记" prop="delmark">
+              <el-input v-model="form_check.delmark" placeholder="请输入删除标记" />
+            </el-form-item>
+            <el-form-item label="删除标记" prop="isDelete">
+              <el-input v-model="form_check.isDelete" placeholder="请输入删除标记" />
+            </el-form-item>
+            <el-form-item label="备注" prop="remark">
+              <el-input v-model="form_check.remark" placeholder="请输入备注" />
+            </el-form-item>
+          </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitForm_check">确 定</el-button>
+        <el-button @click="cancel_check">取 消</el-button>
+      </div>
+    </el-dialog>
     <!-- 添加或修改病历信息对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
@@ -195,7 +256,14 @@
                           <el-input v-model="form.medicalHandling" type="textarea" placeholder="请输入内容" />
                         </el-form-item>
                         <el-form-item label="病历状态" prop="caseState">
-                          <el-input v-model="form.caseState" placeholder="请输入病历状态" />
+                          <el-select v-model="form.caseState" placeholder="请选择病历状态" />
+                          <el-option
+                            v-for="dict in caseStateOption"
+                            :key="dict.dictValue"
+                            :label="dict.label"
+                            :value="dict.dictValue"
+                            :disabled="dict.disabled"
+                          ></el-option>
                         </el-form-item>
                         <el-form-item label="删除标记" prop="delmark">
                           <el-input v-model="form.delmark" placeholder="请输入删除标记" />
@@ -217,9 +285,11 @@
 
 <script>
   import { listMedicalrecord, getMedicalrecord, delMedicalrecord, addMedicalrecord, updateMedicalrecord } from "@/api/system/medicalrecord";
+  import { addCheckapply} from "@/api/system/checkapply";
 
   export default {
     name: "Medicalrecord",
+    dicts:["case_state"],
     data() {
       return {
         // 遮罩层
@@ -238,12 +308,14 @@
               medicalrecordList: [],
         // 弹出层标题
         title: "",
+        title_check: "",
         // 是否显示弹出层
         open: false,
+        open_check:false,
         // 查询参数
         queryParams: {
-          current: 1,
-          size: 10,
+          pageNum: 1,
+          pageSize: 10,
                         caseNumber: null,
                         registerId: null,
                         medicalReadme: null,
@@ -258,23 +330,55 @@
                         medicalChecked: null,
                         medicalDiagnosis: null,
                         medicalHandling: null,
-                        caseState: null,
+                        caseState: undefined,
                         delmark: null,
         },
         // 表单参数
         form: {},
+        form_check:{
+          name: null,
+          medicalId: null,
+          creationTime: null,
+          totalSum: null,
+          objective: null,
+          userId: null,
+          state: null,
+          invoiceNumber: null,
+          delmark: null,
+        },
         // 表单校验
         rules: {
-                        caseNumber: [
-                    { required: true, message: "病历号不能为空", trigger: "blur" }
-                  ],
-                        registerId: [
-                    { required: true, message: "挂号id不能为空", trigger: "blur" }
-                  ],
-                        medicalTested: [
-                    { required: true, message: "检查结果不能为空", trigger: "blur" }
-                  ],
-        }
+          caseNumber: [
+            { required: true, message: "病历号不能为空", trigger: "blur" }
+          ],
+          registerId: [
+            { required: true, message: "挂号id不能为空", trigger: "blur" }
+          ],
+          medicalTested: [
+            { required: true, message: "检查结果不能为空", trigger: "blur" }
+          ],
+          CheckAppId:[
+            {required: true, message:"检查申请id不能为空", trigger: "blur"}
+          ],
+          CheckProjId:[
+            {required: true, message:"检查项目id不能为空", trigger: "blur"}
+          ],
+          caseState:[],
+        },
+        caseStateOption: [
+          {
+            label: "待诊断",
+            value: 0,
+          },
+          {
+            label: "已诊断",
+            value: 1,
+          },
+          {
+            label: "已中断",
+            value: 2,
+          },
+        ],
       };
     },
     created() {
@@ -295,6 +399,10 @@
         this.open = false;
         this.reset();
       },
+      cancel_check() {
+        this.open_check = false;
+        this.reset_check();
+      },
       // 表单重置
       reset() {
         this.form = {
@@ -313,7 +421,7 @@
                         medicalChecked: null,
                         medicalDiagnosis: null,
                         medicalHandling: null,
-                        caseState: null,
+                        caseState: undefined,
                         delmark: null,
                         isDelete: null,
                         remark: null,
@@ -324,9 +432,23 @@
         };
         this.resetForm("form");
       },
+      reset_check() {
+        this.form = {
+          name: null,
+          medicalId: null,
+          creationTime: null,
+          totalSum: null,
+          objective: null,
+          userId: null,
+          state: null,
+          invoiceNumber: null,
+          delmark: null,
+        };
+        this.resetForm("form_check");
+      },
       /** 搜索按钮操作 */
       handleQuery() {
-        this.queryParams.current = 1;
+        this.queryParams.pageNum = 1;
         this.getList();
       },
       /** 重置按钮操作 */
@@ -345,6 +467,11 @@
         this.reset();
         this.open = true;
         this.title = "添加病历信息";
+      },
+      handleAdd_check() {
+        this.reset_check();
+        this.open_check = true;
+        this.title_check = "填写检验申请表";
       },
       /** 修改按钮操作 */
       handleUpdate(row) {
@@ -371,6 +498,22 @@
                 this.$modal.msgSuccess("新增成功");
                 this.open = false;
                 this.getList();
+              });
+            }
+          }
+        });
+      },
+      submitForm_check() {
+        this.$refs["form_check"].validate(valid => {
+          if (valid) {
+            if (this.form.id != null) {
+                this.$modal.msgWarning("申请已存在");
+                this.open_check = false;
+              }
+            else {
+              addCheckapply(this.form).then(response => {
+                this.$modal.msgSuccess("新增申请成功");
+                this.open_check = false;
               });
             }
           }

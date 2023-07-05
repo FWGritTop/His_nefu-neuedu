@@ -154,13 +154,15 @@
       </el-table-column>
     </el-table>
 
-    <pagination
-        v-show="total>0"
-        :total="total"
-        :page.sync="queryParams.current"
-        :limit.sync="queryParams.size"
-        @pagination="getList"
-    />
+
+    <el-pagination
+      @size-change="getList"
+      @current-change="getList"
+      :current-page.sync="queryParams.current"
+      :page-size.sync= "queryParams.size"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total">
+    </el-pagination>
 
     <!-- 添加或修改检查检验申请对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>

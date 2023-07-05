@@ -9,6 +9,14 @@ export function listRegister(query) {
     })
 }
 
+export function listRegisterbyuser(query) {
+    return request({
+        url: '/system/register/listbyuser',
+        method: 'get',
+        params: query
+    })
+}
+
 // 查询挂号信息详细
 export function getRegister(id) {
     return request({
