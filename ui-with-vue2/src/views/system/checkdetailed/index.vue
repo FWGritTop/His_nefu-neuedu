@@ -208,19 +208,6 @@
         :showSearch.sync="showSearch"
         @queryTable="getList"
       ></right-toolbar>
-      <el-col :span="1.5">
-        <input name="file" id="file" class="form-control" type="file" />
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="el-icon-plus"
-          size="mini"
-          @click="submitHandler"
-          >上传</el-button
-        >
-      </el-col>
     </el-row>
 
     <el-table
@@ -437,11 +424,24 @@
               <div slot="tip" class="el-upload__tip">只能上传jpg/png文件,且不超过500kb</div>
             </el-upload>
           </template> -->
-          <el-input
+          <el-col :span="1.5">
+              <input name="file" id="file" class="form-control" type="file" />
+          </el-col>
+          <!-- <el-col :span="1.5">
+              <el-button
+                type="primary"
+                plain
+                icon="el-icon-plus"
+                size="mini"
+                @click="submitHandler"
+                >上传</el-button>
+          </el-col> -->
+          <!-- ------------------------------------把上面上传逻辑移动到确定 -->
+          <!-- <el-input
             v-model="form.result"
             type="textarea"
             placeholder="请输入检查结果"
-          />
+          /> -->
         </el-form-item>
         <el-form-item label="结果时间" prop="resulttime">
           <el-date-picker
@@ -489,10 +489,10 @@
       width="50%"
     >
       <img
-        style="width: 170px; height: 117px; border-radius: 10px"
+        class="god-img"
         :src="img.imgurl"
       />
-      {{ previewPath }}
+      <!-- {{ previewPath }} -->
     </el-dialog>
   </div>
 </template>
@@ -507,7 +507,7 @@ import {
 } from "@/api/system/checkdetailed";
 import $ from 'jquery';
 import {upload,getfile} from "@/api/system/files"
-import { URL } from "url"
+// import { URL } from "url"
 export default {
   name: "Checkdetailed",
   data() {
@@ -649,12 +649,14 @@ export default {
       this.$refs["form"].validate((valid) => {
         if (valid) {
           if (this.form.id != null) {
+            this.submitHandler();
             updateCheckdetailed(this.form).then((response) => {
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
+            this.submitHandler();
             addCheckdetailed(this.form).then((response) => {
               this.$modal.msgSuccess("新增成功");
               this.open = false;
@@ -703,8 +705,8 @@ export default {
     handleView(row) {
       console.log(row);
       console.log("2222222222222");
-      this.previewPath = row.result;
-      this.img.filename="Screenshot_2023-06-10T135105.png";
+      // this.previewPath = row.result;
+      this.img.filename=row.result;
       getfile(this.img.filename).then(res => {//这里获取文件名
         this.img.imgurl = 'data:image/png;base64,' + res
         console.log(res);
@@ -728,6 +730,7 @@ export default {
         this.$message.error('请先选择文件');
         return false;
       }
+      this.form.result=$("#file")[0].files[0].name;
       //文件
       formData.append("file", document.getElementById("file").files[0]);
 
@@ -735,6 +738,7 @@ export default {
       upload(formData).then(res=>{//这里返回文件名
         this.img.filename=res;
         console.log(this.img.filename);
+
       })
 
     },
@@ -745,5 +749,8 @@ export default {
 <style lang="scss" scoped>
 .previewImg {
   width: 100%;
+}
+.god-img{
+  width:100%;
 }
 </style>
