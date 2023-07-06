@@ -242,6 +242,11 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.sdruskat</groupId>
+            <artifactId>net.sdruskat.fragment.sun.misc</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
     </dependencies>
 
