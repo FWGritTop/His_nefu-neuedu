@@ -9,6 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import org.assertj.core.util.Arrays;
+import org.jshand.support.common.core.page.TableDataInfo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,10 +47,11 @@ public class MedicalrecordController extends BaseController {
 @ApiOperation(value = "查询病历信息列表")
 @PreAuthorize("@ss.hasPermi('system:medicalrecord:list')")
 @GetMapping("/list")
-    public Page<Medicalrecord> list(Medicalrecord entity, Page<Medicalrecord> page) {
+    public TableDataInfo  list(Medicalrecord entity, Page<Medicalrecord> page) {
 
-        LambdaQueryWrapper<Medicalrecord> lambdaQueryWrapper = new LambdaQueryWrapper<Medicalrecord>();
-        return medicalrecordService.page(page, lambdaQueryWrapper);
+        /*LambdaQueryWrapper<Medicalrecord> lambdaQueryWrapper = new LambdaQueryWrapper<Medicalrecord>();
+        return medicalrecordService.page(page, lambdaQueryWrapper);*/
+        return  getDataTable(medicalrecordService.selectMedicalrecordList(entity));
     }
 
     /**

@@ -120,7 +120,7 @@
           <el-button
             type="danger"
             size="mini"
-            @click="handleAdd_check"
+            @click="handleAdd_check(scope.row)"
           >检查申请</el-button>
         </template>
       </el-table-column>
@@ -168,7 +168,8 @@
               <el-input v-model="form_check.name" placeholder="请输入申请名称" />
             </el-form-item>
             <el-form-item label="病历id" prop="medicalId">
-              <el-input v-model="form_check.medicalId" placeholder="请输入病历id" />
+              <!--<el-input v-model="form_check.medicalId" placeholder="请输入病历id" /> -->
+              <span align="center">{{form_check.medicalId}}</span>
             </el-form-item>
             <el-form-item label="申请时间" prop="creationTime">
               <el-date-picker clearable
@@ -188,7 +189,11 @@
               <el-input v-model="form_check.userId" placeholder="请输入开立医生id" />
             </el-form-item>
             <el-form-item label="状态" prop="state">
-              <el-input v-model="form_check.state" placeholder="请输入状态" />
+              <el-select v-model="form_check.state" placeholder="请选择状态">
+                <el-option label="0" value="0"/>
+                <el-option label="1" value="1"/>
+                <el-option label="2" value="2"/>
+              </el-select>
             </el-form-item>
             <el-form-item label="发票编号" prop="invoiceNumber">
               <el-input v-model="form_check.invoiceNumber" placeholder="请输入发票编号" />
@@ -254,14 +259,11 @@
                           <el-input v-model="form.medicalHandling" type="textarea" placeholder="请输入内容" />
                         </el-form-item>
                         <el-form-item label="病历状态" prop="caseState">
-                          <el-select v-model="form.caseState" placeholder="请选择病历状态" />
-                          <el-option
-                            v-for="(item, index) in caseStateOption"
-                            :key="index"
-                            :label="item.label"
-                            :value="item.value"
-                            :disabled="item.disabled"
-                          ></el-option>
+                          <el-select v-model="form.caseState" placeholder="请选择病历状态" >
+                          <el-option label="待诊断" :value="0"/>
+                          <el-option label="已诊断" :value="1"/>
+                          <el-option label="已终止" :value="2"/>
+                          </el-select>
                         </el-form-item>
                         <el-form-item label="删除标记" prop="delmark">
                           <el-input v-model="form.delmark" placeholder="请输入删除标记" />
@@ -284,7 +286,7 @@
 <script>
   import { listMedicalrecord, getMedicalrecord, delMedicalrecord, addMedicalrecord, updateMedicalrecord } from "@/api/system/medicalrecord";
   import { addCheckapply} from "@/api/system/checkapply";
-
+  import { listFmeditem,getFmeditem } from "@/api/system/fmeditem"
   export default {
     name: "Medicalrecord",
     dicts:["case_state"],
@@ -331,6 +333,11 @@
                         caseState: undefined,
                         delmark: null,
         },
+        queryParams_check: {
+          itemname: undefined,
+          itemid: undefined,
+          price: undefined,
+        },
         // 表单参数
         form: {},
         form_check:{
@@ -363,7 +370,8 @@
           ],
           caseState:[],
         },
-        caseStateOption: [
+        itemOptions:undefined,
+        caseStateOption:[
           {
             label: "待诊断",
             value: 0,
@@ -373,7 +381,7 @@
             value: 1,
           },
           {
-            label: "已中断",
+            label: "已终止",
             value: 2,
           },
         ],
@@ -387,7 +395,7 @@
       getList() {
         this.loading = true;
         listMedicalrecord(this.queryParams).then(response => {
-          this.medicalrecordList = response.records;
+          this.medicalrecordList = response.rows;
           this.total = response.total;
           this.loading = false;
         });
@@ -433,7 +441,7 @@
       reset_check() {
         this.form = {
           name: null,
-          medicalId: null,
+          medicalId:'',
           creationTime: null,
           totalSum: null,
           objective: null,
@@ -466,10 +474,15 @@
         this.open = true;
         this.title = "添加病历信息";
       },
-      handleAdd_check() {
-        this.reset_check();
+      /**填写检查申请表*/
+      handleAdd_check(row) {
+        this.reset_check(row);
+        listFmeditem(this.queryParams_check).then((response)=>{
+          this.itemOptions = response.records;
+        })
+        this.form_check.medicalId=row.caseNumber;
         this.open_check = true;
-        this.title_check = "填写检验申请表";
+        this.title_check = "填写检查申请表";
       },
       /** 修改按钮操作 */
       handleUpdate(row) {
