@@ -32,26 +32,17 @@ public class FileController {
     @PostMapping("/upload")
     public String uploadAndGoDownLoad(MultipartFile file) throws IOException {
         System.out.println("收到文件");
-        //判断文件夹是否存在，不存在时，创建文件夹
         File directoryFile = new File(filePath);
         if (!directoryFile.exists()) {
-            //创建多个文件夹
             directoryFile.mkdirs();
         }
-        //判断文件是否为空，不为空时，保存文件
         if (!file.isEmpty()) {
             saveFile(file);
         }
         System.out.println("已上传:"+file.getOriginalFilename());
         return file.getOriginalFilename();
     }
-    /**
-     * 保存文件到指定位置
-     * @param file 需要上传的文件
-     * @throws IOException
-     */
     public void saveFile(MultipartFile file) throws IOException {
-        //获取文件名
         String name = file.getOriginalFilename();
         file.transferTo(new File(filePath + name));
     }
@@ -59,7 +50,6 @@ public class FileController {
     @GetMapping  ("/getfile")
     public String getfiles(String filename) throws IOException {
         System.out.println("收到文件"+filename);
-        //判断文件夹是否存在，不存在时，创建文件夹
         FileInputStream fs  = new FileInputStream(filePath+filename);
         byte[] bytes = new byte[fs.available()];
         fs.read(bytes);

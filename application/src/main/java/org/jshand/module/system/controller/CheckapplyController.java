@@ -81,7 +81,6 @@ public class CheckapplyController extends BaseController {
      * 新增检查检验申请
      */
     @ApiOperation(value = "新增检查检验申请")
-    @PreAuthorize("@ss.hasPermi('system:checkapply:add')")
     @Log(title = "检查检验申请", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody Checkapply checkapply) {

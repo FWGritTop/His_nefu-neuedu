@@ -44,7 +44,6 @@ public class FmeditemController extends BaseController {
  * 查询非药品收费列表
  */
 @ApiOperation(value = "查询非药品收费列表")
-@PreAuthorize("@ss.hasPermi('system:fmeditem:list')")
 @GetMapping("/list")
     public Page<Fmeditem> list(Fmeditem entity, Page<Fmeditem> page) {
         LambdaQueryWrapper<Fmeditem> lambdaQueryWrapper = new LambdaQueryWrapper<Fmeditem>();
