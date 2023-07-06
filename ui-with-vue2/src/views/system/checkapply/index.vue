@@ -201,7 +201,7 @@
               <div slot="tip" class="el-upload__tip">只能上传jpg/png文件,且不超过500kb</div>
             </el-upload>
           </template>
-           <el-input v-model="form.result" type="textarea" placeholder="请输入检查结果" />
+           <el-input v-model="form.result" type="textarea" placeholder="请输入检查结果" /> 
         </el-form-item> -->
         <el-form-item label="结果时间" prop="resulttime">
           <el-date-picker clearable v-model="newform.resulttime" type="date" value-format="yyyy-MM-dd" placeholder="请选择结果时间">
@@ -406,13 +406,7 @@ export default {
         const id = row.id || this.ids
         getCheckapply(id).then(response => {
           this.form = response.data;
-          this.form.state = 1;
-          updateCheckapply(this.form).then(response => {
-            // this.$modal.msgSuccess("已经同意申请，如有具体要求请跳转检查申请明细");
-            this.getList();
-            this.addDetail(row);
-            // this.$router.push('http://localhost/CheckApply/checkdetailed');
-          })
+          this.addDetail(row);
         });
         this.loading = false;
       }
@@ -425,6 +419,12 @@ export default {
       console.log(this.newform);
     },
     newsubmitForm() {
+      this.form.state = 1;
+          updateCheckapply(this.form).then(response => {
+            // this.$modal.msgSuccess("已经同意申请，如有具体要求请跳转检查申请明细");
+            this.getList();
+            // this.$router.push('http://localhost/CheckApply/checkdetailed');
+          })
       console.log(this.newform);
       this.$refs["newform"].validate(valid => {
         if (valid) {
