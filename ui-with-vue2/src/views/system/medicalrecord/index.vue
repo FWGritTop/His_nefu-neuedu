@@ -164,8 +164,16 @@
     <!--添加检查申请表对话框-->
     <el-dialog :title="title_check" :visible.sync="open_check" width="500px" append-to-body>
       <el-form ref="form_check" :model="form_check" :rules="rules" label-width="80px">
-            <el-form-item label="申请名称" prop="name">
-              <el-input v-model="form_check.name" placeholder="请输入申请名称" />
+            <el-form-item label="项目名称" prop="name">
+              <el-input v-model="form_check.name" placeholder="请输入申请名称"></el-input>
+              <!--<el-select v-model="form_check.name" placeholder="请选择项目名称">
+                <el-option
+                  v-for="item in itemOptions"
+                  :key="item.itemid"
+                  :label="item.itemname"
+                  :value="item.itemid"
+                ></el-option>
+              </el-select>-->
             </el-form-item>
             <el-form-item label="病历id" prop="medicalId">
               <!--<el-input v-model="form_check.medicalId" placeholder="请输入病历id" /> -->
@@ -190,9 +198,9 @@
             </el-form-item>
             <el-form-item label="状态" prop="state">
               <el-select v-model="form_check.state" placeholder="请选择状态">
-                <el-option label="0" value="0"/>
-                <el-option label="1" value="1"/>
-                <el-option label="2" value="2"/>
+                <el-option label="未缴费" value="0"/>
+                <el-option label="已缴费" value="1"/>
+                <el-option label="已终止" value="2"/>
               </el-select>
             </el-form-item>
             <el-form-item label="发票编号" prop="invoiceNumber">
@@ -336,8 +344,8 @@
         queryParams_check: {
           itemname: undefined,
           itemid: undefined,
-          price: undefined,
         },
+        price: undefined,
         // 表单参数
         form: {},
         form_check:{
@@ -477,12 +485,14 @@
       /**填写检查申请表*/
       handleAdd_check(row) {
         this.reset_check(row);
+        //查询非药品收费项目ID以及名称和价格
         listFmeditem(this.queryParams_check).then((response)=>{
           this.itemOptions = response.records;
         })
         this.form_check.medicalId=row.caseNumber;
         this.open_check = true;
         this.title_check = "填写检查申请表";
+        this.$forceUpdate();
       },
       /** 修改按钮操作 */
       handleUpdate(row) {

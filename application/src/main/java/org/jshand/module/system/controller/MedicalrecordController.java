@@ -112,4 +112,6 @@ public class MedicalrecordController extends BaseController {
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(medicalrecordService.removeBatchByIds(Arrays.asList(ids)));
     }
+
+
 }

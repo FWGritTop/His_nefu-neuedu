@@ -232,5 +232,12 @@
 
         </dependencies>
     </dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>net.sdruskat</groupId>
+            <artifactId>net.sdruskat.fragment.sun.misc</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 
 </project>
