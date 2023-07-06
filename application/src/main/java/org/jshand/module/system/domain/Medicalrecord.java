@@ -14,8 +14,8 @@ import org.jshand.support.common.core.domain.BaseEntity;
 /**
  * 病历信息对象 medicalrecord
  *
- * @author lhl&ljp
- * @date 2023-07-05
+ * @author lhl
+ * @date 2023-07-04
  */
 @Data
 @Accessors(chain = true)
@@ -118,7 +118,7 @@ private static final long serialVersionUID=1L;
             @Excel(name = "病历状态")
     @ApiModelProperty("病历状态")
         @TableField("Case_State")
-    private String caseState;
+    private Long caseState;
 
     /** 删除标记 */
             @Excel(name = "删除标记")
@@ -126,6 +126,10 @@ private static final long serialVersionUID=1L;
         @TableField("DelMark")
     private String delmark;
 
+    /** 删除标记 */
+    @ApiModelProperty("删除标记")
+        @TableField("is_delete")
+    private Long isDelete;
 
 
         }

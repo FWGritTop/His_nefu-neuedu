@@ -80,7 +80,7 @@
                         <if test="medicalHandling != null  and medicalHandling != ''">
                             and Medical_Handling = #{medicalHandling}
                         </if>
-                        <if test="caseState != null  and caseState != ''">
+                        <if test="caseState != null ">
                             and Case_State = #{caseState}
                         </if>
                         <if test="delmark != null  and delmark != ''">

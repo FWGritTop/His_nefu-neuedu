@@ -31,13 +31,20 @@
           ></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="科室id" prop="deptid">
-        <el-input
-          v-model="queryParams.deptid"
-          placeholder="请输入科室id"
-          clearable
-          @keyup.enter.native="handleQuery"
-        />
+      <el-form-item label="问诊状态" prop="visitstate">
+        <el-select
+          v-model="queryParams.visitstate"
+          placeholder="请选择问诊状态"
+          :style="{ width: '100%' }"
+        >
+          <el-option
+            v-for="(item, index) in stateOptions"
+            :key="index"
+            :label="item.label"
+            :value="item.value"
+            :disabled="item.disabled"
+          ></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item>
         <el-button
@@ -62,7 +69,6 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['system:register:edit']"
           >修改</el-button
         >
       </el-col>
@@ -101,9 +107,9 @@
       @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="患者ID" align="center" prop="id" />
+      <el-table-column label="挂号ID" align="center" prop="id" />
       <el-table-column label="患者名称" align="center" prop="realname" />
-      
+
       <el-table-column label="性别" align="center" prop="gender">
         <template slot-scope="scope">
           <dict-tag
@@ -119,7 +125,12 @@
         width="180"
       >
       </el-table-column>
-      <el-table-column label="科室id" align="center" prop="deptid" />
+      <el-table-column label="状态" align="center" prop="visitstate">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.visitstate == 0" type="info">未问诊</el-tag>
+          <el-tag v-else type="success">已问诊</el-tag>
+        </template>
+      </el-table-column>
       <el-table-column
         label="操作"
         align="center"
@@ -128,19 +139,17 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            type="text"
-            icon="el-icon-edit"
-            @click="handleUpdate(scope.row)"
-            v-hasPermi="['system:register:edit']"
-            >修改</el-button
+            type="success"
+            @click="handleAdddetail(scope.row)"
+            plain
+            >问诊</el-button
           >
           <el-button
             size="mini"
             type="text"
-            icon="el-icon-delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['system:register:remove']"
-            >删除</el-button
+            icon="el-icon-edit"
+            @click="handleUpdate(scope.row)"
+            >修改</el-button
           >
         </template>
       </el-table-column>
@@ -174,6 +183,10 @@
           >
           </el-date-picker>
         </el-form-item>
+        <el-form-item label="年龄" prop="age">
+          <el-input v-model="form.age" placeholder="请输入年龄" />
+        </el-form-item>
+        </el-form-item>
         <el-form-item label="性别" prop="gender">
         <el-select
           v-model="form.gender"
@@ -188,13 +201,73 @@
             :disabled="item.disabled"
           ></el-option>
         </el-select>
+        
+      </el-form-item>
+        <el-form-item label="身份证号" prop="idnumber">
+          <el-input v-model="form.idnumber" placeholder="请输入身份证号" />
+        </el-form-item>
       </el-form-item>
         <el-form-item label="家庭地址" prop="homeaddress">
           <el-input v-model="form.homeaddress" placeholder="请输入家庭地址" />
         </el-form-item>
       </el-form>
+      
       <div slot="footer" class="dialog-footer">
         <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
+
+    <el-dialog title="病例信息" :visible.sync="open_detail" width="500px" append-to-body>
+      <el-form ref="form" :model="detailForm" :rules="rules" label-width="80px">
+                        <el-form-item label="姓名" prop="caseNumber">
+                          <span>{{ detailForm.caseNumber }}</span>
+                        </el-form-item>
+                        <el-form-item label="挂号id" prop="registerId">
+                          <span>{{ detailForm.registerId }}</span>
+                        </el-form-item>
+                        <el-form-item label="主诉" prop="medicalReadme">
+                          <el-input v-model="detailForm.medicalReadme" type="textarea" placeholder="请输入内容" />
+                        </el-form-item>
+                        <el-form-item label="现病史" prop="medicalPresent">
+                          <el-input v-model="detailForm.medicalPresent" type="textarea" placeholder="请输入内容" />
+                        </el-form-item>
+                        <el-form-item label="现病治疗情况" prop="presentTreat">
+                          <el-input v-model="detailForm.presentTreat" type="textarea" placeholder="请输入内容" />
+                        </el-form-item>
+                        <el-form-item label="既往史" prop="medicalHistory">
+                          <el-input v-model="detailForm.medicalHistory" type="textarea" placeholder="请输入内容" />
+                        </el-form-item>
+                        <el-form-item label="过敏史" prop="medicalAllergy">
+                          <el-input v-model="detailForm.medicalAllergy" type="textarea" placeholder="请输入内容" />
+                        </el-form-item>
+                        <el-form-item label="体格检查" prop="medicalPhysique">
+                          <el-input v-model="detailForm.medicalPhysique" type="textarea" placeholder="请输入内容" />
+                        </el-form-item>
+                        <el-form-item label="检查建议" prop="testOrder">
+                          <el-input v-model="detailForm.testOrder" placeholder="请输入检查建议" />
+                        </el-form-item>
+                        <el-form-item label="检验建议" prop="checkOrder">
+                          <el-input v-model="detailForm.checkOrder" placeholder="请输入检验建议" />
+                        </el-form-item>
+                        <el-form-item label="检查结果" prop="medicalTested">
+                          <el-input v-model="detailForm.medicalTested" type="textarea" placeholder="请输入内容" />
+                        </el-form-item>
+                        <el-form-item label="检验结果" prop="medicalChecked">
+                          <el-input v-model="detailForm.medicalChecked" type="textarea" placeholder="请输入内容" />
+                        </el-form-item>
+                        <el-form-item label="诊断结果" prop="medicalDiagnosis">
+                          <el-input v-model="detailForm.medicalDiagnosis" type="textarea" placeholder="请输入内容" />
+                        </el-form-item>
+                        <el-form-item label="处理意见" prop="medicalHandling">
+                          <el-input v-model="detailForm.medicalHandling" type="textarea" placeholder="请输入内容" />
+                        </el-form-item>
+                        <el-form-item label="备注" prop="remark">
+                          <el-input v-model="form.remark" placeholder="请输入备注" />
+                        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitdetailForm">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
@@ -208,7 +281,9 @@ import {
   delRegister,
   addRegister,
   updateRegister,
+  listRegisterbyuser,
 } from "@/api/system/register";
+import { addMedicalrecord } from "@/api/system/medicalrecord";
 
 export default {
   realname: "Register",
@@ -233,14 +308,27 @@ export default {
       title: "",
       // 是否显示弹出层
       open: false,
+      open_detail: false,
       // 查询参数
       queryParams: {
         pageNum: 1,
         pageSize: 10,
         realname: undefined,
         gender: undefined,
-        deptid:undefined
+        deptid: undefined,
+        visitstate: undefined,
+        userid: undefined,
       },
+      stateOptions: [
+        {
+          label: "未问诊",
+          value: 0,
+        },
+        {
+          label: "已问诊",
+          value: 1,
+        },
+      ],
       genderOptions: [
         {
           label: "男",
@@ -255,16 +343,18 @@ export default {
       form: {},
       // 表单校验
       rules: {},
+      detailForm: {},
     };
   },
   created() {
+    this.loading = true;
     this.getList();
   },
   methods: {
     /** 查询挂号信息列表 */
     getList() {
       this.loading = true;
-      listRegister(this.queryParams).then((response) => {
+      listRegisterbyuser(this.queryParams).then((response) => {
         this.registerList = response.rows;
         this.total = response.total;
         this.loading = false;
@@ -273,6 +363,7 @@ export default {
     // 取消按钮
     cancel() {
       this.open = false;
+      this.open_detail = false;
       this.reset();
     },
     // 表单重置
@@ -281,7 +372,10 @@ export default {
         deptid: undefined,
         realname: undefined,
         gender: undefined,
+        visitstate: undefined,
       };
+      this.detailForm = {};
+      this.resetForm("detailForm");
       this.resetForm("form");
     },
     /** 搜索按钮操作 */
@@ -335,6 +429,36 @@ export default {
           }
         }
       });
+    },
+    submitdetailForm() {
+      this.$refs["form"].validate((valid) => {
+        if (valid) {
+          addMedicalrecord(this.detailForm).then((response) => {
+            this.form.visitstate = 1;
+            updateRegister(this.form).then(()=>{
+              this.$modal.msgSuccess("已问诊");
+              this.loading
+              this.getList();
+              this.open_detail = false;
+            });
+          });
+        }
+      });
+    },
+    /**添加病历表操作 */
+    handleAdddetail(row) {
+      if (row.visitstate == 1) {
+        this.$message.error("已经生成问诊信息请勿重复提交");
+        return;
+      }
+      const ids = row.id || this.ids;
+      this.reset();
+      this.form.id = ids;
+      this.detailForm.registerId = ids;
+      this.detailForm.caseState = 0;
+      this.detailForm.caseNumber = row.realname;
+      this.open_detail = true;
+      //console.log(ids);
     },
     /** 删除按钮操作 */
     handleDelete(row) {

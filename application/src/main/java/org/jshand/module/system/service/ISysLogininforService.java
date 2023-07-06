@@ -70,7 +70,6 @@ public interface ISysLogininforService {
      * 查询科室列表
      */
     @ApiOperation(value = "查询科室列表")
-    @PreAuthorize("@ss.hasPermi('system:department:list')")
     @GetMapping("/list")
         public Page<Department> list(Department entity, Page<Department> page) {
             LambdaQueryWrapper<Department> lambdaQueryWrapper = new LambdaQueryWrapper<Department>();
@@ -82,7 +81,6 @@ public interface ISysLogininforService {
          * 导出科室列表
          */
         @ApiOperation(value = "导出科室列表")
-        @PreAuthorize("@ss.hasPermi('system:department:export')")
         @Log(title = "科室", businessType = BusinessType.EXPORT)
         @PostMapping("/export")
         public void export(HttpServletResponse response, Department department) {
@@ -97,7 +95,6 @@ public interface ISysLogininforService {
          * 获取科室详细信息
          */
         @ApiOperation(value = "获取科室详细信息")
-        @PreAuthorize("@ss.hasPermi('system:department:query')")
         @GetMapping(value = "/{id}")
         public AjaxResult getInfo(@PathVariable("id") Long id) {
             return success(departmentService.getById(id));

@@ -14,8 +14,8 @@ import java.util.List;
 /**
  * 病历信息Service业务层处理
  *
- * @author lhl&ljp
- * @date 2023-07-05
+ * @author lhl
+ * @date 2023-07-04
  */
 @Service
 public class MedicalrecordServiceImpl extends ServiceImpl<MedicalrecordMapper, Medicalrecord> implements IMedicalrecordService {
