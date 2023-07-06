@@ -4,6 +4,12 @@
 import老师改的若依的模板
 [链接](https://gitee.com/jshand/boot-admin-template.git)
 
+make by gsx lhl ljp
+nefu2020 in 2023
+只写完了挂号、上传下载、
+财务管理力不足、没写
+数据库一开始建立的不是很好，所以就交接有些冲突
+
 数据库名称
 his
 用户名
